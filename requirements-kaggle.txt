@@ -1,0 +1,9 @@
+# CPU notebooks (NB4, NB5) and the TD-GNN notebook (NB3, which also uses the torch already on Kaggle).
+# LightGBM is pinned because 4.7.0 crashed on trivial data in testing.
+lightgbm==4.6.0
+numba
+polars>=1.0
+pyarrow
+scikit-learn
+pytest
+xgboost

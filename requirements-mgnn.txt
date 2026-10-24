@@ -1,0 +1,16 @@
+# Official Multi-GNN notebooks (NB1, NB2). These versions installed cleanly together on CPU in testing, but the
+# official code has not yet been run under them. The pilot must confirm they work with Kaggle's GPU driver.
+# Install torch 2.5.1 from https://download.pytorch.org/whl/cu121 and the two extensions from
+# https://data.pyg.org/whl/torch-2.5.1+cu121.html
+torch==2.5.1
+torch-geometric==2.7.0
+torch-scatter
+torch-sparse
+numpy<2
+pandas
+scikit-learn
+tqdm
+wandb
+polars>=1.0
+numba
+pytest
