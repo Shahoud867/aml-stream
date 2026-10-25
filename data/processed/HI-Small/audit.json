@@ -1,0 +1,160 @@
+{
+ "daily": [
+  {
+   "day": 0,
+   "split": 0,
+   "n": 1114921,
+   "illicit": 322,
+   "rate_pct": 0.029
+  },
+  {
+   "day": 1,
+   "split": 0,
+   "n": 754449,
+   "illicit": 408,
+   "rate_pct": 0.054
+  },
+  {
+   "day": 2,
+   "split": 0,
+   "n": 207382,
+   "illicit": 391,
+   "rate_pct": 0.189
+  },
+  {
+   "day": 3,
+   "split": 0,
+   "n": 207430,
+   "illicit": 407,
+   "rate_pct": 0.196
+  },
+  {
+   "day": 4,
+   "split": 0,
+   "n": 482650,
+   "illicit": 471,
+   "rate_pct": 0.098
+  },
+  {
+   "day": 5,
+   "split": 0,
+   "n": 482089,
+   "illicit": 531,
+   "rate_pct": 0.11
+  },
+  {
+   "day": 6,
+   "split": 1,
+   "n": 482751,
+   "illicit": 497,
+   "rate_pct": 0.103
+  },
+  {
+   "day": 7,
+   "split": 1,
+   "n": 482773,
+   "illicit": 539,
+   "rate_pct": 0.112
+  },
+  {
+   "day": 8,
+   "split": 2,
+   "n": 654467,
+   "illicit": 514,
+   "rate_pct": 0.079
+  },
+  {
+   "day": 9,
+   "split": 2,
+   "n": 208325,
+   "illicit": 442,
+   "rate_pct": 0.212
+  },
+  {
+   "day": 10,
+   "split": 2,
+   "n": 396,
+   "illicit": 232,
+   "rate_pct": 58.586
+  },
+  {
+   "day": 11,
+   "split": 2,
+   "n": 281,
+   "illicit": 170,
+   "rate_pct": 60.498
+  },
+  {
+   "day": 12,
+   "split": 2,
+   "n": 184,
+   "illicit": 106,
+   "rate_pct": 57.609
+  },
+  {
+   "day": 13,
+   "split": 2,
+   "n": 121,
+   "illicit": 70,
+   "rate_pct": 57.851
+  },
+  {
+   "day": 14,
+   "split": 2,
+   "n": 46,
+   "illicit": 28,
+   "rate_pct": 60.87
+  },
+  {
+   "day": 15,
+   "split": 2,
+   "n": 46,
+   "illicit": 26,
+   "rate_pct": 56.522
+  },
+  {
+   "day": 16,
+   "split": 2,
+   "n": 23,
+   "illicit": 15,
+   "rate_pct": 65.217
+  },
+  {
+   "day": 17,
+   "split": 2,
+   "n": 11,
+   "illicit": 8,
+   "rate_pct": 72.727
+  }
+ ],
+ "implicit_horizon_h": {
+  "all_median": 216.66666666666666,
+  "illicit_median": 192.58333333333334,
+  "all_p10": 194.98333333333332,
+  "all_p90": 229.63333333333333,
+  "illicit_p10": 118.31666666666666,
+  "illicit_p90": 222.91666666666666
+ },
+ "test_core": {
+  "n": 862792,
+  "illicit": 956,
+  "rate_pct": 0.11080306725143488
+ },
+ "test_tail": {
+  "n": 1108,
+  "illicit": 655,
+  "rate_pct": 59.115523465703966
+ },
+ "trivial_tail_flag_f1_pct": 48.17947774917249,
+ "attempts_start_in_test": 86,
+ "attempts_straddling_test": 97,
+ "future_1hop_frac_benign": {
+  "mean": 0.08454136054173071,
+  "median": 0.07936507936507936
+ },
+ "future_1hop_frac_illicit": {
+  "mean": 0.14260868648730152,
+  "median": 0.09185362319694194
+ },
+ "attempts_full_test": 86
+}
