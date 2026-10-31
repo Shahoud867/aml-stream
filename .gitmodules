@@ -1,0 +1,6 @@
+[submodule "third_party/Multi-GNN"]
+	path = third_party/Multi-GNN
+	url = https://github.com/IBM/Multi-GNN.git
+[submodule "third_party/FraudGT"]
+	path = third_party/FraudGT
+	url = https://github.com/junhongmit/FraudGT.git
