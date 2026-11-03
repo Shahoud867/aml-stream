@@ -1,0 +1,30 @@
+N=5078345 train=814127(pos 2530) val=965524(pos 1036) test=863900(pos 1611) days train<6 val<8 tmax=1527480
+attempts starting in test: 86
+H=      0 seed=0 iter= 194 val_f1=0.5424 test F1=0.5492 PR=0.5597 | core F1=0.3772 PR=0.3605 | det@500=0.92 value@500=0.567 feat=26s train=55s
+H=      0 seed=1 iter= 153 val_f1=0.5558 test F1=0.5379 PR=0.5454 | core F1=0.3774 PR=0.3556 | det@500=0.92 value@500=0.576 feat=26s train=35s
+H=      0 seed=2 iter= 272 val_f1=0.5569 test F1=0.5440 PR=0.5665 | core F1=0.3753 PR=0.3748 | det@500=0.94 value@500=0.591 feat=26s train=62s
+H=      1 seed=0 iter= 216 val_f1=0.6511 test F1=0.6636 PR=0.6820 | core F1=0.5149 PR=0.5208 | det@500=0.98 value@500=0.619 feat=20s train=56s
+H=      1 seed=1 iter= 168 val_f1=0.6549 test F1=0.6651 PR=0.6789 | core F1=0.5218 PR=0.5196 | det@500=0.95 value@500=0.616 feat=20s train=40s
+H=      1 seed=2 iter= 116 val_f1=0.6415 test F1=0.6718 PR=0.6802 | core F1=0.5320 PR=0.5220 | det@500=0.97 value@500=0.617 feat=20s train=39s
+H=     60 seed=0 iter= 133 val_f1=0.6391 test F1=0.6490 PR=0.6744 | core F1=0.5032 PR=0.5148 | det@500=0.94 value@500=0.613 feat=19s train=51s
+H=     60 seed=1 iter= 174 val_f1=0.6599 test F1=0.6708 PR=0.6871 | core F1=0.5326 PR=0.5333 | det@500=0.97 value@500=0.620 feat=19s train=54s
+H=     60 seed=2 iter= 278 val_f1=0.6556 test F1=0.6779 PR=0.6836 | core F1=0.5405 PR=0.5285 | det@500=0.97 value@500=0.618 feat=19s train=60s
+H=    600 seed=0 iter= 146 val_f1=0.6638 test F1=0.6927 PR=0.6955 | core F1=0.5624 PR=0.5350 | det@500=0.98 value@500=0.615 feat=15s train=34s
+H=    600 seed=1 iter= 100 val_f1=0.6718 test F1=0.7023 PR=0.7176 | core F1=0.5648 PR=0.5528 | det@500=0.98 value@500=0.607 feat=15s train=23s
+H=    600 seed=2 iter= 209 val_f1=0.6747 test F1=0.7128 PR=0.7079 | core F1=0.5834 PR=0.5489 | det@500=0.99 value@500=0.610 feat=15s train=42s
+H=   3600 seed=0 iter= 342 val_f1=0.6751 test F1=0.7308 PR=0.7226 | core F1=0.6216 PR=0.5686 | det@500=0.94 value@500=0.609 feat=15s train=71s
+H=   3600 seed=1 iter= 185 val_f1=0.6715 test F1=0.7390 PR=0.7355 | core F1=0.6361 PR=0.5817 | det@500=0.95 value@500=0.613 feat=15s train=49s
+H=   3600 seed=2 iter= 115 val_f1=0.6711 test F1=0.7339 PR=0.7263 | core F1=0.6231 PR=0.5747 | det@500=0.94 value@500=0.609 feat=15s train=27s
+H=  21600 seed=0 iter= 270 val_f1=0.6737 test F1=0.7283 PR=0.7234 | core F1=0.6016 PR=0.5708 | det@500=0.95 value@500=0.573 feat=36s train=114s
+H=  21600 seed=1 iter= 137 val_f1=0.6655 test F1=0.7244 PR=0.7262 | core F1=0.6157 PR=0.5731 | det@500=0.97 value@500=0.574 feat=36s train=76s
+H=  21600 seed=2 iter= 202 val_f1=0.6749 test F1=0.7275 PR=0.7284 | core F1=0.6242 PR=0.5782 | det@500=0.95 value@500=0.563 feat=36s train=66s
+H=  86400 seed=0 iter= 205 val_f1=0.6545 test F1=0.7446 PR=0.7403 | core F1=0.6224 PR=0.5775 | det@500=0.93 value@500=0.441 feat=20s train=58s
+H=  86400 seed=1 iter= 181 val_f1=0.6599 test F1=0.7248 PR=0.7247 | core F1=0.6128 PR=0.5705 | det@500=0.97 value@500=0.434 feat=20s train=49s
+H=  86400 seed=2 iter= 240 val_f1=0.6389 test F1=0.7183 PR=0.7221 | core F1=0.6097 PR=0.5683 | det@500=0.93 value@500=0.439 feat=20s train=65s
+H= 259200 seed=0 iter= 195 val_f1=0.6647 test F1=0.7350 PR=0.7373 | core F1=0.6153 PR=0.5831 | det@500=0.95 value@500=0.184 feat=22s train=57s
+H= 259200 seed=1 iter= 230 val_f1=0.6474 test F1=0.7168 PR=0.7257 | core F1=0.6053 PR=0.5822 | det@500=0.95 value@500=0.176 feat=22s train=61s
+H= 259200 seed=2 iter= 290 val_f1=0.6316 test F1=0.7095 PR=0.7160 | core F1=0.6051 PR=0.5633 | det@500=0.94 value@500=0.179 feat=22s train=85s
+H=    inf seed=0 iter= 246 val_f1=0.6667 test F1=0.7215 PR=0.7273 | core F1=0.6136 PR=0.5732 | det@500=0.94 value@500=0.000 feat=22s train=66s
+H=    inf seed=1 iter= 171 val_f1=0.6745 test F1=0.7157 PR=0.7115 | core F1=0.6117 PR=0.5591 | det@500=0.94 value@500=0.000 feat=22s train=45s
+H=    inf seed=2 iter= 299 val_f1=0.6404 test F1=0.7205 PR=0.7171 | core F1=0.6037 PR=0.5558 | det@500=0.93 value@500=0.000 feat=22s train=80s
+done

@@ -1,0 +1,5 @@
+attempts: val 64, test 86
+1001 budget allocations over checkpoints ['1', '600', '3600', '21600', '86400']
+seed=0 B=100: adaptive value=0.305 det=0.49 delay=13.475277777777778 alpha=[0.9, 0.1, 0.0, 0.0, 0.0] | fixed((np.float64(0.0), np.float64(1.0), np.float64(0.0), np.float64(0.0), np.float64(0.0))) value=0.273 det=0.43 delay=15.533333333333333 | diff=+0.031 CI[+0.008,+0.059]
+seed=0 B=500: adaptive value=0.623 det=0.98 delay=0.0002777777777777778 alpha=[0.9, 0.0, 0.1, 0.0, 0.0] | fixed((np.float64(0.0), np.float64(1.0), np.float64(0.0), np.float64(0.0), np.float64(0.0))) value=0.615 det=0.98 delay=0.16666666666666666 | diff=+0.008 CI[-0.004,+0.025]
+seed=0 B=2000: adaptive value=0.640 det=0.98 delay=0.0002777777777777778 alpha=[0.3, 0.0, 0.1, 0.3, 0.3] | fixed((np.float64(1.0), np.float64(0.0), np.float64(0.0), np.float64(0.0), np.float64(0.0))) value=0.636 det=0.99 delay=0.0002777777777777778 | diff=+0.004 CI[-0.002,+0.014]
