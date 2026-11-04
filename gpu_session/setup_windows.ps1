@@ -45,7 +45,9 @@ Step "PyG extensions matching torch 2.5.1+$flavour (binary wheels only; a source
 Run $vpy @("-m", "pip", "install", "-q", "--only-binary", ":all:", "torch-scatter", "torch-sparse", "-f", "https://data.pyg.org/whl/torch-2.5.1+$flavour.html")
 
 Step "Everything else"
-Run $vpy @("-m", "pip", "install", "-q", "torch-geometric==2.7.0", "wandb", "tqdm", "numpy<2", "pandas", "-r", "requirements-kaggle.txt")
+# pyarrow is capped: its newest releases need NumPy 2, and the official Multi-GNN stack needs NumPy 1
+Run $vpy @("-m", "pip", "install", "-q", "torch-geometric==2.7.0", "wandb", "tqdm", "numpy<2", "pandas", "pyarrow<18", "-r", "requirements-kaggle.txt")
+Run $vpy @("-m", "pip", "install", "-q", "numpy<2", "pyarrow<18")   # a second pass, in case the requirements file pulled either one up
 
 Step "Official Multi-GNN and FraudGT at the pinned commits (cloned from the local submodules, so no internet is needed)"
 New-Item -ItemType Directory -Force $Official | Out-Null
@@ -65,5 +67,7 @@ foreach ($name in $pins.Keys) {
 }
 
 Step "Check"
-Run $vpy @("gpu_session\check_env.py", "--official", $official) + $(if ($Cpu) { @("--allow-cpu") } else { @() })
+$checkArgs = @("gpu_session\check_env.py", "--official", $official)
+if ($Cpu) { $checkArgs += "--allow-cpu" }
+Run $vpy $checkArgs
 Write-Host "`nSetup done. Environment: $vpy" -ForegroundColor Green
