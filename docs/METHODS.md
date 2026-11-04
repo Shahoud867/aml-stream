@@ -1,6 +1,6 @@
 # Code map
 
-Definitions live in `SPEC.md` in the project documents. If code and that file disagree, it is a bug.
+Definitions live in `docs/SPEC.md`. If code and that file disagree, it is a bug.
 
 | Module | Role |
 |---|---|
