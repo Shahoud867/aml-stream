@@ -58,7 +58,10 @@ foreach ($name in $pins.Keys) {
     $local = Join-Path $root "third_party\$name"
     if (-not (Test-Path "$target\.git")) {
         if (Test-Path "$local\.git") { Run git @("clone", "-q", $local, $target) }
-        else { Run git @("clone", "-q", "https://github.com/" + $(if ($name -eq "Multi-GNN") { "IBM/Multi-GNN" } else { "junhongmit/FraudGT" }) + ".git", $target) }
+        else {
+            $slug = if ($name -eq "Multi-GNN") { "IBM/Multi-GNN" } else { "junhongmit/FraudGT" }
+            Run git @("clone", "-q", "https://github.com/$slug.git", $target)
+        }
     }
     Run git @("-C", $target, "checkout", "-q", $pins[$name])
     $head = (& git -C $target rev-parse HEAD).Trim()

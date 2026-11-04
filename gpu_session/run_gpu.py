@@ -16,11 +16,14 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import os
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+# Job processes inherit this. See compat/sitecustomize.py for why it is needed.
+os.environ["PYTHONPATH"] = os.pathsep.join(filter(None, [str(Path(__file__).resolve().parent / "compat"), os.environ.get("PYTHONPATH", "")]))
 
 EXPECTED_CODE_HASH = "9686ce184d525c0a"
 

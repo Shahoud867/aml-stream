@@ -26,6 +26,11 @@ Run the same command again to resume. Finished jobs are skipped and interrupted 
 Pre-flight check, then prepares the data once, then runs one short pilot per kind (NB1, NB2, NB3). **A kind whose pilot fails is not launched**; the other kinds are. Then it runs all 10 shards as GPU capacity allows, longest first.
 Logs are in `aml_out\<shard>.production.log`; results in `aml_out\<shard>\aml_run`; a failed pilot's reason is in `aml_out\<shard>\aml_pilot\PILOT_REPORT.md`.
 
+### Compatibility layer
+`compat/sitecustomize.py` lets official `AddEgoIds` be created under torch-geometric 2.7.0, which marks `BaseTransform.forward` abstract. `run_gpu.py` applies it to job processes. The official transform runs unchanged. The Colab notebooks do not have this layer, so their Multi-GNN jobs (NB1, NB2) still fail at this point.
+
+It also limits each job to 95% of GPU memory. Without a limit, PyTorch reserved 16.5 GB for 8.3 GB of real use and Windows silently paged the excess to RAM, making training about 5 times slower. **The limit assumes one job per GPU:** two jobs sharing a card would each be allowed 95%. To share one, set `AMLH_GPU_MEMORY_FRACTION` lower, but Multi-GIN on HI-Small needs more than 85% of a 10 GB card, so it does not fit alongside another job there. Use `--capacity 2` for one Multi-GNN shard per GPU.
+
 ### If a GPU runs out of memory
 Lower `--capacity` to 2, so a Multi-GNN shard runs with nothing beside it.
 
