@@ -20,3 +20,14 @@ htmlcov/
 # Raw dataset files exceeding GitHub 100MB limit
 data/raw/*.csv
 data/processed/**/events.parquet
+
+# LaTeX build files (sources and the final PDF are kept)
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.lof
+paper/*.log
+paper/*.lot
+paper/*.out
+paper/*.toc
+paper/cn_phase2.pdf
