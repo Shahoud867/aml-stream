@@ -1,0 +1,4 @@
+HI-Small: days=18 (2022/09/01..2022/09/18) split=[6, 8] tr/va/te=64.0/19.0/17.0 tail from 2022/09/11 n=1108 rate=59.1% share_of_test_illicit=40.7% core_rate=0.111% trivial_F1=48.18%
+LI-Small: days=17 (2022/09/01..2022/09/17) split=[6, 8] tr/va/te=64.0/19.0/17.0 tail from 2022/09/11 n=223 rate=60.1% share_of_test_illicit=16.7% core_rate=0.057% trivial_F1=26.15%
+HI-Medium: days=28 (2022/09/01..2022/09/28) split=[9, 13] tr/va/te=61.1/17.3/21.6 tail from 2022/09/17 n=6987 rate=58.5% share_of_test_illicit=37.1% core_rate=0.101% trivial_F1=45.37%
+LI-Medium: days=27 (2022/09/01..2022/09/27) split=[9, 13] tr/va/te=61.1/17.3/21.6 tail from 2022/09/17 n=1370 rate=56.3% share_of_test_illicit=19.3% core_rate=0.048% trivial_F1=28.76%

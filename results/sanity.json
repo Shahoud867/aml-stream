@@ -1,0 +1,73 @@
+{
+ "prevalence": {
+  "test": 0.0018647991665702048,
+  "core": 0.0011080306725143488
+ },
+ "shuffled": {
+  "0": {
+   "test_pr_auc": 0.001876086579641315,
+   "core_pr_auc": 0.0011955018478826364
+  }
+ },
+ "importance": {
+  "0": {
+   "blocks": {
+    "past": 0.8425235763763241,
+    "forward": 0.0,
+    "pair": 0.14421249871672856,
+    "motif": 0.013263924906947486
+   },
+   "top": [
+    [
+     "past_pair_uv_cnt",
+     0.0961
+    ],
+    [
+     "past72h_u_in_std_t",
+     0.0621
+    ],
+    [
+     "past72h_v_in_std_t",
+     0.0553
+    ],
+    [
+     "past72h_u_in_gap",
+     0.0355
+    ],
+    [
+     "past72h_v_in_amt",
+     0.0346
+    ],
+    [
+     "past72h_v_in_ncp",
+     0.0343
+    ],
+    [
+     "past_pair_uv_amt",
+     0.031
+    ],
+    [
+     "past72h_v_in_gap",
+     0.0285
+    ],
+    [
+     "past72h_u_out_cnt",
+     0.0272
+    ],
+    [
+     "past72h_u_in_amt",
+     0.0263
+    ],
+    [
+     "past72h_u_out_amt",
+     0.0255
+    ],
+    [
+     "past72h_u_out_ncp",
+     0.0231
+    ]
+   ],
+   "graph_only_core_pr_auc": 0.1266365482885269
+  }
+ }
+}
