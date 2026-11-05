@@ -1,0 +1,24 @@
+{
+ "job_id": "nb1-mgnn-gin-HI-Small-s1-replay21600",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "72dedb0bd07b5a83",
+ "seconds_last_session": 200.12863397598267,
+ "finished": 1793842772.0760362,
+ "files": {
+  "bucket_scores_val_24.npz": "02b38492750e812ed2d9f1122982e4909033b514e685040d6a3f689f8d835274",
+  "bucket_scores_val_25.npz": "f49afef1a823060aa9660b19d893abeb96857418bfe9509c7a9ec0470d1d6cca",
+  "bucket_scores_val_26.npz": "e38fa8bb767365a995585b5bcc16bac168d77c820fed06b6240e9f7df4efad9d",
+  "bucket_scores_val_27.npz": "4ae43cecc44798357698a60c6091d285d16f1158c14d18cbe65fb65a506654d1",
+  "bucket_scores_val_28.npz": "b3fce5876def45454bcfe16bf32fc8ba79a548ffccbea3ef150273dda797d029",
+  "bucket_scores_val_29.npz": "c4ba001dff6d416b7c64647ec54f7eeabaf05be9d4aed5ba234a1af66076cd12",
+  "bucket_scores_val_30.npz": "7e0508a56bf483c9a4fd087a5ae2e6bcd3be14e47d98b0b5d73bc21d3b1a8261",
+  "bucket_scores_val_31.npz": "fd432b29504e749c3727944f50895e8df95e9fcc2c10080e44504ed9bed0fb79",
+  "config.json": "117abec0bdac621e3d187b5fa378071b021d6f1f2f700a8593584fc2970dc3d1",
+  "isolated_result.json": "a5e30c5d1891e48cd8e81872cc540bb30e4d660c9609dc72a555fce73b3eb7ad",
+  "log.jsonl": "16043e97173699feb6070d7642de926e0c86547f777761340875d55e54947421",
+  "metrics.json": "a5e30c5d1891e48cd8e81872cc540bb30e4d660c9609dc72a555fce73b3eb7ad",
+  "scores_test.parquet": "f237c4da57f68b4cf0c4b9234f5e3980740621d47604268b0f89e29f7f1bb411",
+  "scores_val.parquet": "6b80c5ff30f345811f0ae2209f246c2a855763af6442fc53a9eed434a12c5034",
+  "state.json": "5ee7e61c54b2df2fdb9520083675363f4ceb6b148fe5d8731f209818d1aaa4fc"
+ }
+}

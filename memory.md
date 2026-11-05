@@ -37,7 +37,7 @@
 | # | Shard | P0 jobs |
 |---|---|---|
 | 01 | NB1 shard 0/3: format check + Multi-GIN seed 3 (**pilot canary**) | 5 |
-| 02 | NB1 shard 1/3: Multi-GIN seed 1 (the E1/Gate G1 result) | 4 |
+| 02 | NB1 shard 1/3: Multi-GIN seed 1 (the E1/Gate G1 result) | 4 | **DONE** (8.44 h, best epoch 47, val_f1 0.610, test_f1 0.626 / eval 0.643; replays 86400, 21600, 3600 DONE) |
 | 03 | NB1 shard 2/3: Multi-GIN seed 2 | 4 |
 | 04 | NB2 shard 0/4: Multi-PNA HI-Small seed 1 (**pilot canary**) | 3 |
 | 05 | NB2 shard 1/4: Multi-PNA HI-Small seed 2 | 3 |
@@ -56,6 +56,23 @@ All tiers set to P0 only; add `'P1'` after P0 finishes. P1/P2 (FraudGT, ablation
 - **Not done:** the planned CPU rehearsal of the NB3, NB1 and NB2 pilots through `run_all.py`; nothing has run on a GPU or on Colab; `setup_windows.ps1` has not completed once. The setup script had two Windows edge-case fixes made while it was running (no `py` launcher); the fixed version has not been run.
 - Known mismatch: `.venv` here has torch 2.15 CPU and polars etc.; `.venv-mgnn` has torch 2.5.1 CPU but lacks polars, numba, lightgbm, pyarrow, pytest. The GPU environment must contain both sets, which is what the setup script installs.
 - **"Error free" cannot be promised.** The canary pilots on the PC are designed to catch GPU-specific failures first.
+
+### 4.1 Shard 02 execution & completion (5 Nov 2026)
+- **Machine**: RTX 3080 PC (user `i232515`, CUDA 12.1, PyTorch 2.5.1+cu121).
+- **Environment**: Setup script `gpu_session/setup_windows.ps1` completed cleanly; all 19 pre-flight checks passed (`logs/setup_windows.log`).
+- **Fixes applied & verified during run**:
+  1. `gpu_session/compat/sitecustomize.py`: PyG 2.7.0 `BaseTransform.forward` abstract method flag cleared.
+  2. `gpu_session/compat/sitecustomize.py`: PyTorch allocator VRAM cache release per step (`PYTORCH_CUDA_ALLOC_CONF="max_split_size_mb:128"`) preventing silent RAM paging and slowdown.
+  3. `gpu_session/compat/sitecustomize.py`: Windows `WinError 32` file locking on `bucket_*.npz` deletion resolved by closing NpzFile handles immediately on load in `mgnn_replay`.
+- **Run output location**: `E:\aml_out\02_NB1_gin_s1\aml_run`
+- **Tracked in repo**: `results/shard02_NB1_gin_s1/`
+- **Results**:
+  - `nb1-mgnn-gin-HI-Small-s1`: 100 epochs, session time 8.44 h.
+  - Best model checkpoint at epoch 47 (`best.bin`, sha256 `ac5c8c9e203c1dc9fd01f9bc70b4d975bf7e20136ba977e976f2d6d5c7684665`).
+  - `best_val_f1`: **0.6099** (0.610)
+  - `official_style_test_f1`: **0.6257**
+  - `official_style_test_f1_eval_mode`: **0.6426**
+  - All three replay horizons completed: `replay86400` (24 h), `replay21600` (6 h), `replay3600` (1 h).
 
 ## 5. Advice already given to the user
 

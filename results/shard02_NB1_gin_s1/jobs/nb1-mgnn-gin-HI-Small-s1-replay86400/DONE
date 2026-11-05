@@ -1,0 +1,28 @@
+{
+ "job_id": "nb1-mgnn-gin-HI-Small-s1-replay86400",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "ee2dcdd75f30b5e0",
+ "seconds_last_session": 10.05643081665039,
+ "finished": 1793843057.8627756,
+ "files": {
+  "bucket_scores_test_10.npz": "d986c75be9ef22d9db10178ee23d5c134eaf9531996838884234fbc5de854897",
+  "bucket_scores_test_11.npz": "e4178055431ba60e9b68ff0919208020df84b25cdd68fb6454e7e5d296dcfaf8",
+  "bucket_scores_test_12.npz": "6b140e22302dd54e13d88d7e87d73529e1a70a492543dd1f6a02c0225ecf83f2",
+  "bucket_scores_test_13.npz": "43727551114c95b5ffec0827e3a0200083591fc38927bbb093902dfd84326755",
+  "bucket_scores_test_14.npz": "e9827de60adb1788ce4e0010558990d886c516a9f410fcdc7196cd53d307d5ab",
+  "bucket_scores_test_15.npz": "2e30f9e7dfcb9ad16f48b6d84667fd98de22e35501c8e069190f2405e8a31131",
+  "bucket_scores_test_16.npz": "adf10064d014fdbbf208898157b37751935fdacc1d84a41854710d480976394d",
+  "bucket_scores_test_17.npz": "f319bb5bc85f41561e19acdcbd496eb874c0bf74c2136301ea907120c9bba904",
+  "bucket_scores_test_8.npz": "9b984ccd9447471e6c9568805f0b4feb8c6197217c195781d4ce02fff1a698b7",
+  "bucket_scores_test_9.npz": "bbf32f25ce28eb9d0964d29a224a6f7da4cc98cb5c49d25365857715cd814cd9",
+  "bucket_scores_val_6.npz": "ccc81e978e9031b2dcda328700a50e8555f7a8a27f6e90c6228a41a6fa89ff94",
+  "bucket_scores_val_7.npz": "0023155c626697c133379ea29e96b83d38742c7d4b39b019757ce5bc71242644",
+  "config.json": "e1ca23e334921b79ddc613aad188ce09233069189c0fbb27ecd36cfc860da59f",
+  "isolated_result.json": "38a6ba70d38f9290b081063f6bd22a0c8ca1d206078e9569558b2371b68269ca",
+  "log.jsonl": "e04c562d1cbb968ad7e629df0136b919414ad936089ac6cd3da4f8f0f5dde05a",
+  "metrics.json": "38a6ba70d38f9290b081063f6bd22a0c8ca1d206078e9569558b2371b68269ca",
+  "scores_test.parquet": "2315f985db8efb884ee9e1ab5cf633092cf7d0868ea5af0060286edd18720397",
+  "scores_val.parquet": "e4b06764718dc12b42ef5a07cd2f24ab8ef0018d680be3f2faa44ef71fab6abd",
+  "state.json": "2fd46c60d144858654d9463ddbc0be3c5b95abc94be6559ce924430eea269c78"
+ }
+}

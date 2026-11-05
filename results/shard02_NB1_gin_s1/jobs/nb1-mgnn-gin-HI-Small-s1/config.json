@@ -1,0 +1,10 @@
+{
+ "job_id": "nb1-mgnn-gin-HI-Small-s1",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "folder": "Small_HI",
+  "model": "gin",
+  "seed": 1
+ }
+}
