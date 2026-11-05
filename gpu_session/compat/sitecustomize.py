@@ -10,16 +10,37 @@
    Measured: 2.33 s per step with no limit; 0.98 s with the settings below. 0.85 ran out of memory. No model setting is touched.
    Set AMLH_GPU_MEMORY_FRACTION to change it (0 turns it off). Lower it if another process shares the GPU.
 
+3. mgnn.py's mgnn_replay reads each bucket_*.npz with np.load, then deletes the file while that NpzFile is still open.
+   Linux allows deleting an open file; Windows refuses (WinError 32), so every replay job failed deterministically on this
+   machine. np.load is replaced with a version that reads an .npz fully into a plain dict and closes it immediately, which
+   is all mgnn_replay's dict-style access needs. The only other np.load call in this codebase or the pinned Multi-GNN/FraudGT
+   commits is this one, so nothing else is affected.
+
 run_gpu.py puts this folder on PYTHONPATH. It acts only in an isolated job process (amlh.isolate sets AMLH_ISOLATE).
 """
 import os
 
 if "AMLH_ISOLATE" in os.environ:
+    import numpy as _np
+
+    _orig_np_load = _np.load
+
+    def _closing_np_load(*args, **kwargs):
+        result = _orig_np_load(*args, **kwargs)
+        if isinstance(result, _np.lib.npyio.NpzFile):
+            data = {k: result[k] for k in result.files}
+            result.close()
+            return data
+        return result
+
+    _np.load = _closing_np_load
+
     # Goes with the limit below. Large blocks are never split, so a free one can always be released whole. Measured on 390 batches
     # with limit 0.95 and the cache release: no failure, 0.98 s per step. Without this, the same limit failed within two epochs.
     os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "max_split_size_mb:128")
 
     import torch
+    import torch.optim.optimizer  # noqa: F401  (torch.optim is not imported by bare `import torch`; the attribute below needs it)
     from torch_geometric.transforms import BaseTransform
 
     BaseTransform.__abstractmethods__ = frozenset()
