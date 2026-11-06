@@ -1,0 +1,9 @@
+{
+ "attempts": 1,
+ "status": "DONE",
+ "job_id": "nb3-tdgnn-service",
+ "tier": "P1",
+ "config_hash": "4aa3d694398af261",
+ "code_hash": "9686ce184d525c0a",
+ "updated": 1793785126.3528347
+}

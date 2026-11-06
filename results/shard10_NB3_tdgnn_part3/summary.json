@@ -1,0 +1,27 @@
+{
+ "notebook": "NB3",
+ "code_hash": "9686ce184d525c0a",
+ "counts": {
+  "DONE": 2
+ },
+ "jobs": [
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H1-s0",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-service",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  }
+ ],
+ "session_seconds": 12.66247034072876,
+ "complete": true
+}

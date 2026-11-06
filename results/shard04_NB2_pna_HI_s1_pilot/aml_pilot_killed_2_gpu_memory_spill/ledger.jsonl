@@ -1,0 +1,3 @@
+{"ts": 1793776173.255607, "event": "restore", "job": "", "code": "9686ce184d525c0a", "n": 0, "roots": []}
+{"ts": 1793776177.2925158, "event": "session_start", "job": "", "code": "9686ce184d525c0a", "n_jobs": 3, "budget": 3600.0}
+{"ts": 1793776177.3566482, "event": "start", "job": "pilot-nb2-mgnn-pna", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}

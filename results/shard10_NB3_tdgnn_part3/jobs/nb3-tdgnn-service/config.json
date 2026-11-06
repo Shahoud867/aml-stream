@@ -1,0 +1,10 @@
+{
+ "job_id": "nb3-tdgnn-service",
+ "tier": "P1",
+ "cfg": {
+  "dataset": "HI-Small",
+  "H": "1",
+  "seed": 0,
+  "train_job": "nb3-tdgnn-HI-Small-H1-s0"
+ }
+}

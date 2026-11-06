@@ -1,0 +1,17 @@
+{
+ "job_id": "nb3-tdgnn-LI-Small-H86400-s0",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "61e5580e7a263221",
+ "seconds_last_session": 134.03567957878113,
+ "finished": 1793775474.6381955,
+ "files": {
+  "ckpt/best.bin": "fb0204ce864b2d57ba4b4c9366fd5c7f07b361125c85572c9acf385194785dcc",
+  "ckpt/best.bin.json": "ecd75afe19a52cdf74d4c1606e02c4995d0a226630442b00fdafeb07425d8d95",
+  "config.json": "18de293234981b7bdb4cc34615b2fdacc5f464e56d21edc8db169c12dec2ff76",
+  "log.jsonl": "810b12af8300275adee6f10b9027699ff30a792b4c082ee2e27c2b6cf3ab797a",
+  "metrics.json": "d84055fab169077f2541e9f82f911c95b45efc45f237ce73377e6108d421b264",
+  "scores_test.parquet": "98b63655284f944620ae9feec2aa9b4c293f736e0605cf12208a222413292788",
+  "scores_val.parquet": "7c48d490977f7b4f9c215d1097072625abb621179df6c6ff075c6563829fdc36",
+  "status.failed_1146_cuda_context_lost.json": "ca2eab4480af841f7f163eb691ee39d43f1e808799101f1c0c5cac9c1313ea26"
+ }
+}

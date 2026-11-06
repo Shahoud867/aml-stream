@@ -1,0 +1,67 @@
+{
+ "notebook": "NB3",
+ "pass": true,
+ "gates": [
+  [
+   "Every pilot job finished and passed verification",
+   true,
+   ""
+  ],
+  [
+   "A killed job resumed and agreed with the uninterrupted run",
+   true,
+   "{\"pass\": true, \"killed_exit_code\": 137, \"resumed_exit_code\": 0, \"resumed_done\": true, \"detail\": \"\", \"rule\": \"correlation at least 0.95\", \"scores\": {\"scores_test.parquet\": {\"rows\": 863900, \"max_abs_diff\": 0.0, \"mean_abs_diff\": 0.0, \"correlation\": 1.0}, \"scores_val.parquet\": {\"rows\": 965524, \"max_abs_diff\": 0.0, \"mean_abs_diff\": 0.0, \"correlation\": 0.9999999999999999}}}"
+  ],
+  [
+   "A GPU was attached",
+   true,
+   "GPU 0: NVIDIA GeForce RTX 3080 (UUID: GPU-3e441960-0855-5624-a0c4-85cbee0e38e8)"
+  ],
+  [
+   "Check by hand: compare the quota meter with this session's length. Does T4 x2 count double?",
+   null,
+   "session length 0.04 h"
+  ]
+ ],
+ "resume": {
+  "pass": true,
+  "killed_exit_code": 137,
+  "resumed_exit_code": 0,
+  "resumed_done": true,
+  "detail": "",
+  "rule": "correlation at least 0.95",
+  "scores": {
+   "scores_test.parquet": {
+    "rows": 863900,
+    "max_abs_diff": 0.0,
+    "mean_abs_diff": 0.0,
+    "correlation": 1.0
+   },
+   "scores_val.parquet": {
+    "rows": 965524,
+    "max_abs_diff": 0.0,
+    "mean_abs_diff": 0.0,
+    "correlation": 0.9999999999999999
+   }
+  }
+ },
+ "failures": [],
+ "job_seconds": {
+  "pilot-nb3-tdgnn": 50.6,
+  "pilot-nb3-attack": 5.2,
+  "pilot-nb3-service": 1.0,
+  "pilot-nb3-tdgnn-killed": 39.7
+ },
+ "projected_hours": {
+  "P0": {
+   "hours": 0.9842922031471212,
+   "jobs": 41,
+   "not_projected": 0
+  },
+  "P1": {
+   "hours": 1.0294213436044142,
+   "jobs": 49,
+   "not_projected": 0
+  }
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "job_id": "nb3-tdgnn-HI-Small-H0-s1-attack",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "H": "0",
+  "seed": 1,
+  "train_job": "nb3-tdgnn-HI-Small-H0-s1",
+  "Ws": [
+   21600
+  ],
+  "conditions": [
+   "none",
+   "burst",
+   "stretch",
+   "blend",
+   "shift_burst",
+   "shift_stretch",
+   "shift_blend"
+  ]
+ }
+}
