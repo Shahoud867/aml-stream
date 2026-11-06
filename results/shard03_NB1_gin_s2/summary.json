@@ -1,0 +1,43 @@
+{
+ "notebook": "NB1",
+ "code_hash": "9686ce184d525c0a",
+ "counts": {
+  "DONE": 4
+ },
+ "jobs": [
+  {
+   "job_id": "nb1-mgnn-gin-HI-Small-s2",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": "mgnn_train stopped for lack of session time",
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb1-mgnn-gin-HI-Small-s2-replay86400",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": "RuntimeError('mgnn_replay failed with exit 1. Its last output:\\nTraceback (most recent call last):\\n  File \"<string>\", line 1, in <module>\\n  File \"E:\\\\aml-stream\\\\src\\\\amlh\\\\isolate.py\", line 122, in child_main\\n    result = fn(ctx, spec[\"cfg\"]) or {}\\n             ^^^^^^^^^^^^^^^^^^^^\\n  File \"E:\\\\aml-stream\\\\src\\\\amlh\\\\mgnn.py\", line 399, in mgnn_replay\\n    (ctx.dir / f\"bucket_{key}.npz\").unlink()\\n  File \"C:\\\\Python311\\\\Lib\\\\pathlib.py\", line 1147, in unlink\\n    os.unlink(self)\\nPermissionError: [WinError 32] The process cannot access the file because it is being used by another process: \\'E:\\\\\\\\aml_out\\\\\\\\aml_run\\\\\\\\jobs\\\\\\\\nb1-mgnn-gin-HI-Small-s2-replay86400\\\\\\\\bucket_scores_test_8.npz\\'\\n')",
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb1-mgnn-gin-HI-Small-s2-replay21600",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": "RuntimeError('mgnn_replay failed with exit 1. Its last output:\\nTraceback (most recent call last):\\n  File \"<string>\", line 1, in <module>\\n  File \"E:\\\\aml-stream\\\\src\\\\amlh\\\\isolate.py\", line 122, in child_main\\n    result = fn(ctx, spec[\"cfg\"]) or {}\\n             ^^^^^^^^^^^^^^^^^^^^\\n  File \"E:\\\\aml-stream\\\\src\\\\amlh\\\\mgnn.py\", line 399, in mgnn_replay\\n    (ctx.dir / f\"bucket_{key}.npz\").unlink()\\n  File \"C:\\\\Python311\\\\Lib\\\\pathlib.py\", line 1147, in unlink\\n    os.unlink(self)\\nPermissionError: [WinError 32] The process cannot access the file because it is being used by another process: \\'E:\\\\\\\\aml_out\\\\\\\\aml_run\\\\\\\\jobs\\\\\\\\nb1-mgnn-gin-HI-Small-s2-replay21600\\\\\\\\bucket_scores_test_32.npz\\'\\n')",
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb1-mgnn-gin-HI-Small-s2-replay3600",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": "RuntimeError('mgnn_replay failed with exit 1. Its last output:\\nTraceback (most recent call last):\\n  File \"<string>\", line 1, in <module>\\n  File \"E:\\\\aml-stream\\\\src\\\\amlh\\\\isolate.py\", line 122, in child_main\\n    result = fn(ctx, spec[\"cfg\"]) or {}\\n             ^^^^^^^^^^^^^^^^^^^^\\n  File \"E:\\\\aml-stream\\\\src\\\\amlh\\\\mgnn.py\", line 399, in mgnn_replay\\n    (ctx.dir / f\"bucket_{key}.npz\").unlink()\\n  File \"C:\\\\Python311\\\\Lib\\\\pathlib.py\", line 1147, in unlink\\n    os.unlink(self)\\nPermissionError: [WinError 32] The process cannot access the file because it is being used by another process: \\'E:\\\\\\\\aml_out\\\\\\\\aml_run\\\\\\\\jobs\\\\\\\\nb1-mgnn-gin-HI-Small-s2-replay3600\\\\\\\\bucket_scores_test_192.npz\\'\\n')",
+   "verified": true,
+   "detail": ""
+  }
+ ],
+ "session_seconds": 8824.329977750778,
+ "complete": true
+}
