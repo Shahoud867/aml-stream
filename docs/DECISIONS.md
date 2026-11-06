@@ -265,3 +265,15 @@ No model has run on a confirmatory dataset. HI-Medium was prepared once to measu
 
 **What this does not settle:** if FraudGT is killed again with a small parent, it needs more memory than a 12.7 GB machine has on HI-Small, and the FraudGT audit then needs a larger runtime or ends as a recorded failure. FraudGT's own memory use has not been measured.
 
+---
+
+## D-020 (2026-11-05): Multi-PNA batch size reduced from 8192 to 1024 on 10 GB GPUs, HI-Small
+
+**What was seen:** `nb2-mgnn-pna-HI-Small-s1` (shard 04) and `nb2-mgnn-pna-HI-Small-s2` (shard 05) both failed with a genuine `torch.OutOfMemoryError` on an RTX 3080 (10 GB), at the official batch size of 8192 and neighbour counts [100, 100]. This was confirmed directly (not inferred): PyTorch had ~8.8 GiB allocated and asked for ~1 GiB more with the card full, both times at the same point (the PNA message step, `torch.cat([x_i, x_j, edge_attr])`). Capping PyTorch's memory fraction (which fixed an unrelated Windows memory-spill problem on Multi-GIN the same day) made no difference here, because this is not spill or fragmentation — the model's batch genuinely does not fit.
+
+**Change:** on 10 GB cards, Multi-PNA's `batch_size` is reduced from the official 8192 to **1024** via `gpu_session/run_gpu.py --batch-size 1024` (a new flag, mirroring the existing `--n-epochs` override; `src/amlh/mgnn.py` and the frozen notebooks are unchanged, so the code hash is unchanged). Neighbour counts [100, 100] are kept as official.
+
+**Why this is a deviation that must be reported as such, not silently absorbed:** a smaller batch changes gradient noise and batch normalisation statistics, so Multi-PNA/HI-Small results from a 10 GB card are not directly comparable to a run at the official 8192 on a larger card, and must be labelled with the batch size used whenever reported. Multi-GIN did not need this change (it fits at 8192 once the memory-spill problem is fixed; see the same day's gpu_session fix) and is not affected.
+
+**Not yet done:** nobody has checked whether 1024 is still large enough for PNA's degree-scaling statistics to be meaningful on this dataset, or compared a 1024-batch run against an 8192-batch run on a card that can hold both, to see how much the smaller batch costs. Treat shard 04/05 results run this way as provisional until that comparison exists.
+
