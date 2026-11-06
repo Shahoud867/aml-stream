@@ -1,0 +1,36 @@
+{
+ "notebook": "NB2",
+ "code_hash": "9686ce184d525c0a",
+ "counts": {
+  "FAILED": 2,
+  "DEFERRED": 1
+ },
+ "jobs": [
+  {
+   "job_id": "pilot-nb2-mgnn-pna",
+   "tier": "P0",
+   "status": "FAILED",
+   "reason": "RuntimeError('mgnn_train failed with exit 1. Its last output:\\nTraceback (most recent call last):\\n  File \"<string>\", line 1, in <module>\\n  File \"E:\\\\aml\\\\aml-stream\\\\src\\\\amlh\\\\isolate.py\", line 122, in child_main\\n    result = fn(ctx, spec[\"cfg\"]) or {}\\n             ^^^^^^^^^^^^^^^^^^^^\\n  File \"E:\\\\aml\\\\aml-stream\\\\src\\\\amlh\\\\mgnn.py\", line 258, in mgnn_train\\n    model, optimizer, transform, tr_loader, config = _model(cfg, blob, args, device)\\n                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \"E:\\\\aml\\\\aml-stream\\\\src\\\\amlh\\\\mgnn.py\", line 224, in _model\\n    transform = train_util.AddEgoIds()\\n                ^^^^^^^^^^^^^^^^^^^^^^\\nTypeError: Can\\'t instantiate abstract class AddEgoIds with abstract method forward\\n')",
+   "verified": false,
+   "detail": "no DONE marker"
+  },
+  {
+   "job_id": "pilot-nb2-mgnn-pna-replay86400",
+   "tier": "P0",
+   "status": "DEFERRED",
+   "reason": "waiting for ['pilot-nb2-mgnn-pna']",
+   "verified": false,
+   "detail": "no DONE marker"
+  },
+  {
+   "job_id": "pilot-nb2-fraudgt",
+   "tier": "P0",
+   "status": "FAILED",
+   "reason": "RuntimeError('FraudGT failed with exit 1. Its last output:\\nTraceback (most recent call last):\\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\\n  File \"<frozen runpy>\", line 88, in _run_code\\n  File \"E:\\\\aml\\\\aml-stream\\\\src\\\\amlh\\\\fraudgt_driver.py\", line 261, in <module>\\n    main(sys.argv[1])\\n  File \"E:\\\\aml\\\\aml-stream\\\\src\\\\amlh\\\\fraudgt_driver.py\", line 145, in main\\n    import fraudGT  # noqa: F401 (registers its modules)\\n    ^^^^^^^^^^^^^^\\n  File \"E:\\\\aml\\\\aml_official\\\\FraudGT\\\\fraudGT\\\\__init__.py\", line 1, in <module>\\n    from .act import * # noqa\\n    ^^^^^^^^^^^^^^^^^^\\n  File \"E:\\\\aml\\\\aml_official\\\\FraudGT\\\\fraudGT\\\\act\\\\example.py\", line 5, in <module>\\n    from fraudGT.graphgym.config import cfg\\n  File \"E:\\\\aml\\\\aml_official\\\\FraudGT\\\\fraudGT\\\\graphgym\\\\config.py\", line 10, in <module>\\n    from yacs.config import CfgNode as CN\\nModuleNotFoundError: No module named \\'yacs\\'\\n')",
+   "verified": false,
+   "detail": "no DONE marker"
+  }
+ ],
+ "session_seconds": 1100.6926002502441,
+ "complete": false
+}

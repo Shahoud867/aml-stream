@@ -1,0 +1,17 @@
+{
+ "job_id": "nb3-tdgnn-LI-Small-H0-s0",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "44ab1c31d9260413",
+ "seconds_last_session": 117.91099405288696,
+ "finished": 1793775069.7698455,
+ "files": {
+  "ckpt/best.bin": "95c57e8068d2a825ea5c6b7eb8a885148cd0e392dba926c37b72fdc07aa57cb8",
+  "ckpt/best.bin.json": "cd7e7ccb444ce9c16c70c18dbaea58c1c9f862ef5e84a7600caf18b8fe902a2e",
+  "config.json": "7127d9c7ba0a08c08bfb7b6e5fcd3720431dadf251751312c4fcc2f08b4327df",
+  "log.jsonl": "f750a365728feba3dc932fa3f879e907bffa88b83643f2516e1a75b2eaef0492",
+  "metrics.json": "21d4cd71a7dc9a0fa12df76d03ffe378f5b48e50181c8f318153e267005db298",
+  "scores_test.parquet": "b4c82258fc84d8886cf5212990e284e91e9bbba60e37b0a524ce7300a08000ce",
+  "scores_val.parquet": "6f947d130015e36c44ef862a40d6d812dae3643c0c62e0feb24d64d3782620b6",
+  "status.failed_1146_cuda_context_lost.json": "a898f983d8dd885ced3b289939ce8f3790df01255ce97acd6d2728a23a2d6301"
+ }
+}

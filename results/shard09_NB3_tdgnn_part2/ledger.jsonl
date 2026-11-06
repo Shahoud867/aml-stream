@@ -1,0 +1,66 @@
+{"ts": 1793773281.4438221, "event": "restore", "job": "", "code": "9686ce184d525c0a", "n": 0, "roots": []}
+{"ts": 1793773285.5914803, "event": "session_start", "job": "", "code": "9686ce184d525c0a", "n_jobs": 14, "budget": 11323.370841}
+{"ts": 1793773285.6343381, "event": "start", "job": "nb3-tdgnn-HI-Small-H3600-shuffled-s0", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793773351.9307787, "event": "done", "job": "nb3-tdgnn-HI-Small-H3600-shuffled-s0", "code": "9686ce184d525c0a", "seconds": 66.29644060134888}
+{"ts": 1793773352.007281, "event": "start", "job": "nb3-tdgnn-HI-Small-H0-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793773433.9723122, "event": "done", "job": "nb3-tdgnn-HI-Small-H0-s2", "code": "9686ce184d525c0a", "seconds": 81.96503114700317}
+{"ts": 1793773434.0634556, "event": "start", "job": "nb3-tdgnn-HI-Small-H1-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793773516.7926106, "event": "done", "job": "nb3-tdgnn-HI-Small-H1-s2", "code": "9686ce184d525c0a", "seconds": 82.72915506362915}
+{"ts": 1793773516.844726, "event": "start", "job": "nb3-tdgnn-HI-Small-H3600-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793773601.6811996, "event": "done", "job": "nb3-tdgnn-HI-Small-H3600-s2", "code": "9686ce184d525c0a", "seconds": 84.83647346496582}
+{"ts": 1793773601.7649686, "event": "start", "job": "nb3-tdgnn-HI-Small-H86400-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793773684.7619426, "event": "done", "job": "nb3-tdgnn-HI-Small-H86400-s2", "code": "9686ce184d525c0a", "seconds": 82.99600505828857}
+{"ts": 1793773684.8203638, "event": "start", "job": "nb3-tdgnn-HI-Small-Hinf-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793773765.2800922, "event": "done", "job": "nb3-tdgnn-HI-Small-Hinf-s2", "code": "9686ce184d525c0a", "seconds": 80.45972847938538}
+{"ts": 1793773765.3416238, "event": "start", "job": "nb3-tdgnn-LI-Small-H0-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793773879.678256, "event": "done", "job": "nb3-tdgnn-LI-Small-H0-s2", "code": "9686ce184d525c0a", "seconds": 114.3366322517395}
+{"ts": 1793773879.7372956, "event": "start", "job": "nb3-tdgnn-LI-Small-H1-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793773991.699731, "event": "done", "job": "nb3-tdgnn-LI-Small-H1-s2", "code": "9686ce184d525c0a", "seconds": 111.9624354839325}
+{"ts": 1793773991.7586114, "event": "start", "job": "nb3-tdgnn-LI-Small-H3600-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793774103.7374315, "event": "done", "job": "nb3-tdgnn-LI-Small-H3600-s2", "code": "9686ce184d525c0a", "seconds": 111.97882008552551}
+{"ts": 1793774103.8047807, "event": "start", "job": "nb3-tdgnn-LI-Small-H86400-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793774216.7431877, "event": "done", "job": "nb3-tdgnn-LI-Small-H86400-s2", "code": "9686ce184d525c0a", "seconds": 112.9384069442749}
+{"ts": 1793774216.8019204, "event": "start", "job": "nb3-tdgnn-LI-Small-Hinf-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793774333.5777214, "event": "done", "job": "nb3-tdgnn-LI-Small-Hinf-s2", "code": "9686ce184d525c0a", "seconds": 116.77580094337463}
+{"ts": 1793774333.7318413, "event": "start", "job": "nb3-tdgnn-HI-Small-H0-s2-attack", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793774348.076242, "event": "done", "job": "nb3-tdgnn-HI-Small-H0-s2-attack", "code": "9686ce184d525c0a", "seconds": 14.343396186828613}
+{"ts": 1793774348.2062902, "event": "start", "job": "nb3-tdgnn-HI-Small-H1-s2-attack", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793774360.7604213, "event": "done", "job": "nb3-tdgnn-HI-Small-H1-s2-attack", "code": "9686ce184d525c0a", "seconds": 12.554131031036377}
+{"ts": 1793774360.889351, "event": "start", "job": "nb3-tdgnn-HI-Small-H3600-s2-attack", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793774373.3778772, "event": "done", "job": "nb3-tdgnn-HI-Small-H3600-s2-attack", "code": "9686ce184d525c0a", "seconds": 12.488526344299316}
+{"ts": 1793774373.9867797, "event": "session_end", "job": "", "code": "9686ce184d525c0a", "counts": {"DONE": 14}}
+{"ts": 1793782149.549399, "event": "restore", "job": "", "code": "9686ce184d525c0a", "n": 0, "roots": []}
+{"ts": 1793782156.8036468, "event": "session_start", "job": "", "code": "9686ce184d525c0a", "n_jobs": 30, "budget": 5154.420466}
+{"ts": 1793782160.5451846, "event": "start", "job": "nb3-tdgnn-HI-Small-H60-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793782423.1433387, "event": "done", "job": "nb3-tdgnn-HI-Small-H60-s2", "code": "9686ce184d525c0a", "seconds": 262.59815406799316}
+{"ts": 1793782423.219136, "event": "start", "job": "nb3-tdgnn-HI-Small-H600-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793782682.8064356, "event": "done", "job": "nb3-tdgnn-HI-Small-H600-s2", "code": "9686ce184d525c0a", "seconds": 259.5872995853424}
+{"ts": 1793782682.9146538, "event": "start", "job": "nb3-tdgnn-HI-Small-H21600-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793782936.8812785, "event": "done", "job": "nb3-tdgnn-HI-Small-H21600-s2", "code": "9686ce184d525c0a", "seconds": 253.96562695503235}
+{"ts": 1793782936.967518, "event": "start", "job": "nb3-tdgnn-HI-Small-H259200-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793783185.2211168, "event": "done", "job": "nb3-tdgnn-HI-Small-H259200-s2", "code": "9686ce184d525c0a", "seconds": 248.25359869003296}
+{"ts": 1793783185.3724499, "event": "start", "job": "nb3-tdgnn-HI-Small-H0-nodir-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793783444.4089086, "event": "done", "job": "nb3-tdgnn-HI-Small-H0-nodir-s2", "code": "9686ce184d525c0a", "seconds": 259.03545475006104}
+{"ts": 1793783444.4936793, "event": "start", "job": "nb3-tdgnn-HI-Small-H1-nodir-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793783685.551658, "event": "done", "job": "nb3-tdgnn-HI-Small-H1-nodir-s2", "code": "9686ce184d525c0a", "seconds": 241.05797863006592}
+{"ts": 1793783685.627455, "event": "start", "job": "nb3-tdgnn-HI-Small-H3600-nodir-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793783925.542182, "event": "done", "job": "nb3-tdgnn-HI-Small-H3600-nodir-s2", "code": "9686ce184d525c0a", "seconds": 239.91472697257996}
+{"ts": 1793783925.5940425, "event": "start", "job": "nb3-tdgnn-HI-Small-H0-onehop-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793784027.883004, "event": "done", "job": "nb3-tdgnn-HI-Small-H0-onehop-s2", "code": "9686ce184d525c0a", "seconds": 102.28896141052246}
+{"ts": 1793784027.9605956, "event": "start", "job": "nb3-tdgnn-HI-Small-H1-onehop-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793784138.8792078, "event": "done", "job": "nb3-tdgnn-HI-Small-H1-onehop-s2", "code": "9686ce184d525c0a", "seconds": 110.918612241745}
+{"ts": 1793784139.0159347, "event": "start", "job": "nb3-tdgnn-HI-Small-H3600-onehop-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793784247.551451, "event": "done", "job": "nb3-tdgnn-HI-Small-H3600-onehop-s2", "code": "9686ce184d525c0a", "seconds": 108.53551626205444}
+{"ts": 1793784247.6640966, "event": "start", "job": "nb3-tdgnn-HI-Small-H0-nocount-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793784514.590242, "event": "done", "job": "nb3-tdgnn-HI-Small-H0-nocount-s2", "code": "9686ce184d525c0a", "seconds": 266.9251403808594}
+{"ts": 1793784514.7495582, "event": "start", "job": "nb3-tdgnn-HI-Small-H1-nocount-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793784779.7487254, "event": "done", "job": "nb3-tdgnn-HI-Small-H1-nocount-s2", "code": "9686ce184d525c0a", "seconds": 264.99816966056824}
+{"ts": 1793784779.81156, "event": "start", "job": "nb3-tdgnn-HI-Small-H3600-nocount-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793785028.3082747, "event": "done", "job": "nb3-tdgnn-HI-Small-H3600-nocount-s2", "code": "9686ce184d525c0a", "seconds": 248.4957151412964}
+{"ts": 1793785028.3995278, "event": "start", "job": "nb3-tdgnn-LI-Small-H0-s2-attack", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793785060.0288115, "event": "done", "job": "nb3-tdgnn-LI-Small-H0-s2-attack", "code": "9686ce184d525c0a", "seconds": 31.628284454345703}
+{"ts": 1793785060.1734278, "event": "start", "job": "nb3-tdgnn-LI-Small-H1-s2-attack", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793785084.7623036, "event": "done", "job": "nb3-tdgnn-LI-Small-H1-s2-attack", "code": "9686ce184d525c0a", "seconds": 24.588875770568848}
+{"ts": 1793785084.855054, "event": "start", "job": "nb3-tdgnn-LI-Small-H3600-s2-attack", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793785109.7910361, "event": "done", "job": "nb3-tdgnn-LI-Small-H3600-s2-attack", "code": "9686ce184d525c0a", "seconds": 24.93598222732544}
+{"ts": 1793785110.5330336, "event": "session_end", "job": "", "code": "9686ce184d525c0a", "counts": {"DONE": 30}}

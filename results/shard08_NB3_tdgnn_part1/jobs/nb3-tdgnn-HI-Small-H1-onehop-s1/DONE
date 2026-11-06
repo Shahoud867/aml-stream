@@ -1,0 +1,16 @@
+{
+ "job_id": "nb3-tdgnn-HI-Small-H1-onehop-s1",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "707edef727c44280",
+ "seconds_last_session": 110.96903371810913,
+ "finished": 1793784138.855261,
+ "files": {
+  "ckpt/best.bin": "2740ce9af15d64d45a4beef810e23a88f108056fb49b5d1dd4d494a230c66829",
+  "ckpt/best.bin.json": "5ab0c9f79e78932ec46bc28a2380ee4eadc9d2dff5a23c6c0523167cb3d56b7f",
+  "config.json": "7921716fa72d8811890d4413036ef529717d339e4729fb71092c71c5cecd6a34",
+  "log.jsonl": "b3eb8f127ff4edb86ef3dc259e20a33860339a305381de10323672c90a46511a",
+  "metrics.json": "ab88084f1114c047a31c9aa880b5b5614a301c913dc43e54976f2243b5b63c6f",
+  "scores_test.parquet": "4f71a9fb93b88a4efa1c04b7bc00e40bb22f97c33b1c46b56b0303b413c64a7e",
+  "scores_val.parquet": "3f635fc0110dac4b38e10f23cb403da4586e2080f6f1eabc0d2fa00c28ba13a5"
+ }
+}

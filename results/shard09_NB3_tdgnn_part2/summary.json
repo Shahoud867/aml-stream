@@ -1,0 +1,251 @@
+{
+ "notebook": "NB3",
+ "code_hash": "9686ce184d525c0a",
+ "counts": {
+  "DONE": 30
+ },
+ "jobs": [
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H3600-shuffled-s0",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H0-s2",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H1-s2",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H3600-s2",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H86400-s2",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-Hinf-s2",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-LI-Small-H0-s2",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-LI-Small-H1-s2",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-LI-Small-H3600-s2",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-LI-Small-H86400-s2",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-LI-Small-Hinf-s2",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H0-s2-attack",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H1-s2-attack",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H3600-s2-attack",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H60-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H600-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H21600-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H259200-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H0-nodir-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H1-nodir-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H3600-nodir-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H0-onehop-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H1-onehop-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H3600-onehop-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H0-nocount-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H1-nocount-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-HI-Small-H3600-nocount-s2",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-LI-Small-H0-s2-attack",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-LI-Small-H1-s2-attack",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb3-tdgnn-LI-Small-H3600-s2-attack",
+   "tier": "P1",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  }
+ ],
+ "session_seconds": 2962.864837169647,
+ "complete": true
+}

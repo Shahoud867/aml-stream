@@ -1,0 +1,11 @@
+{
+ "done": [
+  "W21600_none",
+  "W21600_burst",
+  "W21600_stretch",
+  "W21600_blend",
+  "W21600_shift_burst",
+  "W21600_shift_stretch",
+  "W21600_shift_blend"
+ ]
+}

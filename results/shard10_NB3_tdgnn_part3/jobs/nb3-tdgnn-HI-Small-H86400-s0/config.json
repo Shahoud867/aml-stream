@@ -1,0 +1,9 @@
+{
+ "job_id": "nb3-tdgnn-HI-Small-H86400-s0",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "H": "86400",
+  "seed": 0
+ }
+}

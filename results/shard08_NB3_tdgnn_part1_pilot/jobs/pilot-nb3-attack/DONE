@@ -1,0 +1,15 @@
+{
+ "job_id": "pilot-nb3-attack",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "30f62a203bdf1a71",
+ "seconds_last_session": 5.099794626235962,
+ "finished": 1793771938.6623976,
+ "files": {
+  "attack_W21600_blend.parquet": "cc4c319c6cec55d18f43c64aa96684ce4ca5d4d6f2f73d7999e65453371c2a64",
+  "attack_W21600_none.parquet": "e8d5b2f7a3a0b99a30694e7a981f489266aae5246242bf29b8169c7cf6996c5e",
+  "attack_W21600_shift_blend.parquet": "6d437c47392d30749cbccd9b9bfd4279f804e46c368dd7280f4e621e69dc0c38",
+  "config.json": "34cf7689b7fe5d9d1a1a3469f9274d719f3cb97926d6365361a5c0662742372a",
+  "metrics.json": "f3e25ebd4edeb4ef0b2b309b28222bb32d81818e84b9c204c396c6841d62ecb0",
+  "state.json": "8b9b7d10c1a233f119c119ddbaad2286ca6fe0893d0481da0932ac340fc07fe3"
+ }
+}

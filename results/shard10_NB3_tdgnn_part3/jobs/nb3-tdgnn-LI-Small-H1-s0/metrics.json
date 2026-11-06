@@ -1,0 +1,19 @@
+{
+ "best_epoch": 4,
+ "epochs_run": 6,
+ "device": "cuda",
+ "infer_seconds": 42.2,
+ "throughput_eps": 59016.776951562475,
+ "test_health": {
+  "n": 1174673,
+  "n_nan": 0,
+  "min": 0.0,
+  "max": 0.9990234375,
+  "n_distinct_sample": 4946
+ },
+ "tau": 0.98046875,
+ "val_f1": 0.20786026200873362,
+ "val_pr_auc": 0.1726518474846902,
+ "val_n": 1316442,
+ "val_pos": 770
+}

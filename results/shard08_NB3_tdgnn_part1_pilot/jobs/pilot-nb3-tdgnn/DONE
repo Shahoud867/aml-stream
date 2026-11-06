@@ -1,0 +1,16 @@
+{
+ "job_id": "pilot-nb3-tdgnn",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "8632d65589b69320",
+ "seconds_last_session": 50.5639328956604,
+ "finished": 1793771933.3459747,
+ "files": {
+  "ckpt/best.bin": "5ce8d14ef61fe80203a103865af2dac0ca42e1a6341bd248c26561cb7a1abf93",
+  "ckpt/best.bin.json": "01df952ed661c7f73d262d97a22c278c0786826086c0d7629d56bf942323638b",
+  "config.json": "5d410110c3245f197b2dfc8ce73dc12f3c5293f4a95aee2eb09314f6179e40cd",
+  "log.jsonl": "430986d5917fdcd648fbacbdc471199a5f41759ae3d621c915836d687ad0b875",
+  "metrics.json": "2ac957ae7f9916e865aa6e5307b060b4f4a4e02f2227021c1c0e09e205f0ced0",
+  "scores_test.parquet": "b2353ea6ffc5033492c51f8ad938ad00fef20a2e9fee21d01c4e728b594e723f",
+  "scores_val.parquet": "80a0bc916f197debeb075eba6d95770d73e6ee0a3236f2be22d7e71c51c93974"
+ }
+}
