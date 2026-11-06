@@ -1,0 +1,14 @@
+{
+ "model": "gin",
+ "dataset": "LI-Small",
+ "seed": 1,
+ "train_cadence": null,
+ "eval_mode": "official",
+ "epoch": 100,
+ "best_val_f1": 0.26632739609838846,
+ "best_epoch": 68,
+ "epoch_seconds": 1038.1612203121185,
+ "device": "cuda:0",
+ "coverage_val": 0.9999703746917828,
+ "coverage_test": 0.998788599039903
+}

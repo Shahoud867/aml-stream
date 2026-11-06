@@ -1,0 +1,10 @@
+{
+ "status": "DONE",
+ "job_id": "nb2-mgnn-gin-LI-Small-s1-replay3600",
+ "tier": "P0",
+ "config_hash": "59e73add49020ddb",
+ "code_hash": "9686ce184d525c0a",
+ "updated": 1793953442.778687,
+ "reason": "waiting for ['nb2-mgnn-gin-LI-Small-s1']",
+ "attempts": 1
+}

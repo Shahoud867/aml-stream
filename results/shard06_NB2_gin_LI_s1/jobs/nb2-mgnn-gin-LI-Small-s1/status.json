@@ -1,0 +1,10 @@
+{
+ "attempts": 1,
+ "status": "DONE",
+ "job_id": "nb2-mgnn-gin-LI-Small-s1",
+ "tier": "P0",
+ "config_hash": "974b46f04de4ff14",
+ "code_hash": "9686ce184d525c0a",
+ "updated": 1793952387.9900808,
+ "reason": "mgnn_train stopped for lack of session time"
+}

@@ -1,0 +1,43 @@
+{
+ "notebook": "NB2",
+ "code_hash": "9686ce184d525c0a",
+ "environment": {
+  "python": "3.11.0",
+  "machine": "AMD64",
+  "cpu_count": 16,
+  "torch": "2.5.1+cu121",
+  "cuda": true,
+  "gpus": [
+   "NVIDIA GeForce RTX 3080"
+  ],
+  "ram_gb": null,
+  "numpy": "1.26.4",
+  "polars": "2.1.0",
+  "lightgbm": "4.6.0",
+  "numba": "0.68.1",
+  "torch_geometric": "2.7.0"
+ },
+ "budget_seconds": 6007.875324,
+ "tiers": [
+  "P0"
+ ],
+ "shard": [
+  2,
+  4
+ ],
+ "raw_checks": [
+  {
+   "dataset": "LI-Small",
+   "rows": 6924049,
+   "sha256": "f7a9940339c78b5d1476071505b5867c0f5319640b9c4279d13f531bf965319d",
+   "verified": true
+  }
+ ],
+ "data_hashes": {
+  "LI-Small": "51096d635497f457"
+ },
+ "prepare_seconds": {
+  "LI-Small": 0.4
+ },
+ "restored_jobs": 0
+}

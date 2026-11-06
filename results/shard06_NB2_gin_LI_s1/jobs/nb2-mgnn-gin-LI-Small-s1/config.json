@@ -1,0 +1,10 @@
+{
+ "job_id": "nb2-mgnn-gin-LI-Small-s1",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "LI-Small",
+  "folder": "Small_LI",
+  "model": "gin",
+  "seed": 1
+ }
+}

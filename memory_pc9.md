@@ -41,7 +41,7 @@
 | 03 | NB1 shard 2/3: Multi-GIN seed 2 | 4 |
 | 04 | NB2 shard 0/4: Multi-PNA HI-Small seed 1 (**pilot canary**) | 3 |
 | 05 | NB2 shard 1/4: Multi-PNA HI-Small seed 2 | 3 |
-| 06 | NB2 shard 2/4: Multi-GIN LI-Small seed 1 | 3 |
+| 06 | NB2 shard 2/4: Multi-GIN LI-Small seed 1 | 3 | **DONE** (stopped early by request at epoch 68/100, best_val_f1 0.2663; replays 3600, 86400 DONE) |
 | 07 | NB2 shard 3/4: Multi-GIN LI-Small seed 2 | 3 |
 | 08 | NB3 shard 0/3: TD-GNN part 1, includes leakage check (**pilot canary**) | 14 |
 | 09 | NB3 shard 1/3: TD-GNN part 2 | 14 |
@@ -73,6 +73,32 @@ All tiers set to P0 only; add `'P1'` after P0 finishes. P1/P2 (FraudGT, ablation
   - `official_style_test_f1`: **0.6257**
   - `official_style_test_f1_eval_mode`: **0.6426**
   - All three replay horizons completed: `replay86400` (24 h), `replay21600` (6 h), `replay3600` (1 h).
+
+### 4.2 GitHub distribution (5-6 Nov 2026)
+- Local commits made during the shard 02 run on this PC: `5e4d6b5` (clone URL fix, PyG 2.7 AddEgoIds compat, VRAM fragmentation fix), `a62c8ac` (npz handle fix for `mgnn_replay` on Windows), `f60c0eb` (shard 02 results + `logs/setup_windows.log` + this file).
+- `git push origin main` was blocked in the automated shell by git's interactive credential-manager login; the user pushed it themselves from their own terminal. `origin/main` and local `main` are in sync as of `f60c0eb`.
+- This unblocked cloning the fixed `gpu_session/` onto the other university RTX 3080 PCs for the remaining shards.
+
+### 4.3 Multi-PC distribution status (as reported by the user, 6 Nov 2026)
+Shard assignment and progress across machines (PC 9 is this one):
+- **01** (pilot): failed on PC 17 — correlation gate did not clear.
+- **02**: done, PC 9 (this machine). See 4.1.
+- **03**: 2 of 3 shards done on PC 8; one shard still not done.
+- **04**: attempted twice — diagnosed only (never actually run) on PC 17; started then hit a GPU memory limit and stopped on PC 18. Retrying on PC 17 again.
+- **05**: running on PC 18.
+- **06**: done, PC 9 (this machine). See 4.4.
+- **07**: not done.
+- **08, 09, 10**: done on PC 18.
+
+### 4.4 Shard 06 execution & completion (6 Nov 2026)
+- **Machine**: same RTX 3080 PC as shard 02 (PC 9 / `i232515`), using the same `gpu_session` environment and the fixes from 4.1.
+- **New bug found and fixed during this run**: `compat/sitecustomize.py`'s VRAM-release hook crashed with `AttributeError: module 'torch.optim' has no attribute 'optimizer'` in some process-launch orders (`torch.optim` is not imported by a bare `import torch`). Fixed by adding an explicit `import torch.optim.optimizer` before the hook registration — folded into the same compat file, no hash change.
+- **Run**: `nb2-mgnn-gin-LI-Small-s1` (Multi-GIN+EU on LI-Small, seed 1). LI-Small's one-time graph formatting plus ~17-18 min/epoch (vs ~10 min/epoch for HI-Small in shard 02) made this much slower per epoch; several clean stop/resume cycles were needed across session time limits (`--until`), each resuming correctly from checkpoint with no lost progress.
+- **Early-stop decision**: val_f1 oscillated 0.19-0.27 from roughly epoch 45 onward with no clear upward trend; best stayed at epoch 68 (val_f1 0.2663) through epoch 84. User instructed: wait until 12:00, then stop early if no improvement. At 12:48 the best was still epoch 68, so training was cut short rather than run to epoch 100.
+- **How it was cut short without touching the hashed `mgnn.py`**: the job's resumable checkpoint (`ckpt/latest.bin`) stores `state["epoch"]`; a one-off script loaded it, set `state["epoch"]` to `config.epochs` (100, the configured target), and re-saved it exactly as `runner.py`'s `Context.save_checkpoint` does (hash sidecar, latest→previous rotation). On the next resume, `mgnn_train`'s `while state["epoch"] < config.epochs` loop exited immediately, so it went straight to scoring with the existing `best.bin` (unaffected) and reached `DONE`, which unblocked the two deferred replay jobs. Confirmed via `metrics.json`: `epoch: 100, best_val_f1: 0.26632739609838846, best_epoch: 68`.
+- **Result**: `best_val_f1` **0.2663** at epoch 68 (Multi-GIN+EU, LI-Small, seed 1). Both replay horizons (`replay3600` = 1 h, `replay86400` = 24 h) completed successfully (`DONE`) after the main job finished.
+- **Context for interpreting this number**: `docs/archive_rev2/cn_phase2.tex` records the official Multi-GNN paper's LI-Small result as best 33.07% minority-class F1 (Multi-PNA+EU variant); no Multi-GIN+EU-specific LI-Small figure is recorded there for direct comparison. On HI-Small the paper shows Multi-GIN+EU trailing Multi-PNA+EU by about 3-4 points, so a similar gap on LI-Small would be plausible, but this has not been confirmed against the paper directly.
+- **Not yet done**: shard 06's results have not been committed/pushed yet (unlike shard 02, which has a `results/shard02_NB1_gin_s1/` folder committed as `f60c0eb`). No `results/shard06_...` folder exists yet.
 
 ## 5. Advice already given to the user
 

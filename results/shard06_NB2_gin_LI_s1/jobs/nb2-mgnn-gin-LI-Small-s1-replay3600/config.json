@@ -1,0 +1,12 @@
+{
+ "job_id": "nb2-mgnn-gin-LI-Small-s1-replay3600",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "LI-Small",
+  "folder": "Small_LI",
+  "model": "gin",
+  "seed": 1,
+  "train_job": "nb2-mgnn-gin-LI-Small-s1",
+  "cadence": 3600
+ }
+}

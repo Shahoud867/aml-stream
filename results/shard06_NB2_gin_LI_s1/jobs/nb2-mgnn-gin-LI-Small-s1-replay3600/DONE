@@ -1,0 +1,16 @@
+{
+ "job_id": "nb2-mgnn-gin-LI-Small-s1-replay3600",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "59e73add49020ddb",
+ "seconds_last_session": 565.4332449436188,
+ "finished": 1793953442.7542708,
+ "files": {
+  "config.json": "331a16c4acb4132fb61c3b1524666d0f55e4f5894033f2fb0230d92673336246",
+  "isolated_result.json": "f1300ffb7e40f5b6b37f87a7a219aa3f99104867d0b3eec1f0bdfcb9d515de42",
+  "log.jsonl": "07abcc4c86bcbf730615f722d6ad05b788694e5ee7637c9dee3bc0322f506a6a",
+  "metrics.json": "f1300ffb7e40f5b6b37f87a7a219aa3f99104867d0b3eec1f0bdfcb9d515de42",
+  "scores_test.parquet": "393c7404461299d3f926f9402b951d2335fb13ebd926711260baf67826618718",
+  "scores_val.parquet": "fb4d7ebe083bf0e8831634dfcc5b0b4c33baeb7e2eac09bcc337ad0a86673085",
+  "state.json": "2cbeaad043f7c74918dfa697f04de92a629c4451ba861ff572d44a4d55537280"
+ }
+}

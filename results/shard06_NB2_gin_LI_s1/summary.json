@@ -1,0 +1,35 @@
+{
+ "notebook": "NB2",
+ "code_hash": "9686ce184d525c0a",
+ "counts": {
+  "DONE": 3
+ },
+ "jobs": [
+  {
+   "job_id": "nb2-mgnn-gin-LI-Small-s1",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": "mgnn_train stopped for lack of session time",
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb2-mgnn-gin-LI-Small-s1-replay86400",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": "waiting for ['nb2-mgnn-gin-LI-Small-s1']",
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb2-mgnn-gin-LI-Small-s1-replay3600",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": "waiting for ['nb2-mgnn-gin-LI-Small-s1']",
+   "verified": true,
+   "detail": ""
+  }
+ ],
+ "session_seconds": 2049.2073435783386,
+ "complete": true
+}
