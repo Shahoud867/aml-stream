@@ -1,0 +1,23 @@
+{"ts": 1793863447.8636155, "event": "isolated_start", "function": "amlh.mgnn.mgnn_train", "ram_gb": null}
+{"ts": 1793864366.6253107, "event": "epoch", "epoch": 0, "loss": 0.02564783993143655, "val_f1": 0.275527528498666, "seconds": 909.2317202091217}
+{"ts": 1793865270.596393, "event": "epoch", "epoch": 1, "loss": 0.016227376754243034, "val_f1": 0.48098765432098767, "seconds": 903.8807692527771}
+{"ts": 1793866176.863277, "event": "epoch", "epoch": 2, "loss": 0.014633751684807716, "val_f1": 0.48123021257349613, "seconds": 906.1918861865997}
+{"ts": 1793867085.1247108, "event": "epoch", "epoch": 3, "loss": 0.013819776692630514, "val_f1": 0.5226514067715784, "seconds": 908.1563739776611}
+{"ts": 1793867996.8440075, "event": "epoch", "epoch": 4, "loss": 0.013173885223957784, "val_f1": 0.5809379727685325, "seconds": 911.6521356105804}
+{"ts": 1793868907.1349173, "event": "epoch", "epoch": 5, "loss": 0.012756364714818617, "val_f1": 0.46130952380952384, "seconds": 910.1601152420044}
+{"ts": 1793869822.583403, "event": "epoch", "epoch": 6, "loss": 0.012556710814968517, "val_f1": 0.6090225563909775, "seconds": 915.3699431419373}
+{"ts": 1793870732.3723202, "event": "epoch", "epoch": 7, "loss": 0.012314003808719593, "val_f1": 0.5897824987354577, "seconds": 909.7051408290863}
+{"ts": 1793871646.5359454, "event": "epoch", "epoch": 8, "loss": 0.012109290759954273, "val_f1": 0.6149897330595483, "seconds": 913.6786901950836}
+{"ts": 1793872545.4597394, "event": "epoch", "epoch": 9, "loss": 0.011973472626777375, "val_f1": 0.5902313624678663, "seconds": 898.8292036056519}
+{"ts": 1793873452.7233424, "event": "epoch", "epoch": 10, "loss": 0.011953399276308478, "val_f1": 0.5847665847665847, "seconds": 906.7193355560303}
+{"ts": 1793873458.0383644, "event": "isolated_start", "function": "amlh.mgnn.mgnn_train", "ram_gb": null}
+{"ts": 1793873467.3696613, "event": "resumed", "epoch": 11}
+{"ts": 1793873473.214065, "event": "isolated_start", "function": "amlh.mgnn.mgnn_train", "ram_gb": null}
+{"ts": 1793873482.3789353, "event": "resumed", "epoch": 11}
+{"ts": 1793873483.3218358, "event": "isolated_start", "function": "amlh.mgnn.mgnn_train", "ram_gb": null}
+{"ts": 1793873492.552413, "event": "resumed", "epoch": 11}
+{"ts": 1793935286.9444013, "event": "isolated_start", "function": "amlh.mgnn.mgnn_train", "ram_gb": null}
+{"ts": 1793935297.1678183, "event": "resumed", "epoch": 11}
+{"ts": 1793936220.6113322, "event": "epoch", "epoch": 11, "loss": 0.011834998889779276, "val_f1": 0.6095334685598377, "seconds": 923.4425141811371}
+{"ts": 1793937148.0709565, "event": "epoch", "epoch": 12, "loss": 0.011793776047184155, "val_f1": 0.5505163897620117, "seconds": 926.9575364589691}
+{"ts": 1793938067.46178, "event": "epoch", "epoch": 13, "loss": 0.011669190037846472, "val_f1": 0.6075566750629723, "seconds": 918.8323547840118}

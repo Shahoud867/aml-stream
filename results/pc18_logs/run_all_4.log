@@ -1,0 +1,126 @@
+GPUs ['0'], capacity 3 each, stop at 15:15, output E:\aml\aml_out
+   4 NB2 shard 0/4  04_NB2_pna_HI_s1_PILOT
+
+[1/4] pre-flight
+[PASS] Python 3.10 to 3.12: 3.11.0
+[PASS] torch 2.5.1: 2.5.1+cu121
+[PASS] CUDA is usable by torch: 12.1
+[PASS] GPU memory: NVIDIA GeForce RTX 3080, 10.0 GB
+[PASS] a matrix multiply runs on the GPU
+[PASS] import torch_scatter: 2.1.2+pt25cu121
+[PASS] import torch_sparse: 0.6.18+pt25cu121
+[PASS] import torch_geometric: 2.7.0
+[PASS] import polars: 2.1.0
+[PASS] import numba: 0.68.1
+[PASS] import lightgbm: 4.6.0
+[PASS] import pyarrow: 17.0.0
+[PASS] import sklearn: 1.9.1
+[PASS] import pandas: 3.0.6
+[PASS] import numpy: 1.26.4
+[PASS] import tqdm: 4.70.1
+[PASS] import wandb: 0.31.0
+[PASS] numpy below 2 (the official code needs it): 1.26.4
+[PASS] torch-geometric 2.7.0 (2.6.1 breaks the official model builder): 2.7.0
+[PASS] Multi-GNN at the pinned commit: 252b0252af
+[PASS] FraudGT at the pinned commit: f88db9dc00
+[PASS] code hash equals the one the notebooks expect: 9686ce184d525c0a
+[PASS] raw HI-Small_Trans.csv is whole (row count and SHA-256): 5078345 rows
+[PASS] raw LI-Small_Trans.csv is whole (row count and SHA-256): 6924049 rows
+[PASS] free disk space above 40 GB: 789 GB
+[PASS] RAM of at least 16 GB (data preparation peaks near 12 GB for HI-Small-sized work): 32 GB
+
+ALL CHECKS PASSED
+
+[2/4] preparing data once
+  HI-Small ready in 0 s
+  LI-Small ready in 0 s
+
+[3/4] canary pilots (one per kind)
+  start pilot      04_NB2_pna_HI_s1_PILOT on GPU 0
+  done  04_NB2_pna_HI_s1_PILOT exit code 2
+  pilot NB2: FAIL or missing  (E:\aml\aml_out\04_NB2_pna_HI_s1_PILOT\aml_pilot\PILOT_REPORT.md)
+
+[4/4] production
+  NOT launching NB2: its pilot did not pass. Read the report, fix, and run this command again.
+
+=== summary
+   4 04_NB2_pna_HI_s1_PILOT                 exit -  no summary
+Re-run the same command to resume anything that stopped at the time limit.
+GPUs ['0'], capacity 3 each, stop at 15:15, output E:\aml\aml_out
+   4 NB2 shard 0/4  04_NB2_pna_HI_s1_PILOT
+
+[1/4] pre-flight
+[PASS] Python 3.10 to 3.12: 3.11.0
+[PASS] torch 2.5.1: 2.5.1+cu121
+[PASS] CUDA is usable by torch: 12.1
+[PASS] GPU memory: NVIDIA GeForce RTX 3080, 10.0 GB
+[PASS] a matrix multiply runs on the GPU
+[PASS] import torch_scatter: 2.1.2+pt25cu121
+[PASS] import torch_sparse: 0.6.18+pt25cu121
+[PASS] import torch_geometric: 2.7.0
+[PASS] import polars: 2.1.0
+[PASS] import numba: 0.68.1
+[PASS] import lightgbm: 4.6.0
+[PASS] import pyarrow: 17.0.0
+[PASS] import sklearn: 1.9.1
+[PASS] import pandas: 3.0.6
+[PASS] import numpy: 1.26.4
+[PASS] import tqdm: 4.70.1
+[PASS] import wandb: 0.31.0
+[PASS] numpy below 2 (the official code needs it): 1.26.4
+[PASS] torch-geometric 2.7.0 (2.6.1 breaks the official model builder): 2.7.0
+[PASS] Multi-GNN at the pinned commit: 252b0252af
+[PASS] FraudGT at the pinned commit: f88db9dc00
+[PASS] code hash equals the one the notebooks expect: 9686ce184d525c0a
+[PASS] raw HI-Small_Trans.csv is whole (row count and SHA-256): 5078345 rows
+[PASS] raw LI-Small_Trans.csv is whole (row count and SHA-256): 6924049 rows
+[PASS] free disk space above 40 GB: 788 GB
+[PASS] RAM of at least 16 GB (data preparation peaks near 12 GB for HI-Small-sized work): 32 GB
+
+ALL CHECKS PASSED
+
+[2/4] preparing data once
+  HI-Small ready in 0 s
+  LI-Small ready in 0 s
+
+[3/4] canary pilots (one per kind)
+  start pilot      04_NB2_pna_HI_s1_PILOT on GPU 0
+GPUs ['0'], capacity 3 each, stop at 15:15, output E:\aml\aml_out
+   4 NB2 shard 0/4  04_NB2_pna_HI_s1_PILOT
+
+[1/4] pre-flight
+[PASS] Python 3.10 to 3.12: 3.11.0
+[PASS] torch 2.5.1: 2.5.1+cu121
+[PASS] CUDA is usable by torch: 12.1
+[PASS] GPU memory: NVIDIA GeForce RTX 3080, 10.0 GB
+[PASS] a matrix multiply runs on the GPU
+[PASS] import torch_scatter: 2.1.2+pt25cu121
+[PASS] import torch_sparse: 0.6.18+pt25cu121
+[PASS] import torch_geometric: 2.7.0
+[PASS] import polars: 2.1.0
+[PASS] import numba: 0.68.1
+[PASS] import lightgbm: 4.6.0
+[PASS] import pyarrow: 17.0.0
+[PASS] import sklearn: 1.9.1
+[PASS] import pandas: 3.0.6
+[PASS] import numpy: 1.26.4
+[PASS] import tqdm: 4.70.1
+[PASS] import wandb: 0.31.0
+[PASS] numpy below 2 (the official code needs it): 1.26.4
+[PASS] torch-geometric 2.7.0 (2.6.1 breaks the official model builder): 2.7.0
+[PASS] Multi-GNN at the pinned commit: 252b0252af
+[PASS] FraudGT at the pinned commit: f88db9dc00
+[PASS] code hash equals the one the notebooks expect: 9686ce184d525c0a
+[PASS] raw HI-Small_Trans.csv is whole (row count and SHA-256): 5078345 rows
+[PASS] raw LI-Small_Trans.csv is whole (row count and SHA-256): 6924049 rows
+[PASS] free disk space above 40 GB: 787 GB
+[PASS] RAM of at least 16 GB (data preparation peaks near 12 GB for HI-Small-sized work): 32 GB
+
+ALL CHECKS PASSED
+
+[2/4] preparing data once
+  HI-Small ready in 0 s
+  LI-Small ready in 0 s
+
+[3/4] canary pilots (one per kind)
+  start pilot      04_NB2_pna_HI_s1_PILOT on GPU 0

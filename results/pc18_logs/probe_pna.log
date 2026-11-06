@@ -1,0 +1,6 @@
+code hash 9686ce184d525c0a OK
+GPUs: ['GPU 0: NVIDIA GeForce RTX 3080 (UUID: GPU-3e441960-0855-5624-a0c4-85cbee0e38e8)']
+budget 0.14 h
+NB2: complete=False counts={'FAILED': 1} session=0.02h
+  FAILED       nb2-mgnn-pna-HI-Small-s1  RuntimeError('mgnn_train failed with exit 1. Its last output:\n\\site-packages\\
+{'notebook': 'NB2', 'code_hash': '9686ce184d525c0a', 'counts': {'FAILED': 1}, 'session_seconds': 58.60554003715515, 'complete': False}

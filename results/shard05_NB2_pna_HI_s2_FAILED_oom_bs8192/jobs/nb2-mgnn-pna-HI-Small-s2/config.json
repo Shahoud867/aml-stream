@@ -1,0 +1,10 @@
+{
+ "job_id": "nb2-mgnn-pna-HI-Small-s2",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "folder": "Small_HI",
+  "model": "pna",
+  "seed": 2
+ }
+}

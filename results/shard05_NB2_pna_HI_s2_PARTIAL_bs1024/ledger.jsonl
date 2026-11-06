@@ -1,0 +1,14 @@
+{"ts": 1793863443.3666327, "event": "restore", "job": "", "code": "9686ce184d525c0a", "n": 0, "roots": []}
+{"ts": 1793863447.8207884, "event": "session_start", "job": "", "code": "9686ce184d525c0a", "n_jobs": 3, "budget": 10259.193793}
+{"ts": 1793863447.8626156, "event": "start", "job": "nb2-mgnn-pna-HI-Small-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793873457.9399827, "event": "interrupted", "job": "nb2-mgnn-pna-HI-Small-s2", "code": "9686ce184d525c0a", "reason": "mgnn_train stopped for lack of session time"}
+{"ts": 1793873458.0373585, "event": "start", "job": "nb2-mgnn-pna-HI-Small-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": true}
+{"ts": 1793873473.0446534, "event": "interrupted", "job": "nb2-mgnn-pna-HI-Small-s2", "code": "9686ce184d525c0a", "reason": "mgnn_train stopped for lack of session time"}
+{"ts": 1793873473.2120645, "event": "start", "job": "nb2-mgnn-pna-HI-Small-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": true}
+{"ts": 1793873483.2209065, "event": "interrupted", "job": "nb2-mgnn-pna-HI-Small-s2", "code": "9686ce184d525c0a", "reason": "mgnn_train stopped for lack of session time"}
+{"ts": 1793873483.3198283, "event": "start", "job": "nb2-mgnn-pna-HI-Small-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": true}
+{"ts": 1793873498.3618743, "event": "interrupted", "job": "nb2-mgnn-pna-HI-Small-s2", "code": "9686ce184d525c0a", "reason": "mgnn_train stopped for lack of session time"}
+{"ts": 1793873498.5122597, "event": "session_end", "job": "", "code": "9686ce184d525c0a", "counts": {"INTERRUPTED": 1, "DEFERRED": 2}}
+{"ts": 1793935278.6881838, "event": "restore", "job": "", "code": "9686ce184d525c0a", "n": 0, "roots": []}
+{"ts": 1793935286.8547912, "event": "session_start", "job": "", "code": "9686ce184d525c0a", "n_jobs": 3, "budget": 54528.451391}
+{"ts": 1793935286.9423711, "event": "start", "job": "nb2-mgnn-pna-HI-Small-s2", "code": "9686ce184d525c0a", "attempt": 1, "resumed": true}

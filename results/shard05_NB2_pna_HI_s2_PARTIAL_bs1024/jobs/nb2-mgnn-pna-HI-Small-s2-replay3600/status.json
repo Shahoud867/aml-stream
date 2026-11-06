@@ -1,0 +1,9 @@
+{
+ "status": "DEFERRED",
+ "job_id": "nb2-mgnn-pna-HI-Small-s2-replay3600",
+ "tier": "P0",
+ "config_hash": "7675a19948650731",
+ "code_hash": "9686ce184d525c0a",
+ "updated": 1793873498.4202006,
+ "reason": "waiting for ['nb2-mgnn-pna-HI-Small-s2']"
+}

@@ -1,0 +1,36 @@
+{
+ "notebook": "NB2",
+ "code_hash": "9686ce184d525c0a",
+ "counts": {
+  "INTERRUPTED": 1,
+  "DEFERRED": 2
+ },
+ "jobs": [
+  {
+   "job_id": "nb2-mgnn-pna-HI-Small-s2",
+   "tier": "P0",
+   "status": "INTERRUPTED",
+   "reason": "mgnn_train stopped for lack of session time",
+   "verified": false,
+   "detail": "no DONE marker"
+  },
+  {
+   "job_id": "nb2-mgnn-pna-HI-Small-s2-replay86400",
+   "tier": "P0",
+   "status": "DEFERRED",
+   "reason": "waiting for ['nb2-mgnn-pna-HI-Small-s2']",
+   "verified": false,
+   "detail": "no DONE marker"
+  },
+  {
+   "job_id": "nb2-mgnn-pna-HI-Small-s2-replay3600",
+   "tier": "P0",
+   "status": "DEFERRED",
+   "reason": "waiting for ['nb2-mgnn-pna-HI-Small-s2']",
+   "verified": false,
+   "detail": "no DONE marker"
+  }
+ ],
+ "session_seconds": 10055.687608480453,
+ "complete": false
+}
