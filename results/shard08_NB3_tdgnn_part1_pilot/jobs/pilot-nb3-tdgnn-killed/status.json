@@ -1,0 +1,10 @@
+{
+ "attempts": 2,
+ "status": "DONE",
+ "job_id": "pilot-nb3-tdgnn-killed",
+ "tier": "P0",
+ "config_hash": "8632d65589b69320",
+ "code_hash": "9686ce184d525c0a",
+ "updated": 1793772002.9799507,
+ "heartbeat": 1793771947.5748212
+}

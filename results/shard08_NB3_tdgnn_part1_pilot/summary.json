@@ -1,0 +1,19 @@
+{
+ "notebook": "NB3",
+ "code_hash": "9686ce184d525c0a",
+ "counts": {
+  "DONE": 1
+ },
+ "jobs": [
+  {
+   "job_id": "pilot-nb3-tdgnn-killed",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  }
+ ],
+ "session_seconds": 43.49533247947693,
+ "complete": true
+}

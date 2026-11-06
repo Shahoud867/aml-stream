@@ -1,0 +1,10 @@
+{
+ "attempts": 1,
+ "status": "RUNNING",
+ "job_id": "pilot-nb2-mgnn-pna",
+ "tier": "P0",
+ "config_hash": "dd6f3bdb5ed67953",
+ "code_hash": "9686ce184d525c0a",
+ "updated": 1793776177.3316762,
+ "heartbeat": 1793781030.9062738
+}

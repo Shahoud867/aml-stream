@@ -1,0 +1,11 @@
+{
+ "job_id": "pilot-nb3-service",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "e6a1c1f4bdd623de",
+ "seconds_last_session": 0.8829145431518555,
+ "finished": 1793771939.6931295,
+ "files": {
+  "config.json": "972227310100ac01e46fe5a0051a300c97fcac0ec179bd975c23d8cac2cbc097",
+  "metrics.json": "d018e28564ac3d4eea0b7603e1c80181e5f1ee1cf5d1630b4f47a6a4ff75bf39"
+ }
+}
