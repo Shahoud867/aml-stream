@@ -1,0 +1,9 @@
+{
+ "job_id": "nb3-tdgnn-LI-Small-Hinf-s0",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "LI-Small",
+  "H": "inf",
+  "seed": 0
+ }
+}

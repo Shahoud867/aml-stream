@@ -1,0 +1,10 @@
+{
+ "job_id": "pilot-nb3-tdgnn-killed",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "H": "3600",
+  "seed": 0,
+  "epochs": 2
+ }
+}

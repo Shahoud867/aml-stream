@@ -1,0 +1,17 @@
+{
+ "job_id": "nb3-tdgnn-LI-Small-Hinf-s0",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "9399c35a72d17ccf",
+ "seconds_last_session": 133.05852508544922,
+ "finished": 1793775607.8295453,
+ "files": {
+  "ckpt/best.bin": "e05ecec6f5b748515164a68c0b18554eae7f9d7f21d45ab7aafaaed366ed46ae",
+  "ckpt/best.bin.json": "15a2e75659c1ff48ff87de457990ba4caa16e3dc7b17ab95d5907f74154d2ece",
+  "config.json": "afc34c3e73c87470b6898297b03243f4cf06f86514c8236ad10fdf3944afe5cf",
+  "log.jsonl": "d5686ef47151f736f9a7e1894840a3b5e75dd78e8d9f4e731b94e387450d080b",
+  "metrics.json": "6a17af2a12d7f5c6db8416b8ba40089117be4f85d219635ba77e96dfdd26843d",
+  "scores_test.parquet": "54c25b144088b7ac9286f0d7363edb158d09ddf76d7d33a46c1ce44356bff462",
+  "scores_val.parquet": "b72eade77f941221756398d8efc42faa8c21b898814cc5b5594eb09d1a68109b",
+  "status.failed_1146_cuda_context_lost.json": "511c5cbd96492f5355e43447675b260617d5d59ce8f6074d5a3b1373b71ca3a6"
+ }
+}

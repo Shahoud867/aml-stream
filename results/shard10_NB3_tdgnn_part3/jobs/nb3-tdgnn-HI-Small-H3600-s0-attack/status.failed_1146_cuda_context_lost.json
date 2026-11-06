@@ -1,0 +1,11 @@
+{
+ "attempts": 3,
+ "status": "FAILED",
+ "job_id": "nb3-tdgnn-HI-Small-H3600-s0-attack",
+ "tier": "P0",
+ "config_hash": "6aff2aeda5838d1d",
+ "code_hash": "9686ce184d525c0a",
+ "updated": 1793774801.7220654,
+ "reason": "RuntimeError('CUDA error: unknown error\\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\\n')",
+ "traceback": "Traceback (most recent call last):\n  File \"E:\\aml\\aml-stream\\src\\amlh\\runner.py\", line 299, in run_job\n    metrics = self._resolve(spec.fn)(ctx, spec.cfg) or {}\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\aml\\aml-stream\\src\\amlh\\jobs_gnn.py\", line 239, in tdgnn_attack\n    model, c = _load_trained(ctx, cfg, s, device)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\aml\\aml-stream\\src\\amlh\\jobs_gnn.py\", line 221, in _load_trained\n    model = _build_model(s, c).to(device)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\aml\\aml-stream\\.venv-gpu\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 1340, in to\n    return self._apply(convert)\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\aml\\aml-stream\\.venv-gpu\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 900, in _apply\n    module._apply(fn)\n  File \"E:\\aml\\aml-stream\\.venv-gpu\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 900, in _apply\n    module._apply(fn)\n  File \"E:\\aml\\aml-stream\\.venv-gpu\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 927, in _apply\n    param_applied = fn(param)\n                    ^^^^^^^^^\n  File \"E:\\aml\\aml-stream\\.venv-gpu\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 1326, in convert\n    return t.to(\n           ^^^^^\nRuntimeError: CUDA error: unknown error\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n\n"
+}

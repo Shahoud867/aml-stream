@@ -82,10 +82,10 @@ This section mirrors `project_aml_gpu_shard_run.md` kept in Claude's persistent 
 **Shard map recap:** 01-03 = NB1 Multi-GIN HI-Small; 04-07 = NB2 Multi-PNA/Multi-GIN; 08-10 = NB3 TD-GNN.
 
 On this machine (**PC 18**):
-- **Shard 09, 10**: fully DONE (30 jobs each). Committed to git as part of `aafef70`, reported pushed.
-- **Shard 08**: only a pilot ran here; full production is elsewhere.
-- **Shard 05** (Multi-PNA HI-Small seed 2): actively training, resumed from checkpoint, `batch_size` forced to 1024 (see D-020 below). ~15.3-15.8 min/epoch, 100 epochs total; last check was around epoch 31/100.
-- **Shard 04**: only a pilot ran on PC 18; full shard 04 assigned to PC 17, which hit the same OOM and also had to drop to batch_size 1024.
+- **NB3 Shards 08, 09, 10**: fully DONE (30 jobs each, 90 jobs total across seeds 0, 1, and 2, including all horizons, ablations, attacks, and service time profiles). Tracked in `results/shard08_NB3_tdgnn_part1/`, `results/shard09_NB3_tdgnn_part2/`, and `results/shard10_NB3_tdgnn_part3/`.
+- **Canary Pilots**: Shard 08 pilot tracked in `results/shard08_NB3_tdgnn_part1_pilot/` and Shard 04 pilot tracked in `results/shard04_NB2_pna_HI_s1_pilot/`.
+- **Shard 05** (Multi-PNA HI-Small seed 2): actively training, resumed from checkpoint, `batch_size` forced to 1024 (see D-020 below). ~15.3-15.8 min/epoch, 100 epochs total; training past epoch 34/100.
+- **Shard 04**: pilot ran on PC 18; full production assigned to PC 17 (also using batch_size 1024).
 
 Elsewhere (per the user's own status reports, not independently verified):
 - Shard 01 failed on PC 17 ("correlation gate didn't clear") — unresolved, no diagnostic detail obtained yet.
@@ -97,6 +97,6 @@ Elsewhere (per the user's own status reports, not independently verified):
 
 A Kaggle-style environment (4 CPU, 32 GB RAM, RTX Pro 6000 Blackwell, 96 GB VRAM, 12 h session cap) was discussed for re-running shard 04 at the *true* official batch_size 8192 (96 GB easily covers the ~8.8 GB need, so no deviation needed there) — but real per-epoch timing on that hardware was never measured, so whether 100 epochs fits one 12 h session is unconfirmed. A short probe run was recommended before committing a full session.
 
-**Git status:** commit `aafef70` (fix_pyg.py sitecustomize hook + run_gpu.py `--batch-size` flag + DECISIONS.md D-020) exists locally on PC 18 but could not be pushed to `origin/main` — the configured Git Credential Manager needs interactive browser auth, unavailable in this non-interactive session. Needs either a manual push by the user or a PAT.
+**Git status:** All PC-18 work (fixes, deviations, operational notes, and complete Shard 08/09/10 results and pilots) pushed to branch `PC-18` on GitHub (`origin/PC-18`).
 
 See also the operational lessons captured in Claude's memory file `feedback_pc18_session_ops.md` (lock vs. sign-out, the GPU memory-spill fix, confirming GPU power/clocks are already at hardware max on this card, safe checkpoint-copy timing, no git/admin by default on this PC).

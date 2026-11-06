@@ -1,0 +1,17 @@
+{"ts": 1793771879.012976, "event": "restore", "job": "", "code": "9686ce184d525c0a", "n": 0, "roots": []}
+{"ts": 1793771882.699223, "event": "session_start", "job": "", "code": "9686ce184d525c0a", "n_jobs": 3, "budget": 3600.0}
+{"ts": 1793771882.7500026, "event": "start", "job": "pilot-nb3-tdgnn", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793771933.3696115, "event": "done", "job": "pilot-nb3-tdgnn", "code": "9686ce184d525c0a", "seconds": 50.619608879089355}
+{"ts": 1793771933.5064697, "event": "start", "job": "pilot-nb3-attack", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793771938.686098, "event": "done", "job": "pilot-nb3-attack", "code": "9686ce184d525c0a", "seconds": 5.179628372192383}
+{"ts": 1793771938.7982473, "event": "start", "job": "pilot-nb3-service", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793771939.755962, "event": "done", "job": "pilot-nb3-service", "code": "9686ce184d525c0a", "seconds": 0.9577145576477051}
+{"ts": 1793771939.8481388, "event": "session_end", "job": "", "code": "9686ce184d525c0a", "counts": {"DONE": 3}}
+{"ts": 1793771941.6920428, "event": "restore", "job": "", "code": "9686ce184d525c0a", "n": 0, "roots": []}
+{"ts": 1793771945.347758, "event": "session_start", "job": "", "code": "9686ce184d525c0a", "n_jobs": 1, "budget": 3536.04136967659}
+{"ts": 1793771945.3979013, "event": "start", "job": "pilot-nb3-tdgnn-killed", "code": "9686ce184d525c0a", "attempt": 1, "resumed": false}
+{"ts": 1793771959.5563126, "event": "restore", "job": "", "code": "9686ce184d525c0a", "n": 0, "roots": []}
+{"ts": 1793771963.205621, "event": "session_start", "job": "", "code": "9686ce184d525c0a", "n_jobs": 1, "budget": 3536.04136967659}
+{"ts": 1793771963.2723942, "event": "start", "job": "pilot-nb3-tdgnn-killed", "code": "9686ce184d525c0a", "attempt": 2, "resumed": true}
+{"ts": 1793772002.9799507, "event": "done", "job": "pilot-nb3-tdgnn-killed", "code": "9686ce184d525c0a", "seconds": 39.7065589427948}
+{"ts": 1793772003.0806413, "event": "session_end", "job": "", "code": "9686ce184d525c0a", "counts": {"DONE": 1}}

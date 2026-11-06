@@ -1,0 +1,16 @@
+{
+ "job_id": "nb3-tdgnn-HI-Small-H3600-s2",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "43c65ccd98d24be4",
+ "seconds_last_session": 84.7767391204834,
+ "finished": 1793773601.6564012,
+ "files": {
+  "ckpt/best.bin": "9b01df4caf13e2b16294762fe922f84a8cd1d6e3a8028c5ec2110c84bb7f392a",
+  "ckpt/best.bin.json": "5f6646ab371e2e65eb78adee99e74c3a55e660668dffc91e5e839d7b8ab15eae",
+  "config.json": "0e04833c688a44429060261df61f3e84979b86888ae90a474a44e7c92494e301",
+  "log.jsonl": "322726f7249c9f2b098f00b3214f1b814b98fcfe1331b110de8d8b1541d2b613",
+  "metrics.json": "6cf52f71bae9283b047276d549776c9d7b2df21c1a4363c6d1860ce9b1a5e9a3",
+  "scores_test.parquet": "0932173122e3e37cdc68bd32e704c338f603f6687b0fb1be351171bf40b868c9",
+  "scores_val.parquet": "be0e65aa7b0b40fa8495d4c65fbc4b3b50c63689f546456b9b7c7fec7c1739d2"
+ }
+}

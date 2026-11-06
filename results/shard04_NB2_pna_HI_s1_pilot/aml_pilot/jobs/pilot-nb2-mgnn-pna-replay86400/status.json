@@ -1,0 +1,9 @@
+{
+ "status": "DEFERRED",
+ "job_id": "pilot-nb2-mgnn-pna-replay86400",
+ "tier": "P0",
+ "config_hash": "f7be63c85cf08c6b",
+ "code_hash": "9686ce184d525c0a",
+ "updated": 1793781807.8709047,
+ "reason": "waiting for ['pilot-nb2-mgnn-pna']"
+}

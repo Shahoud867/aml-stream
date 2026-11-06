@@ -1,0 +1,10 @@
+{
+ "job_id": "nb3-tdgnn-HI-Small-H3600-nocount-s2",
+ "tier": "P1",
+ "cfg": {
+  "dataset": "HI-Small",
+  "H": "3600",
+  "seed": 2,
+  "no_count": true
+ }
+}

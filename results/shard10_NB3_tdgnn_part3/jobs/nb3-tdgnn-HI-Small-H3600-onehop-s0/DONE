@@ -1,0 +1,16 @@
+{
+ "job_id": "nb3-tdgnn-HI-Small-H3600-onehop-s0",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "a6618b699389b3c2",
+ "seconds_last_session": 108.46200919151306,
+ "finished": 1793784247.5614982,
+ "files": {
+  "ckpt/best.bin": "7bc45ed8037e9af5a57672fba0bc45164520f86f1f84aee100a3e53db3fd6abe",
+  "ckpt/best.bin.json": "e0ce1fc884d7ef13036c82184b086d0e0e45ca5656a84d5cd56061aee4c7e438",
+  "config.json": "819da67b7037fae048c9b09fd0ef2586090664da2ecc44a1a6b47dc306d98d17",
+  "log.jsonl": "028bcb43da88deec376defada85dfb4d67a8954e84e4c031bc4348e6c017727a",
+  "metrics.json": "a6261f75ba2d827d1c0d5610e4c2e8845567bf562b896a4c0717c55151a9ebf1",
+  "scores_test.parquet": "79b85ac52b41255c0b8472fee3eee866629143adccf02ac187191a512219f651",
+  "scores_val.parquet": "a6eabd3cc22c979b67b7d76d42554a0685dc0cb2a0ca620aa1d91f36e2e0106b"
+ }
+}

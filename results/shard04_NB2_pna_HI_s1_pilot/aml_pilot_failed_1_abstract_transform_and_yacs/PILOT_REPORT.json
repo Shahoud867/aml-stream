@@ -1,0 +1,68 @@
+{
+ "notebook": "NB2",
+ "pass": false,
+ "gates": [
+  [
+   "Every pilot job finished and passed verification",
+   false,
+   "pilot-nb2-mgnn-pna, pilot-nb2-mgnn-pna-replay86400, pilot-nb2-fraudgt"
+  ],
+  [
+   "A killed job resumed and agreed with the uninterrupted run",
+   false,
+   "{\"pass\": false, \"note\": \"pilot-nb2-mgnn-pna did not finish, so there is nothing to compare with\"}"
+  ],
+  [
+   "A GPU was attached",
+   true,
+   "GPU 0: NVIDIA GeForce RTX 3080 (UUID: GPU-3e441960-0855-5624-a0c4-85cbee0e38e8)"
+  ],
+  [
+   "Check by hand: compare the quota meter with this session's length. Does T4 x2 count double?",
+   null,
+   "session length 0.31 h"
+  ]
+ ],
+ "resume": {
+  "pass": false,
+  "note": "pilot-nb2-mgnn-pna did not finish, so there is nothing to compare with"
+ },
+ "failures": [
+  {
+   "job": "pilot-nb2-mgnn-pna",
+   "status": "FAILED",
+   "reason": "RuntimeError('mgnn_train failed with exit 1. Its last output:\\nTraceback (most recent call last):\\n  File \"<string>\", line 1, in <module>\\n  File \"E:\\\\aml\\\\aml-stream\\\\src\\\\amlh\\\\isolate.py\", line 122, in child_main\\n    result = fn(ctx, spec[\"cfg\"]) or {}\\n             ^^^^^^^^^^^^^^^^^^^^\\n  File \"E:\\\\aml\\\\aml-stream\\\\src\\\\amlh\\\\mgnn.py\", line 258, in mgnn_train\\n    model, optimizer, transform, tr_loader, config = _model(cfg, blob, args, device)\\n                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \"E:\\\\aml\\\\aml-stream\\\\src\\\\amlh\\\\mgnn.py\", line 224, in _model\\n    transform = train_util.AddEgoIds()\\n                ^^^^^^^^^^^^^^^^^^^^^^\\nTypeError: Can\\'t instantiate abstract class AddEgoIds with abstract method forward\\n')",
+   "traceback": "Traceback (most recent call last):\n  File \"E:\\aml\\aml-stream\\src\\amlh\\runner.py\", line 299, in run_job\n    metrics = self._resolve(spec.fn)(ctx, spec.cfg) or {}\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\aml\\aml-stream\\src\\amlh\\mgnn.py\", line 484, in job\n    return run_isolated(ctx, cfg, \"amlh.mgnn\", name)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\aml\\aml-stream\\src\\amlh\\isolate.py\", line 97, in run_isolated\n    raise RuntimeError(f\"{name} failed with {explain_exit(code)}. Its last output:\\n{err_path.read_text()[-1500:]}\")\nRuntimeError: mgnn_train failed with exit 1. Its last output:\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"E:\\aml\\aml-stream\\src\\amlh\\isolate.py\", line 122, in child_main\n    result = fn(ctx, spec[\"cfg\"]) or {}\n             ^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\aml\\aml-stream\\src\\amlh\\mgnn.py\", line 258, in mgnn_train\n    model, optimizer, transform, tr_loader, config = _model(cfg, blob, args, device)\n                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\aml\\aml-stream\\src\\amlh\\mgnn.py\", line 224, in _model\n    transform = train_util.AddEgoIds()\n                ^^^^^^^^^^^^^^^^^^^^^^\nTypeError: Can't instantiate abstract class AddEgoIds with abstract method forward\n\n"
+  },
+  {
+   "job": "pilot-nb2-mgnn-pna-replay86400",
+   "status": "DEFERRED",
+   "reason": "waiting for ['pilot-nb2-mgnn-pna']",
+   "traceback": ""
+  },
+  {
+   "job": "pilot-nb2-fraudgt",
+   "status": "FAILED",
+   "reason": "RuntimeError('FraudGT failed with exit 1. Its last output:\\nTraceback (most recent call last):\\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\\n  File \"<frozen runpy>\", line 88, in _run_code\\n  File \"E:\\\\aml\\\\aml-stream\\\\src\\\\amlh\\\\fraudgt_driver.py\", line 261, in <module>\\n    main(sys.argv[1])\\n  File \"E:\\\\aml\\\\aml-stream\\\\src\\\\amlh\\\\fraudgt_driver.py\", line 145, in main\\n    import fraudGT  # noqa: F401 (registers its modules)\\n    ^^^^^^^^^^^^^^\\n  File \"E:\\\\aml\\\\aml_official\\\\FraudGT\\\\fraudGT\\\\__init__.py\", line 1, in <module>\\n    from .act import * # noqa\\n    ^^^^^^^^^^^^^^^^^^\\n  File \"E:\\\\aml\\\\aml_official\\\\FraudGT\\\\fraudGT\\\\act\\\\example.py\", line 5, in <module>\\n    from fraudGT.graphgym.config import cfg\\n  File \"E:\\\\aml\\\\aml_official\\\\FraudGT\\\\fraudGT\\\\graphgym\\\\config.py\", line 10, in <module>\\n    from yacs.config import CfgNode as CN\\nModuleNotFoundError: No module named \\'yacs\\'\\n')",
+   "traceback": "Traceback (most recent call last):\n  File \"E:\\aml\\aml-stream\\src\\amlh\\runner.py\", line 299, in run_job\n    metrics = self._resolve(spec.fn)(ctx, spec.cfg) or {}\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\aml\\aml-stream\\src\\amlh\\fraudgt.py\", line 87, in fraudgt_train\n    raise RuntimeError(f\"FraudGT failed with {explain_exit(proc.returncode)}. Its last output:\\n{stderr_path.read_text()[-1500:]}\")\nRuntimeError: FraudGT failed with exit 1. Its last output:\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"E:\\aml\\aml-stream\\src\\amlh\\fraudgt_driver.py\", line 261, in <module>\n    main(sys.argv[1])\n  File \"E:\\aml\\aml-stream\\src\\amlh\\fraudgt_driver.py\", line 145, in main\n    import fraudGT  # noqa: F401 (registers its modules)\n    ^^^^^^^^^^^^^^\n  File \"E:\\aml\\aml_official\\FraudGT\\fraudGT\\__init__.py\", line 1, in <module>\n    from .act import * # noqa\n    ^^^^^^^^^^^^^^^^^^\n  File \"E:\\aml\\aml_official\\FraudGT\\fraudGT\\act\\example.py\", line 5, in <module>\n    from fraudGT.graphgym.config import cfg\n  File \"E:\\aml\\aml_official\\FraudGT\\fraudGT\\graphgym\\config.py\", line 10, in <module>\n    from yacs.config import CfgNode as CN\nModuleNotFoundError: No module named 'yacs'\n\n"
+  }
+ ],
+ "job_seconds": {},
+ "projected_hours": {
+  "P0": {
+   "hours": 0.0,
+   "jobs": 0,
+   "not_projected": 12
+  },
+  "P1": {
+   "hours": 0.0,
+   "jobs": 0,
+   "not_projected": 3
+  },
+  "P2": {
+   "hours": 0.0,
+   "jobs": 0,
+   "not_projected": 1
+  }
+ }
+}

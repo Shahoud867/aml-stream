@@ -1,0 +1,16 @@
+{
+ "job_id": "pilot-nb3-service",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "H": "3600",
+  "seed": 0,
+  "train_job": "pilot-nb3-tdgnn",
+  "sizes": [
+   1,
+   100,
+   1000
+  ],
+  "repeats": 10
+ }
+}
