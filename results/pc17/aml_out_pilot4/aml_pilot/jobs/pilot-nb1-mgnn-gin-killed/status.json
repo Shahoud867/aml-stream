@@ -1,0 +1,10 @@
+{
+ "attempts": 2,
+ "status": "DONE",
+ "job_id": "pilot-nb1-mgnn-gin-killed",
+ "tier": "P0",
+ "config_hash": "16905395b27d2f4d",
+ "code_hash": "68ab7cece98e33ad",
+ "updated": 1793803040.9392169,
+ "heartbeat": 1793798441.3596475
+}

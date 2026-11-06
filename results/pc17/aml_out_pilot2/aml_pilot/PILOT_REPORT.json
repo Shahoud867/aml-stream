@@ -1,0 +1,79 @@
+{
+ "notebook": "NB1",
+ "pass": false,
+ "gates": [
+  [
+   "Every pilot job finished and passed verification",
+   false,
+   "pilot-nb1-format-check, pilot-nb1-mgnn-gin, pilot-nb1-mgnn-gin-replay86400, pilot-nb1-trainnorm"
+  ],
+  [
+   "A killed job resumed and agreed with the uninterrupted run",
+   false,
+   "{\"pass\": false, \"note\": \"pilot-nb1-mgnn-gin did not finish, so there is nothing to compare with\"}"
+  ],
+  [
+   "A GPU was attached",
+   true,
+   "GPU 0: NVIDIA GeForce RTX 3080 (UUID: GPU-3ca2c5b7-4cea-8a34-1c55-98ec714a6e43)"
+  ],
+  [
+   "Check by hand: compare the quota meter with this session's length. Does T4 x2 count double?",
+   null,
+   "session length 1.30 h"
+  ],
+  [
+   "The formatter port matches the official formatter",
+   null,
+   "{}"
+  ],
+  [
+   "Check after production: nb1-mgnn-gin-HI-Small-s1 reproduces the published F1 of 64.79% within its spread",
+   null,
+   "official_style_test_f1 in that job's metrics.json"
+  ]
+ ],
+ "resume": {
+  "pass": false,
+  "note": "pilot-nb1-mgnn-gin did not finish, so there is nothing to compare with"
+ },
+ "failures": [
+  {
+   "job": "pilot-nb1-format-check",
+   "status": "TODO",
+   "reason": "RuntimeError('mgnn_format_check failed with exit 1. Its last output:\\nTraceback (most recent call last):\\n  File \"<string>\", line 1, in <module>\\n  File \"D:\\\\cnet proj\\\\aml-stream\\\\src\\\\amlh\\\\isolate.py\", line 122, in child_main\\n    result = fn(ctx, spec[\"cfg\"]) or {}\\n             ^^^^^^^^^^^^^^^^^^^^\\n  File \"D:\\\\cnet proj\\\\aml-stream\\\\src\\\\amlh\\\\mgnn.py\", line 479, in mgnn_format_check\\n    raise ValueError(f\"port differs from official formatter: {json.dumps(diffs)}\")\\nValueError: port differs from official formatter: {\"EdgeID\": 0, \"from_id\": 0, \"to_id\": 0, \"Timestamp\": 0, \"Amount Sent\": 56637, \"Sent Currency\": 0, \"Amount Received\": 56628, \"Received Currency\": 0, \"Payment Format\": 0, \"Is Laundering\": 0}\\n')",
+   "traceback": "Traceback (most recent call last):\n  File \"D:\\cnet proj\\aml-stream\\src\\amlh\\runner.py\", line 299, in run_job\n    metrics = self._resolve(spec.fn)(ctx, spec.cfg) or {}\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\cnet proj\\aml-stream\\src\\amlh\\mgnn.py\", line 487, in job\n    return run_isolated(ctx, cfg, \"amlh.mgnn\", name)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\cnet proj\\aml-stream\\src\\amlh\\isolate.py\", line 97, in run_isolated\n    raise RuntimeError(f\"{name} failed with {explain_exit(code)}. Its last output:\\n{err_path.read_text()[-1500:]}\")\nRuntimeError: mgnn_format_check failed with exit 1. Its last output:\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"D:\\cnet proj\\aml-stream\\src\\amlh\\isolate.py\", line 122, in child_main\n    result = fn(ctx, spec[\"cfg\"]) or {}\n             ^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\cnet proj\\aml-stream\\src\\amlh\\mgnn.py\", line 479, in mgnn_format_check\n    raise ValueError(f\"port differs from official formatter: {json.dumps(diffs)}\")\nValueError: port differs from official formatter: {\"EdgeID\": 0, \"from_id\": 0, \"to_id\": 0, \"Timestamp\": 0, \"Amount Sent\": 56637, \"Sent Currency\": 0, \"Amount Received\": 56628, \"Received Currency\": 0, \"Payment Format\": 0, \"Is Laundering\": 0}\n\n"
+  },
+  {
+   "job": "pilot-nb1-mgnn-gin",
+   "status": "INTERRUPTED",
+   "reason": "mgnn_train stopped for lack of session time",
+   "traceback": ""
+  },
+  {
+   "job": "pilot-nb1-mgnn-gin-replay86400",
+   "status": null,
+   "reason": "no DONE marker",
+   "traceback": ""
+  },
+  {
+   "job": "pilot-nb1-trainnorm",
+   "status": null,
+   "reason": "no DONE marker",
+   "traceback": ""
+  }
+ ],
+ "job_seconds": {},
+ "projected_hours": {
+  "P0": {
+   "hours": 0.0,
+   "jobs": 0,
+   "not_projected": 13
+  },
+  "P1": {
+   "hours": 0.0,
+   "jobs": 0,
+   "not_projected": 11
+  }
+ }
+}

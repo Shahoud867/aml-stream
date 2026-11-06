@@ -1,0 +1,16 @@
+{
+ "model": "pna",
+ "dataset": "HI-Small",
+ "seed": 1,
+ "train_cadence": null,
+ "eval_mode": "official",
+ "epoch": 2,
+ "best_val_f1": 0.5236768802228412,
+ "best_epoch": 1,
+ "epoch_seconds": 1215.4730546474457,
+ "device": "cuda:0",
+ "coverage_val": 0.9999440718200687,
+ "coverage_test": 0.9990149322838291,
+ "official_style_test_f1": 0.5878403580753451,
+ "official_style_test_f1_eval_mode": 0.658069270449521
+}

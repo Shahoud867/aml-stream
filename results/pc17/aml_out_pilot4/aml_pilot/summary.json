@@ -1,0 +1,19 @@
+{
+ "notebook": "NB1",
+ "code_hash": "68ab7cece98e33ad",
+ "counts": {
+  "DONE": 1
+ },
+ "jobs": [
+  {
+   "job_id": "pilot-nb1-mgnn-gin-killed",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  }
+ ],
+ "session_seconds": 4551.580924510956,
+ "complete": true
+}

@@ -1,0 +1,13 @@
+{
+ "job_id": "pilot-nb1-mgnn-gin-replay86400",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "folder": "Small_HI",
+  "model": "gin",
+  "seed": 1,
+  "n_epochs": 2,
+  "train_job": "pilot-nb1-mgnn-gin",
+  "cadence": 86400
+ }
+}

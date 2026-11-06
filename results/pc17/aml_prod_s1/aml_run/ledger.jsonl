@@ -1,0 +1,5 @@
+{"ts": 1793852880.5880172, "event": "restore", "job": "", "code": "68ab7cece98e33ad", "n": 0, "roots": []}
+{"ts": 1793852893.162413, "event": "session_start", "job": "", "code": "68ab7cece98e33ad", "n_jobs": 2, "budget": 18129.390926}
+{"ts": 1793852893.1668348, "event": "start", "job": "nb1-format-check", "code": "68ab7cece98e33ad", "attempt": 1, "resumed": false}
+{"ts": 1793852908.215206, "event": "done", "job": "nb1-format-check", "code": "68ab7cece98e33ad", "seconds": 15.048371076583862}
+{"ts": 1793852908.2222052, "event": "start", "job": "nb1-mgnn-gin-HI-Small-s1", "code": "68ab7cece98e33ad", "attempt": 1, "resumed": false}

@@ -1,0 +1,9 @@
+{
+ "status": "DEFERRED",
+ "job_id": "pilot-nb1-mgnn-gin-replay86400",
+ "tier": "P0",
+ "config_hash": "236a66f4ba36cb15",
+ "code_hash": "9686ce184d525c0a",
+ "updated": 1793772968.3553944,
+ "reason": "waiting for ['pilot-nb1-mgnn-gin']"
+}

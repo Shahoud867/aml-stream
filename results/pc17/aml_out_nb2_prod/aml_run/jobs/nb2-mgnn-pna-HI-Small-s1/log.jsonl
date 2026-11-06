@@ -1,0 +1,5 @@
+{"ts": 1793935564.0346303, "event": "isolated_start", "function": "amlh.mgnn.mgnn_train", "ram_gb": null}
+{"ts": 1793936715.7290845, "event": "epoch", "epoch": 0, "loss": 0.022332837833329365, "val_f1": 0.3937219730941704, "seconds": 1140.4953894615173}
+{"ts": 1793937880.5668864, "event": "epoch", "epoch": 1, "loss": 0.01528690815339698, "val_f1": 0.4992343032159265, "seconds": 1164.7737498283386}
+{"ts": 1793938139.5088406, "event": "isolated_start", "function": "amlh.mgnn.mgnn_train", "ram_gb": null}
+{"ts": 1793938149.2573426, "event": "resumed", "epoch": 2}

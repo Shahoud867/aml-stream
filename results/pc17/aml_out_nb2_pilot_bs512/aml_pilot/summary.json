@@ -1,0 +1,19 @@
+{
+ "notebook": "NB2",
+ "code_hash": "8ac92594c2be0f2f",
+ "counts": {
+  "DONE": 1
+ },
+ "jobs": [
+  {
+   "job_id": "pilot-nb2-mgnn-pna-killed",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  }
+ ],
+ "session_seconds": 4.325415134429932,
+ "complete": true
+}

@@ -55,6 +55,7 @@ def main():
     ap.add_argument("--shard", help="i/n: take every n-th dependency chain, e.g. 0/2")
     ap.add_argument("--only", help="regex on job ids; dependencies of matching jobs are kept")
     ap.add_argument("--n-epochs", type=int, help="DEVIATION from the frozen plan: override mgnn n_epochs. Record it in DECISIONS.md")
+    ap.add_argument("--batch-size", type=int, help="DEVIATION from the frozen plan: override mgnn batch_size (e.g. for a smaller GPU). Record it in DECISIONS.md")
     ap.add_argument("--data", default=str(ROOT / "data" / "raw"), help="folder holding *_Trans.csv")
     ap.add_argument("--work", default=str(ROOT.parent / "aml_out"), help="output folder (resumes if it already holds a run)")
     ap.add_argument("--cache", default=str(ROOT.parent / "aml_cache"))
@@ -79,6 +80,11 @@ def main():
             if "model" in j.cfg:
                 j.cfg = {**j.cfg, "n_epochs": a.n_epochs}
         print(f"WARNING: mgnn n_epochs overridden to {a.n_epochs}. This deviates from the frozen plan.")
+    if a.batch_size:
+        for j in jobs:
+            if "model" in j.cfg:
+                j.cfg = {**j.cfg, "batch_size": a.batch_size}
+        print(f"WARNING: mgnn batch_size overridden to {a.batch_size}. This deviates from the frozen plan.")
 
     h = code_hash(ROOT)
     print("code hash", h, "OK" if h == EXPECTED_CODE_HASH else f"DIFFERS from the notebooks' {EXPECTED_CODE_HASH}")
@@ -98,7 +104,23 @@ def main():
     print(f"budget {budget:.2f} h")
     kw = dict(input_root=Path(a.data), working=Path(a.work), cache_root=Path(a.cache), official_root=Path(a.official), verify_hashes=not a.no_hash)
     if a.mode == "pilot":
-        report = session.run_pilot(a.notebook, budget_hours=min(budget, 1.0), **kw)
+        # An explicit --hours/--until must be honoured in full: measured on this RTX 3080, one HI-Small epoch takes
+        # ~65-78 min (DECISIONS.md D-020), so the old unconditional min(budget, 1.0) silently clamped any requested
+        # budget back to about 1 hour and made the pilot time out before a single epoch plus replay/trainnorm/resume
+        # could finish. Only the unrequested 2.5h fallback still gets the old quick-pilot default.
+        budget_hours = budget if (a.hours or a.until) else min(budget, 1.0)
+        pilot_specs_override = None
+        if a.n_epochs or a.batch_size:
+            from amlh.session import pilot_specs
+            pilot_specs_override, _ = pilot_specs(a.notebook)
+            for j in pilot_specs_override:
+                if "model" in j.cfg:
+                    if a.n_epochs:
+                        j.cfg = {**j.cfg, "n_epochs": a.n_epochs}
+                    if a.batch_size:
+                        j.cfg = {**j.cfg, "batch_size": a.batch_size}
+            print(f"WARNING: pilot mgnn config overridden (n_epochs={a.n_epochs}, batch_size={a.batch_size}). This deviates from the frozen plan.")
+        report = session.run_pilot(a.notebook, budget_hours=budget_hours, specs=pilot_specs_override, **kw)
         sys.exit(0 if report["pass"] else 2)
     else:
         summary = session.run_notebook(a.notebook, tiers=tiers, budget_hours=budget, jobs=jobs, shard=shard, restore_roots=[], **kw)

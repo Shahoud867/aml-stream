@@ -1,0 +1,10 @@
+{
+ "attempts": 1,
+ "status": "RUNNING",
+ "job_id": "nb2-mgnn-gin-LI-Small-s1",
+ "tier": "P0",
+ "config_hash": "dfed332b1b1c3ef0",
+ "code_hash": "8ac92594c2be0f2f",
+ "updated": 1793938180.0826583,
+ "heartbeat": 1793951208.0991645
+}

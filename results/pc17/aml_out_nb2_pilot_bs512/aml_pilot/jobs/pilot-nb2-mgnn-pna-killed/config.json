@@ -1,0 +1,12 @@
+{
+ "job_id": "pilot-nb2-mgnn-pna-killed",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "folder": "Small_HI",
+  "model": "pna",
+  "seed": 1,
+  "n_epochs": 2,
+  "batch_size": 512
+ }
+}

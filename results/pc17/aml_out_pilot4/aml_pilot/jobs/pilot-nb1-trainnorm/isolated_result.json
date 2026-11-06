@@ -1,0 +1,4 @@
+{
+ "variant": "train_normalisation",
+ "train_job": "pilot-nb1-mgnn-gin"
+}

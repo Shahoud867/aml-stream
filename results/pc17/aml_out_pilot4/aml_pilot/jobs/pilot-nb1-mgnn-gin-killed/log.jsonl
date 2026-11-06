@@ -1,0 +1,5 @@
+{"ts": 1793794295.333994, "event": "isolated_start", "function": "amlh.mgnn.mgnn_train", "ram_gb": null}
+{"ts": 1793798483.643894, "event": "epoch", "epoch": 0, "loss": 0.025092039018592582, "val_f1": 0.20136518771331058, "seconds": 4178.721387863159}
+{"ts": 1793798494.7563288, "event": "isolated_start", "function": "amlh.mgnn.mgnn_train", "ram_gb": null}
+{"ts": 1793798506.1680977, "event": "resumed", "epoch": 1}
+{"ts": 1793801519.507456, "event": "epoch", "epoch": 1, "loss": 0.01667468625728407, "val_f1": 0.29059040590405905, "seconds": 3013.339358329773}

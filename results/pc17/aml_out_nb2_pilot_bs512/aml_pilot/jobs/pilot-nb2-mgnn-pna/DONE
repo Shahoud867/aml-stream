@@ -1,0 +1,19 @@
+{
+ "job_id": "pilot-nb2-mgnn-pna",
+ "code_hash": "68ab7cece98e33ad",
+ "config_hash": "9007e20dcfc48b62",
+ "seconds_last_session": 3720.8943390846252,
+ "finished": 1793877761.844349,
+ "files": {
+  "ckpt/best.bin": "322964e40c6e415357218daf477c8d6cb65b2b98b1cb54a6c79560bacce7f638",
+  "ckpt/best.bin.json": "84fbb9c7811cfc465ac893557b27e2adbbabbc78478f70c907cde57d40e5ad18",
+  "config.json": "b387cac6a75686b4669b5aa2eab1ec9ff385d9c0aa5617b150f835ae235a427b",
+  "isolated_result.json": "841c51b1f8da3a3579630fbac6fc82260ece2ab146a301277580a57c7667fa89",
+  "log.jsonl": "c7f61c0bec2b9344efdefbdd3312edae09fe0c36e61bdf22b7acdbfa1f3ef7cb",
+  "metrics.json": "841c51b1f8da3a3579630fbac6fc82260ece2ab146a301277580a57c7667fa89",
+  "scores_test.parquet": "b519855a138a491094bbe53068f5b2597fadfd0ab02b7a8bc64fa589d5ce2a19",
+  "scores_test_eval.parquet": "4e870c4ace6cc56c25a4300bf6175b09125638240973ece3c5c81bfd1ed3705c",
+  "scores_val.parquet": "b8b23e30466dac2b55ec4073dba2cb4692363b619d3d6e00258715dc0508f28d",
+  "scores_val_eval.parquet": "99ab720006e6bed85944a3ebe5eb94d74f04a3932b72c45f7ac87561cde8651f"
+ }
+}

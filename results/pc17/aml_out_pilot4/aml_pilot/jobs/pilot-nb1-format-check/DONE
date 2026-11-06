@@ -1,0 +1,13 @@
+{
+ "job_id": "pilot-nb1-format-check",
+ "code_hash": "d417f99d2997770b",
+ "config_hash": "2f4aa9417cc13992",
+ "seconds_last_session": 10.0192391872406,
+ "finished": 1793794053.6228404,
+ "files": {
+  "config.json": "c2b3cb3f56db7bf9e2b9419a1d24c2b9a826a110f202261fb4b76d7fae483b88",
+  "isolated_result.json": "61f0561ed3ffb5041700f70fa78886f76dcebaea37801d9b5d39e0849ae4545c",
+  "log.jsonl": "18dadc0df76664fda47cb0f66aab34af11083dc90ff183b302b0dbe4dc550f23",
+  "metrics.json": "61f0561ed3ffb5041700f70fa78886f76dcebaea37801d9b5d39e0849ae4545c"
+ }
+}
