@@ -40,6 +40,8 @@ def launch(name: str, notebook: str, shard, mode: str, a, gpu: str, until: str |
         cmd += ["--until", until]
     if a.no_hash:
         cmd += ["--no-hash"]
+    if a.mgnn_batch_size and notebook in ("NB1", "NB2"):
+        cmd += ["--batch-size", str(a.mgnn_batch_size)]
     env = {**os.environ, "CUDA_VISIBLE_DEVICES": gpu, "PYTHONUNBUFFERED": "1"}
     log = open(Path(a.work) / f"{name}.{mode}.log", "a", encoding="utf8")
     print(f"  start {mode:10s} {name} on GPU {gpu}")
@@ -80,6 +82,7 @@ def main():
     ap.add_argument("--capacity", type=int, default=3, help="per GPU: a Multi-GNN shard costs 2, a TD-GNN shard 1. Lower to 2 if a GPU runs out of memory")
     ap.add_argument("--until", help="stop time HH:MM; default 4 hours from now")
     ap.add_argument("--only", help="comma separated shard numbers, e.g. 2,3,10")
+    ap.add_argument("--mgnn-batch-size", type=int, help="DEVIATION from the frozen plan (official 8192): smaller Multi-GNN batches so NB1 and NB2 fit a 10 GB GPU. Output goes to <work>_b<N> so it never mixes with official-setting runs")
     ap.add_argument("--skip-pilots", action="store_true", help="skip the canary pilots (not recommended: the GPU path has never been run)")
     ap.add_argument("--data", default=str(ROOT / "data" / "raw"))
     ap.add_argument("--work", default=str(ROOT.parent / "aml_out"))
@@ -90,6 +93,9 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
 
+    if a.mgnn_batch_size:
+        a.work = f"{a.work}_b{a.mgnn_batch_size}"
+        print(f"NOTE: Multi-GNN batch size {a.mgnn_batch_size} instead of the official 8192. Output folder: {a.work}. Record this in DECISIONS.md.")
     gpus = a.gpus.split(",")
     keep = {int(x) for x in a.only.split(",")} if a.only else set(range(1, 11))
     shards = [(n, *s) for n, s in zip(range(1, 11), SET) if n in keep]

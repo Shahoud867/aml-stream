@@ -219,12 +219,25 @@ def _write(ctx: Context, name: str, event_ids: np.ndarray, p: np.ndarray, sample
     pl.DataFrame({"event_id": event_ids, "score": p.astype(np.float32), "sampled": sampled}).write_parquet(ctx.dir / f"{name}.parquet")
 
 
+def ego_transform(train_util):
+    """The official AddEgoIds defines __call__ only. torch-geometric 2.7.0 made BaseTransform abstract on `forward`, so the official class
+    cannot be instantiated there. The adapter delegates to the official __call__, so behaviour is unchanged on every version."""
+    cls = train_util.AddEgoIds
+    if not getattr(cls, "__abstractmethods__", None):
+        return cls()
+
+    class _EgoIds(cls):
+        def forward(self, data):
+            return cls.__call__(self, data)
+    return _EgoIds()
+
+
 def _model(cfg, blob, args, device):
     import torch
     from torch_geometric.nn import to_hetero
     _, train_util, training, _ = _official()
     tr, _, te = blob["data"]
-    transform = train_util.AddEgoIds()
+    transform = ego_transform(train_util)
     tr_i, val_i, te_i = blob["idx"]
     tr_loader, _, _ = train_util.get_loaders(tr, blob["data"][1], te, tr_i, val_i, te_i, transform, args)
     sample = next(iter(tr_loader))
@@ -252,10 +265,11 @@ def mgnn_train(ctx: Context, cfg: dict) -> dict:
     from .jobs_gbt import Paths
     _, train_util, _, _ = _official()
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    if device.type == "cuda":
-        # Measured: training batches (batch_size 8192, num_neighs [100,100], reverse_mp+emlps+ego) take ~7s each on an
-        # RTX 3080, dominating the epoch. TF32 matmuls are an Ampere-only precision trade (not a change to the frozen
-        # algorithm or its hyperparameters): error stays far inside normal seed-to-seed spread. See DECISIONS.md D-018.
+    # TF32 matmuls are an Ampere-only precision trade that PC-17 measured as a speed-up (DECISIONS.md D-020), but it changes numerics.
+    # Every finished result (PC-8, PC-9, PC-18) was produced with it OFF, so it stays OFF unless AMLH_TF32=1 is set (DECISIONS.md D-024).
+    # The setting used is recorded in the job's metrics as "tf32", so runs with and without it can never be pooled by accident.
+    tf32 = device.type == "cuda" and os.environ.get("AMLH_TF32") == "1"
+    if tf32:
         torch.backends.cuda.matmul.allow_tf32 = True
         torch.backends.cudnn.allow_tf32 = True
     args = _args(cfg)
@@ -338,7 +352,7 @@ def mgnn_train(ctx: Context, cfg: dict) -> dict:
     ut, pt, st = score_edges(model, te, te_i.numpy(), args, transform, device, check=ctx.check, train_mode=official)
     _write(ctx, "scores_test", edge_id[ut], pt, st, len(te_i))
     result = {"model": cfg["model"], "dataset": cfg["dataset"], "seed": cfg["seed"], "train_cadence": cadence, "eval_mode": "official" if official else "eval",
-              **state, "device": str(device), "coverage_val": float(sv.mean()), "coverage_test": float(st.mean())}
+              **state, "device": str(device), "tf32": bool(tf32), "coverage_val": float(sv.mean()), "coverage_test": float(st.mean())}
 
     def argmax_f1(p, sampled, y):
         flagged = (p >= 0.5) & sampled

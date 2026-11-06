@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -25,7 +26,15 @@ sys.path.insert(0, str(ROOT / "src"))
 # Job processes inherit this. See compat/sitecustomize.py for why it is needed.
 os.environ["PYTHONPATH"] = os.pathsep.join(filter(None, [str(Path(__file__).resolve().parent / "compat"), os.environ.get("PYTHONPATH", "")]))
 
-EXPECTED_CODE_HASH = "9686ce184d525c0a"
+
+
+def expected_hash() -> str:
+    """The code hash the committed notebooks expect, read from nb1.ipynb so it can never drift from a rebuild."""
+    import json
+    nb = json.loads((ROOT / "notebooks" / "nb1.ipynb").read_text(encoding="utf8"))
+    code = "\n".join("".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "code")
+    m = re.search(r"EXPECTED_CODE_HASH = '([0-9a-f]+)'", code)
+    return m.group(1)
 
 
 def hours_until(hhmm: str) -> float:
@@ -89,8 +98,9 @@ def main():
                 j.cfg = {**j.cfg, "batch_size": a.batch_size}
         print(f"WARNING: mgnn batch_size overridden to {a.batch_size} (official default 8192). This deviates from the frozen plan.")
 
+
     h = code_hash(ROOT)
-    print("code hash", h, "OK" if h == EXPECTED_CODE_HASH else f"DIFFERS from the notebooks' {EXPECTED_CODE_HASH}")
+    print("code hash", h, "OK" if h == expected_hash() else f"DIFFERS from the notebooks' {expected_hash()}: rebuild the notebooks and the package")
     print("GPUs:", session.accelerators() or "NONE FOUND")
 
     if a.mode == "list":
