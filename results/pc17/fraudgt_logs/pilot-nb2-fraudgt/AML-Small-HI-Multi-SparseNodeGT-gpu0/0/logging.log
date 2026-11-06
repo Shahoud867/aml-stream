@@ -1,0 +1,164 @@
+[*] Loaded dataset 'Small-HI' from 'AML':
+  HeteroData(
+  node={
+    x=[515088, 1],
+    num_nodes=515088,
+  },
+  (node, to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+    y=[3248921],
+    timestamps=[3248921],
+    split_mask=[3248921],
+  },
+  (node, rev_to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+  }
+)
+  num graphs: 3
+  avg num_nodes/graph: 171696
+  num node features: {'node': 1}
+  num edge features: {('node', 'to', 'node'): 5, ('node', 'rev_to', 'node'): 5}
+[*] Loaded dataset 'Small-HI' from 'AML':
+  HeteroData(
+  node={
+    x=[515088, 1],
+    num_nodes=515088,
+  },
+  (node, to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+    y=[3248921],
+    timestamps=[3248921],
+    split_mask=[3248921],
+  },
+  (node, rev_to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+  }
+)
+  num graphs: 3
+  avg num_nodes/graph: 171696
+  num node features: {'node': 1}
+  num edge features: {('node', 'to', 'node'): 5, ('node', 'rev_to', 'node'): 5}
+[*] Loaded dataset 'Small-HI' from 'AML':
+  HeteroData(
+  node={
+    x=[515088, 1],
+    num_nodes=515088,
+  },
+  (node, to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+    y=[3248921],
+    timestamps=[3248921],
+    split_mask=[3248921],
+  },
+  (node, rev_to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+  }
+)
+  num graphs: 3
+  avg num_nodes/graph: 171696
+  num node features: {'node': 1}
+  num edge features: {('node', 'to', 'node'): 5, ('node', 'rev_to', 'node'): 5}
+[*] Loaded dataset 'Small-HI' from 'AML':
+  HeteroData(
+  node={
+    x=[515088, 1],
+    num_nodes=515088,
+  },
+  (node, to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+    y=[3248921],
+    timestamps=[3248921],
+    split_mask=[3248921],
+  },
+  (node, rev_to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+  }
+)
+  num graphs: 3
+  avg num_nodes/graph: 171696
+  num node features: {'node': 1}
+  num edge features: {('node', 'to', 'node'): 5, ('node', 'rev_to', 'node'): 5}
+[*] Loaded dataset 'Small-HI' from 'AML':
+  HeteroData(
+  node={
+    x=[515088, 1],
+    num_nodes=515088,
+  },
+  (node, to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+    y=[3248921],
+    timestamps=[3248921],
+    split_mask=[3248921],
+  },
+  (node, rev_to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+  }
+)
+  num graphs: 3
+  avg num_nodes/graph: 171696
+  num node features: {'node': 1}
+  num edge features: {('node', 'to', 'node'): 5, ('node', 'rev_to', 'node'): 5}
+[*] Loaded dataset 'Small-HI' from 'AML':
+  HeteroData(
+  node={
+    x=[515088, 1],
+    num_nodes=515088,
+  },
+  (node, to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+    y=[3248921],
+    timestamps=[3248921],
+    split_mask=[3248921],
+  },
+  (node, rev_to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+  }
+)
+  num graphs: 3
+  avg num_nodes/graph: 171696
+  num node features: {'node': 1}
+  num edge features: {('node', 'to', 'node'): 5, ('node', 'rev_to', 'node'): 5}
+[*] Loaded dataset 'Small-HI' from 'AML':
+  HeteroData(
+  node={
+    x=[515088, 1],
+    num_nodes=515088,
+  },
+  (node, to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+    y=[3248921],
+    timestamps=[3248921],
+    split_mask=[3248921],
+  },
+  (node, rev_to, node)={
+    edge_index=[2, 3248921],
+    edge_attr=[3248921, 5],
+  }
+)
+  num graphs: 3
+  avg num_nodes/graph: 171696
+  num node features: {'node': 1}
+  num edge features: {('node', 'to', 'node'): 5, ('node', 'rev_to', 'node'): 5}
+train: {'epoch': 0, 'time_epoch': 13.77954, 'eta': 13.77954, 'eta_hours': 0.00383, 'loss': 0.92890774, 'lr': 0.0, 'params': 243561, 'time_iter': 0.86122, 'accuracy': 0.00425, 'precision': 0.00058, 'recall': 1.0, 'f1': 0.00116, 'macro-f1': 0.00424, 'micro-f1': 0.00425, 'auc': 0.65482}
+...computing epoch stats took: 0.07s
+val: {'epoch': 0, 'time_epoch': 7.73853, 'loss': 0.90393534, 'lr': 0, 'params': 243561, 'time_iter': 0.96732, 'accuracy': 0.00116, 'precision': 0.00116, 'recall': 1.0, 'f1': 0.00232, 'macro-f1': 0.00116, 'micro-f1': 0.00116, 'auc': 0.65154}
+...computing epoch stats took: 0.02s
+train: {'epoch': 1, 'time_epoch': 13.40364, 'eta': 0.0, 'eta_hours': 0.0, 'loss': 0.86680922, 'lr': 0.0002, 'params': 243561, 'time_iter': 0.83773, 'accuracy': 0.05214, 'precision': 0.00064, 'recall': 0.95238, 'f1': 0.00129, 'macro-f1': 0.04968, 'micro-f1': 0.05214, 'auc': 0.52079}
+...computing epoch stats took: 0.03s
+val: {'epoch': 1, 'time_epoch': 3.67631, 'loss': 0.71492015, 'lr': 0, 'params': 243561, 'time_iter': 0.45954, 'accuracy': 0.55862, 'precision': 0.00152, 'recall': 0.57895, 'f1': 0.00304, 'macro-f1': 0.3598, 'micro-f1': 0.55862, 'auc': 0.60673}
+...computing epoch stats took: 0.02s
+test: {'epoch': 2, 'time_epoch': 16.59223, 'loss': 0.71689777, 'lr': 0, 'params': 243561, 'time_iter': 2.07403, 'accuracy': 0.56991, 'precision': 0.00201, 'recall': 0.46667, 'f1': 0.004, 'macro-f1': 0.36487, 'micro-f1': 0.56991, 'auc': 0.5858}
+...computing epoch stats took: 0.03s

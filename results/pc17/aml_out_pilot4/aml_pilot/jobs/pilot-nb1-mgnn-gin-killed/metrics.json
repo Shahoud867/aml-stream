@@ -1,0 +1,16 @@
+{
+ "model": "gin",
+ "dataset": "HI-Small",
+ "seed": 1,
+ "train_cadence": null,
+ "eval_mode": "official",
+ "epoch": 2,
+ "best_val_f1": 0.29059040590405905,
+ "best_epoch": 1,
+ "epoch_seconds": 3013.339358329773,
+ "device": "cuda:0",
+ "coverage_val": 0.9999492503552475,
+ "coverage_test": 0.9990346104873249,
+ "official_style_test_f1": 0.36129032258064514,
+ "official_style_test_f1_eval_mode": 0.38472158306488724
+}

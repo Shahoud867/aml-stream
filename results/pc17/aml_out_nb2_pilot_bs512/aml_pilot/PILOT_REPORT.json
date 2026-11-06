@@ -1,0 +1,72 @@
+{
+ "notebook": "NB2",
+ "pass": false,
+ "gates": [
+  [
+   "Every pilot job finished and passed verification",
+   true,
+   ""
+  ],
+  [
+   "A killed job resumed and agreed with the uninterrupted run",
+   false,
+   "{\"pass\": false, \"killed_exit_code\": 0, \"resumed_exit_code\": 0, \"resumed_done\": true, \"detail\": \"\", \"rule\": \"correlation at least 0.95\", \"scores\": {\"scores_test_eval.parquet\": {\"rows\": 863900, \"max_abs_diff\": 0.8486086949706078, \"mean_abs_diff\": 0.0013542705032975886, \"correlation\": 0.9510290141336064}, \"scores_val_eval.parquet\": {\"rows\": 965524, \"max_abs_diff\": 0.7813059985637665, \"mean_abs_diff\": 0.000625502927124582, \"correlation\": 0.9622984042267363}}}"
+  ],
+  [
+   "A GPU was attached",
+   true,
+   "GPU 0: NVIDIA GeForce RTX 3080 (UUID: GPU-3ca2c5b7-4cea-8a34-1c55-98ec714a6e43)"
+  ],
+  [
+   "Check by hand: compare the quota meter with this session's length. Does T4 x2 count double?",
+   null,
+   "session length 0.04 h"
+  ]
+ ],
+ "resume": {
+  "pass": false,
+  "killed_exit_code": 0,
+  "resumed_exit_code": 0,
+  "resumed_done": true,
+  "detail": "",
+  "rule": "correlation at least 0.95",
+  "scores": {
+   "scores_test_eval.parquet": {
+    "rows": 863900,
+    "max_abs_diff": 0.8486086949706078,
+    "mean_abs_diff": 0.0013542705032975886,
+    "correlation": 0.9510290141336064
+   },
+   "scores_val_eval.parquet": {
+    "rows": 965524,
+    "max_abs_diff": 0.7813059985637665,
+    "mean_abs_diff": 0.000625502927124582,
+    "correlation": 0.9622984042267363
+   }
+  }
+ },
+ "failures": [],
+ "job_seconds": {
+  "pilot-nb2-mgnn-pna": 3721.0,
+  "pilot-nb2-mgnn-pna-replay86400": 10.1,
+  "pilot-nb2-mgnn-pna-killed": 2610.8,
+  "pilot-nb2-fraudgt": 120.1
+ },
+ "projected_hours": {
+  "P0": {
+   "hours": 151.908519568511,
+   "jobs": 12,
+   "not_projected": 0
+  },
+  "P1": {
+   "hours": 107.6190522138303,
+   "jobs": 3,
+   "not_projected": 0
+  },
+  "P2": {
+   "hours": 201.82507235659267,
+   "jobs": 1,
+   "not_projected": 0
+  }
+ }
+}

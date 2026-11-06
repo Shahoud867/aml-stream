@@ -1,0 +1,4 @@
+{"ts": 1793951423.9043984, "event": "isolated_start", "function": "amlh.mgnn.mgnn_train", "ram_gb": null}
+{"ts": 1793952284.946313, "event": "epoch", "epoch": 0, "loss": 0.01743840623711714, "val_f1": 0.0, "seconds": 849.725683927536}
+{"ts": 1793953131.6546698, "event": "epoch", "epoch": 1, "loss": 0.012764694586130493, "val_f1": 0.0, "seconds": 846.6573166847229}
+{"ts": 1793953131.7063305, "event": "no_improvement_after_epoch_0", "note": "scoring the last epoch"}

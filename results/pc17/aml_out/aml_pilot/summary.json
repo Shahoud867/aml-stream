@@ -1,0 +1,44 @@
+{
+ "notebook": "NB1",
+ "code_hash": "9686ce184d525c0a",
+ "counts": {
+  "FAILED": 2,
+  "DEFERRED": 2
+ },
+ "jobs": [
+  {
+   "job_id": "pilot-nb1-format-check",
+   "tier": "P0",
+   "status": "FAILED",
+   "reason": "RuntimeError('mgnn_format_check failed with exit 1. Its last output:\\nTraceback (most recent call last):\\n  File \"<string>\", line 1, in <module>\\n  File \"D:\\\\cnet proj\\\\aml-stream\\\\src\\\\amlh\\\\isolate.py\", line 122, in child_main\\n    result = fn(ctx, spec[\"cfg\"]) or {}\\n             ^^^^^^^^^^^^^^^^^^^^\\n  File \"D:\\\\cnet proj\\\\aml-stream\\\\src\\\\amlh\\\\mgnn.py\", line 476, in mgnn_format_check\\n    raise ValueError(f\"port differs from official formatter: {json.dumps(diffs)}\")\\nValueError: port differs from official formatter: {\"EdgeID\": 0, \"from_id\": 0, \"to_id\": 0, \"Timestamp\": 0, \"Amount Sent\": 56637, \"Sent Currency\": 0, \"Amount Received\": 56628, \"Received Currency\": 0, \"Payment Format\": 0, \"Is Laundering\": 0}\\n')",
+   "verified": false,
+   "detail": "no DONE marker"
+  },
+  {
+   "job_id": "pilot-nb1-mgnn-gin",
+   "tier": "P0",
+   "status": "FAILED",
+   "reason": "RuntimeError('mgnn_train failed with exit 1. Its last output:\\nTraceback (most recent call last):\\n  File \"<string>\", line 1, in <module>\\n  File \"D:\\\\cnet proj\\\\aml-stream\\\\src\\\\amlh\\\\isolate.py\", line 122, in child_main\\n    result = fn(ctx, spec[\"cfg\"]) or {}\\n             ^^^^^^^^^^^^^^^^^^^^\\n  File \"D:\\\\cnet proj\\\\aml-stream\\\\src\\\\amlh\\\\mgnn.py\", line 258, in mgnn_train\\n    model, optimizer, transform, tr_loader, config = _model(cfg, blob, args, device)\\n                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n  File \"D:\\\\cnet proj\\\\aml-stream\\\\src\\\\amlh\\\\mgnn.py\", line 224, in _model\\n    transform = train_util.AddEgoIds()\\n                ^^^^^^^^^^^^^^^^^^^^^^\\nTypeError: Can\\'t instantiate abstract class AddEgoIds with abstract method forward\\n')",
+   "verified": false,
+   "detail": "no DONE marker"
+  },
+  {
+   "job_id": "pilot-nb1-mgnn-gin-replay86400",
+   "tier": "P0",
+   "status": "DEFERRED",
+   "reason": "waiting for ['pilot-nb1-mgnn-gin']",
+   "verified": false,
+   "detail": "no DONE marker"
+  },
+  {
+   "job_id": "pilot-nb1-trainnorm",
+   "tier": "P0",
+   "status": "DEFERRED",
+   "reason": "waiting for ['pilot-nb1-mgnn-gin']",
+   "verified": false,
+   "detail": "no DONE marker"
+  }
+ ],
+ "session_seconds": 939.1599960327148,
+ "complete": false
+}
