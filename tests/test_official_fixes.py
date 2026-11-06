@@ -58,3 +58,33 @@ def test_formatted_file_lands_beside_the_raw_file(small_data, tmp_path):
     out = root / "formatted_transactions.csv"
     assert out.exists() and pl.read_csv(out).columns[:3] == ["EdgeID", "from_id", "to_id"]
     assert not (tmp_path / "formatted_transactions.csv").exists()
+
+
+def test_ego_transform_works_when_the_base_class_demands_forward():
+    """torch-geometric 2.7.0 made BaseTransform abstract on `forward`; the official AddEgoIds defines only __call__, so it cannot be built there.
+    The adapter must build it, and must delegate to the official __call__ so behaviour is unchanged."""
+    import abc
+    import types
+
+    class AbstractBase(abc.ABC):
+        @abc.abstractmethod
+        def forward(self, data):
+            ...
+
+    class AddEgoIds(AbstractBase):   # like the official class: __call__ only
+        def __call__(self, data):
+            return ("official", data)
+
+    stand_in = types.SimpleNamespace(AddEgoIds=AddEgoIds)
+    try:
+        AddEgoIds()
+        raise AssertionError("the stand-in should be abstract")
+    except TypeError:
+        pass
+    t = mg.ego_transform(stand_in)
+    assert t("batch") == ("official", "batch")
+
+    class Plain:   # older torch-geometric: nothing abstract, the class is used as it is
+        def __call__(self, data):
+            return data
+    assert type(mg.ego_transform(types.SimpleNamespace(AddEgoIds=Plain))) is Plain

@@ -16,13 +16,22 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-EXPECTED_CODE_HASH = "9686ce184d525c0a"
+
+
+def expected_hash() -> str:
+    """The code hash the committed notebooks expect, read from nb1.ipynb so it can never drift from a rebuild."""
+    import json
+    nb = json.loads((ROOT / "notebooks" / "nb1.ipynb").read_text(encoding="utf8"))
+    code = "\n".join("".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "code")
+    m = re.search(r"EXPECTED_CODE_HASH = '([0-9a-f]+)'", code)
+    return m.group(1)
 
 
 def hours_until(hhmm: str) -> float:
@@ -55,6 +64,7 @@ def main():
     ap.add_argument("--shard", help="i/n: take every n-th dependency chain, e.g. 0/2")
     ap.add_argument("--only", help="regex on job ids; dependencies of matching jobs are kept")
     ap.add_argument("--n-epochs", type=int, help="DEVIATION from the frozen plan: override mgnn n_epochs. Record it in DECISIONS.md")
+    ap.add_argument("--batch-size", type=int, help="DEVIATION from the frozen plan: override the Multi-GNN batch size (official 8192) so it fits a smaller GPU. Use a separate --work folder and record it in DECISIONS.md")
     ap.add_argument("--data", default=str(ROOT / "data" / "raw"), help="folder holding *_Trans.csv")
     ap.add_argument("--work", default=str(ROOT.parent / "aml_out"), help="output folder (resumes if it already holds a run)")
     ap.add_argument("--cache", default=str(ROOT.parent / "aml_cache"))
@@ -80,8 +90,14 @@ def main():
                 j.cfg = {**j.cfg, "n_epochs": a.n_epochs}
         print(f"WARNING: mgnn n_epochs overridden to {a.n_epochs}. This deviates from the frozen plan.")
 
+    if a.batch_size:
+        for j in jobs:
+            if "model" in j.cfg:
+                j.cfg = {**j.cfg, "batch_size": a.batch_size}
+        print(f"WARNING: Multi-GNN batch_size overridden to {a.batch_size} (official 8192). This deviates from the frozen plan.")
+
     h = code_hash(ROOT)
-    print("code hash", h, "OK" if h == EXPECTED_CODE_HASH else f"DIFFERS from the notebooks' {EXPECTED_CODE_HASH}")
+    print("code hash", h, "OK" if h == expected_hash() else f"DIFFERS from the notebooks' {expected_hash()}: rebuild the notebooks and the package")
     print("GPUs:", session.accelerators() or "NONE FOUND")
 
     if a.mode == "list":

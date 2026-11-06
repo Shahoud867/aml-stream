@@ -20,6 +20,43 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 
+class LiveBytes:
+    """Peak bytes of tensor storage alive at once, counted from every op output while it runs. Closer to a GPU allocator's
+    'allocated' peak than process memory is, because it ignores heap slack and sampler temporaries. Fragmentation is not included."""
+
+    def __init__(self):
+        import weakref
+
+        from torch.utils._python_dispatch import TorchDispatchMode
+        self.live: dict[int, list[int]] = {}   # storage pointer -> [bytes, live tensor count]
+        self.cur = 0
+        self.peak = 0
+        outer = self
+
+        class Mode(TorchDispatchMode):
+            def __torch_dispatch__(self, func, types, args=(), kwargs=None):
+                out = func(*args, **(kwargs or {}))
+                for t in (out if isinstance(out, (tuple, list)) else [out]):
+                    if hasattr(t, "untyped_storage") and t.device.type == "cpu" and t.untyped_storage().nbytes() > 0:
+                        ptr = t.untyped_storage().data_ptr()
+                        if ptr not in outer.live:
+                            outer.live[ptr] = [t.untyped_storage().nbytes(), 0]
+                            outer.cur += outer.live[ptr][0]
+                            outer.peak = max(outer.peak, outer.cur)
+                        outer.live[ptr][1] += 1
+                        weakref.finalize(t, outer._drop, ptr)
+                return out
+        self.mode = Mode()
+
+    def _drop(self, ptr):
+        e = self.live.get(ptr)
+        if e:
+            e[1] -= 1
+            if e[1] <= 0:
+                self.cur -= e[0]
+                del self.live[ptr]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="gin", choices=["gin", "pna"])
@@ -75,19 +112,24 @@ def main():
         mgnn._strip_id(batch)
         optimizer = torch.optim.Adam(model.parameters(), lr=config.lr)
         optimizer.zero_grad()
-        out = model(batch.x_dict, batch.edge_index_dict, batch.edge_attr_dict)[mgnn.TO]
-        loss = loss_fn(out[mask[: out.shape[0]]], batch[mgnn.TO].y[mask[: out.shape[0]]])
-        loss.backward()
-        optimizer.step()
+        lb = LiveBytes()
+        with lb.mode:
+            out = model(batch.x_dict, batch.edge_index_dict, batch.edge_attr_dict)[mgnn.TO]
+            loss = loss_fn(out[mask[: out.shape[0]]], batch[mgnn.TO].y[mask[: out.shape[0]]])
+            loss.backward()
+            optimizer.step()
+        exact = lb.peak / 2**30
+        del out, loss
         stop.set()
         th.join()
         grown = (peak[0] - base) / 2**30
-        rows.append({"nodes": n_nodes, "edges": n_edges, "batch_gb": round(batch_bytes / 2**30, 3), "step_peak_growth_gb": round(grown, 2)})
+        rows.append({"nodes": n_nodes, "edges": n_edges, "batch_gb": round(batch_bytes / 2**30, 3), "step_peak_growth_gb": round(grown, 2), "exact_live_peak_gb": round(exact, 2)})
         print(i, rows[-1], flush=True)
-    worst = max(r["step_peak_growth_gb"] for r in rows)
-    est = worst + 0.4 + 0.15 * worst
-    verdict = "FITS 10 GB (estimate)" if est < 8.5 else ("MARGINAL on 10 GB" if est < 10 else "DOES NOT FIT 10 GB (estimate)")
-    res = {"model": a.model, "dataset": a.dataset, "params": params, "batches": rows, "worst_step_growth_gb": worst, "estimated_gpu_peak_gb": round(est, 1), "verdict": verdict}
+    worst = max(r["exact_live_peak_gb"] for r in rows)
+    est = worst * 1.15 + 0.4   # 15% for allocator rounding and fragmentation, 0.4 GB for the CUDA context
+    verdict = "FITS 10 GB (estimate)" if est < 8.5 else ("MARGINAL on 10 GB" if est < 9.6 else "DOES NOT FIT 10 GB (estimate)")
+    res = {"model": a.model, "dataset": a.dataset, "params": params, "batches": rows, "worst_exact_live_peak_gb": worst,
+           "worst_process_growth_gb": max(r["step_peak_growth_gb"] for r in rows), "estimated_gpu_peak_gb": round(est, 1), "verdict": verdict}
     print(json.dumps({k: v for k, v in res.items() if k != "batches"}, indent=1))
     if a.out:
         Path(a.out).write_text(json.dumps(res, indent=1))
