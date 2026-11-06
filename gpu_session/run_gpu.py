@@ -55,6 +55,7 @@ def main():
     ap.add_argument("--shard", help="i/n: take every n-th dependency chain, e.g. 0/2")
     ap.add_argument("--only", help="regex on job ids; dependencies of matching jobs are kept")
     ap.add_argument("--n-epochs", type=int, help="DEVIATION from the frozen plan: override mgnn n_epochs. Record it in DECISIONS.md")
+    ap.add_argument("--batch-size", type=int, help="DEVIATION from the frozen plan: override mgnn batch_size (official default 8192). Record it in DECISIONS.md")
     ap.add_argument("--data", default=str(ROOT / "data" / "raw"), help="folder holding *_Trans.csv")
     ap.add_argument("--work", default=str(ROOT.parent / "aml_out"), help="output folder (resumes if it already holds a run)")
     ap.add_argument("--cache", default=str(ROOT.parent / "aml_cache"))
@@ -79,6 +80,11 @@ def main():
             if "model" in j.cfg:
                 j.cfg = {**j.cfg, "n_epochs": a.n_epochs}
         print(f"WARNING: mgnn n_epochs overridden to {a.n_epochs}. This deviates from the frozen plan.")
+    if a.batch_size:
+        for j in jobs:
+            if "model" in j.cfg:
+                j.cfg = {**j.cfg, "batch_size": a.batch_size}
+        print(f"WARNING: mgnn batch_size overridden to {a.batch_size} (official default 8192). This deviates from the frozen plan.")
 
     h = code_hash(ROOT)
     print("code hash", h, "OK" if h == EXPECTED_CODE_HASH else f"DIFFERS from the notebooks' {EXPECTED_CODE_HASH}")
