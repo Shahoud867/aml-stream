@@ -1,0 +1,4 @@
+# Every job's DONE marker records the sha256 of each result file, byte for byte (src/amlh/runner.py verify_job).
+# On Windows with core.autocrlf=true git rewrites line endings on commit and checkout, which silently breaks those hashes.
+# Result files are therefore never converted.
+results/** -text
