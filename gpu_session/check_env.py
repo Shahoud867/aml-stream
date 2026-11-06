@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import argparse
 import importlib
+import json
+import re
 import shutil
 import subprocess
 import sys
@@ -70,7 +72,10 @@ def main():
     from amlh.runner import code_hash
     from amlh.session import EXPECTED_RAW, verify_raw
     h = code_hash(ROOT)
-    report(h == "9686ce184d525c0a", "code hash equals the one the notebooks expect", h)
+    nb = json.loads((ROOT / "notebooks" / "nb1.ipynb").read_text(encoding="utf8"))
+    code = "\n".join("".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "code")
+    want = re.search(r"EXPECTED_CODE_HASH = '([0-9a-f]+)'", code).group(1)
+    report(h == want, "code hash equals the one the notebooks expect", f"{h} (notebooks expect {want})")
     for ds in ("HI-Small", "LI-Small"):
         try:
             verify_raw(ds, Path(a.data), check_hash=True)

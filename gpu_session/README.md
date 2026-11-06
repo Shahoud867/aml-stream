@@ -1,6 +1,6 @@
 # Running the GPU work on a Windows machine with an RTX 3080 (or on Colab)
 
-Nothing here changes the frozen code: the code hash is still `9686ce184d525c0a`.
+The scripts here read the expected code hash from the notebooks, so they never go stale after a rebuild. The current hash is `7f89dba4e59c9c70`; the package to upload is `dist/aml-code-7f89dba4e59c9c70.zip`. The older `aml-code-9686ce184d525c0a.zip` is obsolete: it lacks the `AddEgoIds` fix.
 
 ## On the RTX 3080 machine: four steps
 
