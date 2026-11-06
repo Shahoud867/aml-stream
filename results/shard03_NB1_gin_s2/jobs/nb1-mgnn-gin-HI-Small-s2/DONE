@@ -1,0 +1,19 @@
+{
+ "job_id": "nb1-mgnn-gin-HI-Small-s2",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "8e248cea4f2225ff",
+ "seconds_last_session": 7830.783889770508,
+ "finished": 1793894405.369163,
+ "files": {
+  "ckpt/best.bin": "b66d0331aac386756b825ce216386202ee59b22036a79c973cd6fde9ba493b58",
+  "ckpt/best.bin.json": "cf0c570fc89ca24cfdd25ac9b12408806499d3781d4f14d726b312e464045a98",
+  "config.json": "1e88db9726b37454285f242816cda91cf9cdf50f6104b7a1369dc4f4b0fc3919",
+  "isolated_result.json": "5d53ad467f6652f7291d196d315fa2456c077dc206a990a09376280702e38850",
+  "log.jsonl": "46721da9dfe66fc51901f8bf5a54530dfb77f100ef81051fa26ffb207ddeaa3f",
+  "metrics.json": "5d53ad467f6652f7291d196d315fa2456c077dc206a990a09376280702e38850",
+  "scores_test.parquet": "bc9993141621b71300f9a02537c6ee1396ccd3ba250b7f459b310d66fc4aa6b3",
+  "scores_test_eval.parquet": "5b0ade47a6a5727329febb2b95514ae8cd436295b9983df94ad5c5d3031a5bea",
+  "scores_val.parquet": "0780277c77c63ca4a561b6e0808bb3291defacda8e681a251b2012277fd8945d",
+  "scores_val_eval.parquet": "9115cb6b2ac1265befb927338fc3e655270a533e01ded67052fa880417b57715"
+ }
+}
