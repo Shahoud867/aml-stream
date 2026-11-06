@@ -1,0 +1,9 @@
+{
+ "status": "DEFERRED",
+ "job_id": "pilot-nb1-trainnorm",
+ "tier": "P0",
+ "config_hash": "bacb5a199830245d",
+ "code_hash": "9686ce184d525c0a",
+ "updated": 1793772968.3645215,
+ "reason": "waiting for ['pilot-nb1-mgnn-gin']"
+}

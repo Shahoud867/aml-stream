@@ -1,0 +1,10 @@
+{
+ "attempts": 0,
+ "status": "INTERRUPTED",
+ "job_id": "pilot-nb1-mgnn-gin",
+ "tier": "P0",
+ "config_hash": "16905395b27d2f4d",
+ "code_hash": "110bf6efe4901d79",
+ "updated": 1793777724.9374878,
+ "reason": "mgnn_train stopped for lack of session time"
+}

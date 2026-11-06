@@ -1,0 +1,14 @@
+{
+ "job_id": "pilot-nb1-trainnorm",
+ "code_hash": "d417f99d2997770b",
+ "config_hash": "bacb5a199830245d",
+ "seconds_last_session": 230.08055067062378,
+ "finished": 1793794043.5787096,
+ "files": {
+  "config.json": "0f4de368630c196e9382c55e9e4a261eecda560c32f75412b744b3652d4d175b",
+  "isolated_result.json": "1217d2d075fb063d02f29aa66f70cf230aef5d8dffbbfb2d7070f817fef6d768",
+  "log.jsonl": "627180fc9922fca78c738d0e4f9a368bf91dee15edda2cd62bc2ff40eaf0d4b0",
+  "metrics.json": "1217d2d075fb063d02f29aa66f70cf230aef5d8dffbbfb2d7070f817fef6d768",
+  "scores_test.parquet": "28cdd8b7fd08a00664405dc679a44c90f8bb4d43851fbf812b2377d1b4d28ec0"
+ }
+}

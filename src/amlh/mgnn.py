@@ -46,6 +46,9 @@ def _official():
     import train_util
     import training
     from util import create_parser
+    # The official AddEgoIds defines __call__ only, but BaseTransform in PyG 2.7.0 also declares an abstract forward, so it cannot be
+    # instantiated. Clearing the flag keeps the official __call__ as the code that runs, unchanged.
+    train_util.AddEgoIds.__abstractmethods__ = frozenset()
     return data_loading, train_util, training, create_parser
 
 
@@ -249,6 +252,12 @@ def mgnn_train(ctx: Context, cfg: dict) -> dict:
     from .jobs_gbt import Paths
     _, train_util, _, _ = _official()
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    if device.type == "cuda":
+        # Measured: training batches (batch_size 8192, num_neighs [100,100], reverse_mp+emlps+ego) take ~7s each on an
+        # RTX 3080, dominating the epoch. TF32 matmuls are an Ampere-only precision trade (not a change to the frozen
+        # algorithm or its hyperparameters): error stays far inside normal seed-to-seed spread. See DECISIONS.md D-018.
+        torch.backends.cuda.matmul.allow_tf32 = True
+        torch.backends.cudnn.allow_tf32 = True
     args = _args(cfg)
     _set_seed(cfg["seed"])
     blob = load_data(cfg, Paths.raw[cfg["dataset"]] / f"{cfg['dataset']}_Trans.csv")
@@ -467,7 +476,18 @@ def mgnn_format_check(ctx: Context, cfg: dict) -> dict:
     ported = work / "ported.csv"
     format_transactions(head, ported)
     a, b = pl.read_csv(official), pl.read_csv(ported)
-    diffs = {c: int((a[c] != b[c]).sum()) for c in a.columns}
+    # Measured on HI-Small (D-020): the official datatable path and the Python port write the two amount columns through
+    # different float-to-text formatting, so about 28% of rows differ at ~1e-16 relative (e.g. 10.299999999999999 vs
+    # 10.300000) -- text-formatting noise, not a port bug. Every other column (ids, timestamps, currencies, the label)
+    # must still match exactly: only the two amount columns get a tolerance, and it is far tighter than the noise seen.
+    AMOUNT_COLS, RTOL, ATOL = {"Amount Sent", "Amount Received"}, 1e-9, 1e-6
+    diffs = {}
+    for c in a.columns:
+        if c in AMOUNT_COLS:
+            x, y = a[c].to_numpy(), b[c].to_numpy()
+            diffs[c] = int((np.abs(x - y) > ATOL + RTOL * np.abs(y)).sum())
+        else:
+            diffs[c] = int((a[c] != b[c]).sum())
     for f in (head, official, ported):
         f.unlink()
     work.rmdir()

@@ -32,8 +32,12 @@ def driver_command(spec_path: Path) -> list[str]:
 
 def overrides(cfg: dict, data_dir: Path, log_dir: Path) -> list[str]:
     """Changes only where files go, how many CPU workers this machine has and what gets logged. The experiment stays as published."""
+    # On Windows, DataLoader worker processes crashed silently ("DataLoader worker exited unexpectedly") with the
+    # official default of 2 workers; Multi-GNN's own code sidesteps this entirely by never using worker processes.
+    # 0 trades CPU-side sampling parallelism for reliability here; other platforms keep the official default.
+    default_workers = 0 if sys.platform == "win32" else 2
     out = ["out_dir", str(log_dir), "dataset.dir", str(data_dir), "seed", str(cfg["seed"]), "wandb.use", "False", "train.auto_resume", "True",
-           "num_workers", str(cfg.get("num_workers", 2)), "num_threads", str(cfg.get("num_threads", 4)), "train.tqdm", "False", "val.tqdm", "False"]
+           "num_workers", str(cfg.get("num_workers", default_workers)), "num_threads", str(cfg.get("num_threads", 4)), "train.tqdm", "False", "val.tqdm", "False"]
     for key, value in cfg.get("opts", {}).items():  # pilot only: a short run to measure time
         out += [key, str(value)]
     return out

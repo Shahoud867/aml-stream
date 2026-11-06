@@ -1,0 +1,3 @@
+{"ts": 1793951419.2593265, "event": "restore", "job": "", "code": "8ac92594c2be0f2f", "n": 0, "roots": []}
+{"ts": 1793951423.8978565, "event": "session_start", "job": "", "code": "8ac92594c2be0f2f", "n_jobs": 3, "budget": 3600.0}
+{"ts": 1793951423.9023678, "event": "start", "job": "nb2-mgnn-gin-LI-Small-s1", "code": "8ac92594c2be0f2f", "attempt": 1, "resumed": false}

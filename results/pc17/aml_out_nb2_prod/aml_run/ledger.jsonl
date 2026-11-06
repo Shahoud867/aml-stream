@@ -1,0 +1,10 @@
+{"ts": 1793935547.0346007, "event": "restore", "job": "", "code": "8ac92594c2be0f2f", "n": 0, "roots": []}
+{"ts": 1793935564.027544, "event": "session_start", "job": "", "code": "8ac92594c2be0f2f", "n_jobs": 15, "budget": 360000.0}
+{"ts": 1793935564.0320573, "event": "start", "job": "nb2-mgnn-pna-HI-Small-s1", "code": "8ac92594c2be0f2f", "attempt": 1, "resumed": false}
+{"ts": 1793938134.9695172, "event": "restore", "job": "", "code": "8ac92594c2be0f2f", "n": 0, "roots": []}
+{"ts": 1793938139.483442, "event": "session_start", "job": "", "code": "8ac92594c2be0f2f", "n_jobs": 3, "budget": 79200.0}
+{"ts": 1793938139.4899518, "event": "blocked", "job": "nb2-mgnn-pna-HI-Small-s1", "code": "8ac92594c2be0f2f", "reason": "config changed"}
+{"ts": 1793938139.50781, "event": "start", "job": "nb2-mgnn-pna-HI-Small-s1", "code": "8ac92594c2be0f2f", "attempt": 2, "resumed": true}
+{"ts": 1793938175.421181, "event": "restore", "job": "", "code": "8ac92594c2be0f2f", "n": 0, "roots": []}
+{"ts": 1793938180.0802264, "event": "session_start", "job": "", "code": "8ac92594c2be0f2f", "n_jobs": 3, "budget": 79200.0}
+{"ts": 1793938180.0851746, "event": "start", "job": "nb2-mgnn-gin-LI-Small-s1", "code": "8ac92594c2be0f2f", "attempt": 1, "resumed": false}

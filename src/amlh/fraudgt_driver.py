@@ -155,6 +155,9 @@ def main(spec_path: str):
     from fraudGT.graphgym.utils.epoch import is_eval_epoch
     from fraudGT.logger import create_logger
     from fraudGT.sampler.custom_sampler import AddEgoIdsForLinkNeighbor
+    # Same fault as Multi-GNN's AddEgoIds (DECISIONS.md D-020): PyG 2.7.0's BaseTransform declares forward as
+    # abstract, but this class only defines __call__. Clearing the flag keeps its own __call__ as the code that runs.
+    AddEgoIdsForLinkNeighbor.__abstractmethods__ = frozenset()
     from fraudGT.train.custom_train import eval_epoch, train_epoch
     from fraudGT.utils import custom_set_out_dir, custom_set_run_dir, new_optimizer_config, new_scheduler_config
 

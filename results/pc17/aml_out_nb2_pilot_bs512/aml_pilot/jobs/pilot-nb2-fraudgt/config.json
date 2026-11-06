@@ -1,0 +1,15 @@
+{
+ "job_id": "pilot-nb2-fraudgt",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "config": "AML-Small-HI/AML-Small-HI-Multi-SparseNodeGT.yaml",
+  "seed": 42,
+  "score_limit": 20000,
+  "opts": {
+   "optim.max_epoch": 2,
+   "train.iter_per_epoch": 16,
+   "val.iter_per_epoch": 8
+  }
+ }
+}
