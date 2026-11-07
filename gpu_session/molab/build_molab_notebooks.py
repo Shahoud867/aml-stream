@@ -214,6 +214,55 @@ PRIOR_RESULTS = [CODE / 'results']
 print('will reuse any verified job found under', [str(p) for p in PRIOR_RESULTS]){extra_note}""")
 
 
+def sliced_run_helper_cell() -> dict:
+    return code('''# ============================= Run long jobs in short, yielding slices =============================
+# amlh.session.run_notebook's own job loop is a plain synchronous `for` loop: gbt_sweep (LightGBM) and the
+# polling loop around an isolated mgnn_train/tdgnn_train subprocess both run entirely in-process, with no
+# `await` anywhere inside them. A single call that runs for a long time therefore blocks this kernel's own
+# async event loop for that whole time. Observed live, pairing this exact notebook with the marimo-pair skill:
+# a long call like this gets cut short after an inconsistent, short burst (anywhere from under a minute to
+# several minutes), confirmed from the runner's own ledger to be `stop_requested` becoming true (not this
+# project's own time-budget check: remaining() was still far above what the next step needed) -- consistent
+# with something outside this project's code deciding the kernel looked unresponsive and signalling it.
+#
+# The fix is structural, not a workaround bolted onto the symptom: never make one long blocking call. This
+# calls run_notebook repeatedly in short slices, with a real `await asyncio.sleep(...)` between each one, so
+# the event loop actually gets a turn regularly. run_notebook is explicitly designed to be called again and
+# again against the same working directory -- a finished job is never repeated, and a job that only got partway
+# resumes from its checkpoint -- so slicing it changes nothing about correctness, only how the blocking is
+# shaped. This is harmless, and barely slower in the ordinary case, even if this diagnosis turns out wrong.
+import asyncio
+import time as _time
+from amlh.session import run_notebook
+
+SLICE_HOURS = 0.05   # about 3 minutes of real work per slice before yielding
+
+
+async def run_notebook_sliced(notebook, budget_hours, restore_roots=None, **kw):
+    # run_notebook() does two things fresh on every call that are each real work, not a cheap check, when
+    # repeated every few minutes instead of once: (1) restore_roots -- Runner.restore() verifies (sha256-hashes)
+    # every file of every already-finished job under every root; this project's whole results/ tree (NB3 alone
+    # has 90 jobs with checkpoints and score files) is a lot to re-hash. (2) check_raw -- verify_raw reads the
+    # *entire* raw CSV to count its rows even with verify_hashes=False, and HI-Medium/LI-Medium are each several
+    # GB. Passing both fresh every slice meant each ~3-minute slice spent its whole budget redoing both of these
+    # from scratch, leaving no time to ever run a new job -- confirmed live: DONE froze for dozens of consecutive
+    # slices while the budget kept draining. Both only need to happen once, on the first slice: later slices'
+    # Runner already has the restored files in its own working directory, and the raw file has not changed.
+    t0 = _time.time()
+    summary = {'complete': False}
+    first = True
+    while not summary.get('complete'):
+        left = budget_hours - (_time.time() - t0) / 3600
+        if left <= 0:
+            break
+        summary = run_notebook(notebook, budget_hours=min(SLICE_HOURS, left), verify_hashes=False, check_raw=first,
+                                restore_roots=(restore_roots if first else []), **kw)
+        first = False
+        print(f"  slice done: {summary.get('counts', {})}, {left:.2f} h left in this call's own budget")
+        await asyncio.sleep(1)   # the actual yield: without this, the next slice starts before the loop ever turns
+    return summary''')
+
+
 def wrapup_cell(label: str) -> dict:
     return code(f"""# ============================= Package the output =============================
 # Molab sessions are not guaranteed to persist, so the output is zipped here (and the notebook's own cell outputs,
@@ -263,6 +312,7 @@ def build_notebook_1():
         data_cell("['HI-Small', 'LI-Small']"),
         tests_cell(),
         restore_cell(),
+        sliced_run_helper_cell(),
         md("""## Run NB1, NB2, and NB3's remaining work
 
 Each of the three keeps using `amlh.session.run_notebook`, the exact tested orchestrator the project's Kaggle/Colab
@@ -270,7 +320,7 @@ notebooks use: per-epoch checkpointing, resumable replays, a wall-clock budget t
 fail loudly (not silently) on a real error. The budget below is split across the three, biased toward NB1 since it
 carries the heaviest remaining work (up to 3 full 100-epoch seeds); each stops early and hands its leftover time to
 the next if it finishes sooner than its share."""),
-        code('''from amlh.session import run_notebook, print_summary, final_checklist
+        code('''from amlh.session import print_summary, final_checklist
 
 # A fixed split of this session's remaining budget. NB1 (Multi-GIN, up to 3 full seeds) gets the largest share;
 # NB2 (Multi-PNA + Multi-GIN LI-Small + FraudGT) the next; NB3 (only P1 remains) the smallest, since its P0 is done.
@@ -284,9 +334,9 @@ for nb, share in SHARES.items():
     budget = min(left, max(left * share / sum(s for n, s in SHARES.items() if n not in summaries), 0.25))
     print(f'=== {nb}: {budget:.2f} h budget, {left:.2f} h left in the session ===')
     nb_work = WORKING / nb.lower()
-    summaries[nb] = run_notebook(nb, tiers=TIERS, budget_hours=budget, input_root=INPUT, working=nb_work,
-                                  restore_roots=PRIOR_RESULTS, cache_root=CACHE, run_name='aml_run',
-                                  official_root=BASE / 'official')
+    summaries[nb] = await run_notebook_sliced(nb, budget_hours=budget, tiers=TIERS, input_root=INPUT, working=nb_work,
+                                               restore_roots=PRIOR_RESULTS, cache_root=CACHE, run_name='aml_run',
+                                               official_root=BASE / 'official')
     print_summary(nb_work)
     final_checklist(nb, TIERS, nb_work, platform='molab')
 '''),
@@ -440,6 +490,7 @@ def build_notebook_2():
         data_cell("['HI-Small', 'LI-Small', 'SAML-D', 'HI-Medium', 'LI-Medium']  # every P1 dataset; TIERS below stops at P1, not P2, because Ethereum (P2) needs a file this notebook cannot fetch on its own"),
         tests_cell(),
         restore_cell(),
+        sliced_run_helper_cell(),
         md("""## Stage 0: the leakage check — runs before anything else
 
 A detector trained on **shuffled labels** must score at prevalence (it has learned nothing real). If it scores well
@@ -493,11 +544,11 @@ Reuses `amlh.session.run_notebook` exactly as the Kaggle/Colab NB4 does: per-job
 is interrupted restarts that one fit, not the whole sweep), a wall-clock budget that stops cleanly, and automatic
 tier ordering (P0 before P1 before P2) so the most important deliverable — the full HI-Small + LI-Small P0
 sweep and alert policy — is always attempted first."""),
-        code('''from amlh.session import run_notebook, print_summary, final_checklist
+        code('''from amlh.session import print_summary, final_checklist
 
 nb4_work = WORKING / 'nb4'
-summary = run_notebook('NB4', tiers=TIERS, budget_hours=hours_left(), input_root=INPUT, working=nb4_work,
-                        restore_roots=[leak_run] + PRIOR_RESULTS, cache_root=CACHE, run_name='aml_run')
+summary = await run_notebook_sliced('NB4', budget_hours=hours_left(), tiers=TIERS, input_root=INPUT, working=nb4_work,
+                                     restore_roots=[leak_run] + PRIOR_RESULTS, cache_root=CACHE, run_name='aml_run')
 print_summary(nb4_work)
 final_checklist('NB4', TIERS, nb4_work, platform='molab')
 '''),
@@ -584,6 +635,7 @@ def build_notebook_3():
         data_cell("['HI-Small', 'LI-Small']"),
         tests_cell(),
         restore_cell(),
+        sliced_run_helper_cell(),
         md("""## Extra output to fold into the merge (optional)
 
 If you ran notebooks 01 and/or 02 first and copied or unzipped their output next to this notebook's own working
@@ -597,11 +649,11 @@ print('extra roots found:', EXTRA_ROOTS or 'none (this is fine; the merge below 
 Attacks are built on top of a clean-data detector's own fixed thresholds, with a **matched-displacement control**
 for every attack condition (`shift_burst`, `shift_stretch`, `shift_blend`) — so a suppression in detection can
 be attributed to the *timing pattern itself*, not merely to moving events around at all."""),
-        code('''from amlh.session import run_notebook, print_summary, final_checklist
+        code('''from amlh.session import print_summary, final_checklist
 
 nb5_work = WORKING / 'nb5'
-summary = run_notebook('NB5', tiers=TIERS, budget_hours=hours_left(), input_root=INPUT, working=nb5_work,
-                        restore_roots=PRIOR_RESULTS, cache_root=CACHE, run_name='aml_run')
+summary = await run_notebook_sliced('NB5', budget_hours=hours_left(), tiers=TIERS, input_root=INPUT, working=nb5_work,
+                                     restore_roots=PRIOR_RESULTS, cache_root=CACHE, run_name='aml_run')
 print_summary(nb5_work)
 final_checklist('NB5', TIERS, nb5_work, platform='molab')
 '''),
