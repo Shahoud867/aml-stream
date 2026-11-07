@@ -411,8 +411,11 @@ def build_notebook_2():
             "audit found zero NB4 evidence in any of the four PCs' work.",
             "**Covers:** NB4 in full — the shuffled-label leakage check (runs *first*, and the notebook stops "
             "and warns loudly if it fails, exactly as the project's own rule requires), the 9-horizon x 2-protocol x "
-            "3-seed LightGBM sweep on HI-Small and LI-Small (tier P0), then SAML-D / HI-Medium / LI-Medium and the "
-            "rolling-origin folds (tier P1/P2) with whatever time remains.\n\n"
+            "3-seed LightGBM sweep on HI-Small and LI-Small (tier P0), then SAML-D / HI-Medium / LI-Medium "
+            "(tier P1) with whatever time remains. Tier P2 (rolling-origin folds plus the Ethereum dataset) is "
+            "not run by default: P2 also includes the Ethereum sweep, which needs `MulDiGraph.pkl` — not "
+            "downloadable by `amlh.fetch.ensure_raw` (see `fetch.py`), so it would break this notebook's "
+            "self-contained design. Add `'P2'` to `TIERS` and attach that file by hand if you want those jobs too.\n\n"
             "**Why HI-Small's own numbers here are not a new confirmatory result:** `docs/DECISIONS.md` D-001 is "
             "explicit — \"HI-Small is the discovery set. A claim counts as confirmed only on data not modelled "
             "when the hypotheses were frozen.\" This notebook's HI-Small sweep is a faithful reproduction check "
@@ -429,11 +432,11 @@ def build_notebook_2():
             "switching LightGBM to a GPU build would change a frozen detector). Runs correctly on Molab with the "
             "GPU detached.",
         ),
-        settings_cell("NB4", False, 11.5, "('P0', 'P1', 'P2')"),
+        settings_cell("NB4", False, 11.5, "('P0', 'P1')"),  # P2 includes rolling-origin folds (fine, reuse HI-Small) but also Ethereum jobs, which need MulDiGraph.pkl -- not fetchable by amlh.fetch.ensure_raw (see fetch.py's sources()), so excluded from this self-contained notebook's default; add it back and attach that file by hand if you want those jobs too
         paths_cell(),
         clone_cell(),
         install_cell(needs_gnn_stack=False),
-        data_cell("['HI-Small', 'LI-Small']  # SAML-D / HI-Medium / LI-Medium are fetched just before their own tier runs, below"),
+        data_cell("['HI-Small', 'LI-Small', 'SAML-D', 'HI-Medium', 'LI-Medium']  # every P1 dataset; TIERS below stops at P1, not P2, because Ethereum (P2) needs a file this notebook cannot fetch on its own"),
         tests_cell(),
         restore_cell(),
         md("""## Stage 0: the leakage check — runs before anything else
