@@ -125,7 +125,7 @@ def test_final_checklist_colab_points_at_drive_not_kaggle(small_data, tmp_path, 
     assert "Drive" in out and "aml-out" not in out
     monkeypatch.setattr(sess, "plan", lambda nb, shard=None: [spec, JobSpec("not-run-yet", "gbt_sweep", SWEEP)])
     assert not sess.final_checklist("NB4", ("P0",), tmp_path / "w", platform="colab")
-    assert "Run all cells again" in capsys.readouterr().out
+    assert "Run this cell again" in capsys.readouterr().out
 
 
 def test_notebook_runs_on_colab_with_drive_output_and_downloaded_data(small_data, tmp_path, monkeypatch):
