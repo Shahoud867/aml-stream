@@ -285,7 +285,8 @@ for nb, share in SHARES.items():
     print(f'=== {nb}: {budget:.2f} h budget, {left:.2f} h left in the session ===')
     nb_work = WORKING / nb.lower()
     summaries[nb] = run_notebook(nb, tiers=TIERS, budget_hours=budget, input_root=INPUT, working=nb_work,
-                                  restore_roots=PRIOR_RESULTS, cache_root=CACHE, run_name='aml_run')
+                                  restore_roots=PRIOR_RESULTS, cache_root=CACHE, run_name='aml_run',
+                                  official_root=BASE / 'official')
     print_summary(nb_work)
     final_checklist(nb, TIERS, nb_work, platform='molab')
 '''),
