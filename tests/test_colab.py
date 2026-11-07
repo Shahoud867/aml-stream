@@ -162,3 +162,33 @@ def test_notebook_runs_on_colab_with_drive_output_and_downloaded_data(small_data
     assert ns["WORKING"] == home / "out_nb4"
     assert asked["names"] == ["HI-Small"] and asked["dest"] == content / "aml_data" and asked["backup"] == home / "data"
     assert verify_job(home / "out_nb4" / "aml_run" / "jobs" / spec.job_id)[0], "output must land in Drive, where a disconnect cannot lose it"
+
+
+def test_install_gnn_stack_falls_back_through_known_torch_combos_in_order(monkeypatch):
+    """Found live, on a Molab RTX PRO 6000 Blackwell session (compute capability sm_120, needs CUDA >= 12.8): the
+    session's own torch had no PyG wheels, and the single hard-coded fallback (2.5.1+cu121, written for the RTX
+    3080 fleet) also has none for that card -- PyG's wheel index stopped publishing torch-scatter/torch-sparse
+    builds after torch-2.9.1+cu130. Verified end to end there (torch, torch-scatter, torch-sparse, and a real
+    GINEConv forward pass, all on CUDA) that 2.5.1+cu121, 2.9.1+cu130 is a real, tried-in-order list that must stop
+    at the first combo with wheels, never silently pick a later one when an earlier one already has what it needs."""
+    calls = []
+
+    def fake_pip(*args):
+        calls.append(args)
+        if "torch-scatter" in args:  # the `wheels()` probe: only the second candidate's URL has wheels
+            return args[-1] == "https://data.pyg.org/whl/torch-2.9.1+cu130.html"
+        return True  # every `torch==` install itself succeeds
+
+    monkeypatch.setattr(sess, "_pip", fake_pip)
+    monkeypatch.setattr("importlib.metadata.version", lambda pkg: "2.15.0")  # the session's own torch (no matching wheels either); install_gnn_stack imports `version` locally, so the patch target is importlib.metadata itself
+    result = sess.install_gnn_stack()
+    assert result == "2.9.1+cu130"
+    installs = [c for c in calls if c and c[0].startswith("torch==")]
+    assert [c[0] for c in installs] == ["torch==2.5.1", "torch==2.9.1"], "must try the known-good RTX 3080 combo before any newer one"
+
+
+def test_install_gnn_stack_raises_with_every_combo_tried_when_none_have_wheels(monkeypatch):
+    monkeypatch.setattr(sess, "_pip", lambda *a: "torch-scatter" not in a)  # every torch install succeeds; no wheel probe ever does
+    monkeypatch.setattr("importlib.metadata.version", lambda pkg: "2.15.0")
+    with pytest.raises(RuntimeError, match=r"2\.5\.1\+cu121.*2\.9\.1\+cu130"):
+        sess.install_gnn_stack()
