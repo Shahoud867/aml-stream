@@ -154,6 +154,19 @@ def test_final_checklist_says_what_to_do_next(small_data, tmp_path, monkeypatch,
     assert "jobs remain" in capsys.readouterr().out
 
 
+def test_final_checklist_on_molab_says_run_again_not_kaggle_versioning(small_data, tmp_path, monkeypatch, capsys):
+    """Molab has no 'Add Input' / 'Save & Run All' workflow -- that text is Kaggle-only and was wrongly shown for
+    platform='molab' too (found live, in the output of a real Molab 01_gnn_baselines run)."""
+    spec = JobSpec("nb4-gbt-wall-HI-Small-released-H3600-s0", "gbt_sweep", SWEEP)
+    monkeypatch.setattr(sess, "plan", lambda nb, shard=None: [spec, JobSpec("not-run-yet", "gbt_sweep", SWEEP)])
+    sess.run_notebook("NB4", tiers=("P0",), budget_hours=1.0, jobs=[spec], restore_roots=[], **_common(_small_input(small_data, tmp_path), tmp_path))
+    capsys.readouterr()
+    assert not sess.final_checklist("NB4", ("P0",), tmp_path / "w", platform="molab")
+    out = capsys.readouterr().out
+    assert "jobs remain" in out and "Run this cell again" in out
+    assert "Add Input" not in out and "Save & Run All" not in out
+
+
 def _run_cells(name, tmp_path, inp, **replace):
     """Runs a notebook's real code cells, with only the Kaggle paths and settings replaced."""
     ns = {}

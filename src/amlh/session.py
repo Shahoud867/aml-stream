@@ -491,8 +491,8 @@ def final_checklist(notebook: str, tiers=("P0",), working: Path = Path("/kaggle/
     complete = all(ok for _, ok, _ in rows)
     if complete and platform == "colab":
         print(f"\nNEXT: finished. The output is already in Drive at {working}. Share that folder with whoever runs the merge notebook.")
-    elif unverified and not damaged and platform == "colab":
-        print(f"\nNEXT: {len(unverified)} jobs remain. Run all cells again (Runtime, Run all). The output stays in Drive, so finished jobs are not repeated and interrupted ones continue from their checkpoints.")
+    elif unverified and not damaged and platform in ("colab", "molab"):
+        print(f"\nNEXT: {len(unverified)} jobs remain. Run this cell again (or Run all). The output stays on disk, so finished jobs are not repeated and interrupted ones continue from their checkpoints.")
     elif complete:
         print("\nNEXT: publish this version's output as a private dataset named aml-out-" + notebook.lower() + "-v1 and attach it to the merge notebook.")
     elif unverified and not damaged:
