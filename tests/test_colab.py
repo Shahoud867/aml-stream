@@ -180,6 +180,7 @@ def test_install_gnn_stack_falls_back_through_known_torch_combos_in_order(monkey
         return True  # every `torch==` install itself succeeds
 
     monkeypatch.setattr(sess, "_pip", fake_pip)
+    monkeypatch.setattr(sess, "_verify_torch_cuda", lambda: None)  # not what this test is about; see the verify/heal tests below
     monkeypatch.setattr("importlib.metadata.version", lambda pkg: "2.15.0")  # the session's own torch (no matching wheels either); install_gnn_stack imports `version` locally, so the patch target is importlib.metadata itself
     result = sess.install_gnn_stack()
     assert result == "2.9.1+cu130"
@@ -191,4 +192,61 @@ def test_install_gnn_stack_raises_with_every_combo_tried_when_none_have_wheels(m
     monkeypatch.setattr(sess, "_pip", lambda *a: "torch-scatter" not in a)  # every torch install succeeds; no wheel probe ever does
     monkeypatch.setattr("importlib.metadata.version", lambda pkg: "2.15.0")
     with pytest.raises(RuntimeError, match=r"2\.5\.1\+cu121.*2\.9\.1\+cu130"):
+        sess.install_gnn_stack()
+
+
+FREEZE_WITH_CORRUPTED_CUSPARSELT = """\
+nvidia-cublas-cu12==12.1.3.1
+nvidia-cusparselt-cu13==0.8.0
+nvidia-cudnn-cu12==9.1.0.70
+torch==2.9.1+cu130
+"""
+
+
+def test_heal_missing_cuda_lib_reinstalls_only_the_matching_nvidia_package(monkeypatch):
+    """Found live, twice (docs/DECISIONS.md D-027): pip list still reports nvidia-cusparselt-cu13 installed, but its
+    .so is missing from site-packages, so `import torch` fails inside an isolated training job. Reinstalling must
+    target only the package the missing library actually names, not every nvidia-* package."""
+    monkeypatch.setattr(sess.subprocess, "run", lambda *a, **k: type("R", (), {"stdout": FREEZE_WITH_CORRUPTED_CUSPARSELT})())
+    calls = []
+    monkeypatch.setattr(sess, "_pip", lambda *args: calls.append(args) or True)
+    err = "ImportError: libcusparseLt.so.0: cannot open shared object file: No such file or directory"
+    assert sess._heal_missing_cuda_lib(err) is True
+    assert calls == [("--force-reinstall", "--no-deps", "nvidia-cusparselt-cu13")]
+
+
+def test_heal_missing_cuda_lib_does_nothing_when_no_installed_package_matches(monkeypatch):
+    monkeypatch.setattr(sess.subprocess, "run", lambda *a, **k: type("R", (), {"stdout": FREEZE_WITH_CORRUPTED_CUSPARSELT})())
+    calls = []
+    monkeypatch.setattr(sess, "_pip", lambda *args: calls.append(args) or True)
+    assert sess._heal_missing_cuda_lib("ImportError: libnotarealcudalib.so.3: cannot open shared object file") is False
+    assert calls == []
+
+
+def test_install_gnn_stack_heals_a_corrupted_cuda_install_and_retries_verification_once(monkeypatch):
+    """The install itself can succeed (wheels resolve, pip installs cleanly) while the CUDA runtime library it
+    actually needs is corrupted on disk -- found live. install_gnn_stack must catch that with a real smoke test,
+    try to heal it, and only then either succeed or raise, never silently return a torch version that cannot
+    actually run on the GPU."""
+    monkeypatch.setattr(sess, "_pip", lambda *a: True)
+    monkeypatch.setattr("importlib.metadata.version", lambda pkg: "2.9.1+cu130")  # already has wheels; no fallback needed
+    verify_calls = []
+
+    def fake_verify():
+        verify_calls.append(1)
+        return None if len(verify_calls) > 1 else "ImportError: libcusparseLt.so.0: cannot open shared object file"
+    heal_calls = []
+    monkeypatch.setattr(sess, "_verify_torch_cuda", fake_verify)
+    monkeypatch.setattr(sess, "_heal_missing_cuda_lib", lambda err: heal_calls.append(err) or True)
+    assert sess.install_gnn_stack() == "2.9.1+cu130"
+    assert len(verify_calls) == 2, "must re-verify after healing, not just trust the heal succeeded"
+    assert len(heal_calls) == 1
+
+
+def test_install_gnn_stack_raises_when_still_broken_after_healing(monkeypatch):
+    monkeypatch.setattr(sess, "_pip", lambda *a: True)
+    monkeypatch.setattr("importlib.metadata.version", lambda pkg: "2.9.1+cu130")
+    monkeypatch.setattr(sess, "_verify_torch_cuda", lambda: "ImportError: libcusparseLt.so.0: cannot open shared object file")
+    monkeypatch.setattr(sess, "_heal_missing_cuda_lib", lambda err: True)  # claims to have fixed it; verification disagrees
+    with pytest.raises(RuntimeError, match="CUDA smoke test"):
         sess.install_gnn_stack()

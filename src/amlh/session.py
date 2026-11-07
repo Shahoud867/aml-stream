@@ -7,6 +7,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -88,6 +89,31 @@ def accelerators() -> list[str]:
 FALLBACK_TORCH = [("2.5.1", "cu121"), ("2.9.1", "cu130")]
 
 
+def _verify_torch_cuda() -> str | None:
+    """Imports torch in its own process (this one must not import it first -- see accelerators()) and runs one real
+    CUDA op. Returns the failure's stderr tail if it did not pass, None if it did."""
+    code = "import torch; assert torch.cuda.is_available(), 'torch.cuda.is_available() is False'; x = torch.randn(2, 2, device='cuda'); (x @ x).sum().item()"
+    r = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
+    return None if r.returncode == 0 else r.stderr[-2000:]
+
+
+def _heal_missing_cuda_lib(err: str) -> bool:
+    """A large nvidia-*-cuXX wheel's binary payload can go missing while pip's own metadata still says it is
+    installed: seen live, twice (docs/DECISIONS.md D-027), as `ImportError: libcusparseLt.so.0: cannot open shared
+    object file`, with `pip list` still reporting nvidia-cusparselt-cu13 installed and no corresponding file on
+    disk -- the corrupted-install risk D-025 already flagged, for a different package. Force-reinstalls whichever
+    currently-"installed" nvidia-* package's name matches the missing library, and reports whether anything matched."""
+    m = re.search(r"lib([A-Za-z0-9]+?)\.so", err)
+    if not m:
+        return False
+    needle = m.group(1).lower()
+    out = subprocess.run([sys.executable, "-m", "pip", "list", "--format=freeze"], capture_output=True, text=True).stdout
+    pkgs = [line.split("==")[0] for line in out.splitlines() if line.lower().startswith("nvidia-") and needle in line.lower().replace("-", "")]
+    for pkg in pkgs:
+        _pip("--force-reinstall", "--no-deps", pkg)
+    return bool(pkgs)
+
+
 def install_gnn_stack() -> str:
     """PyG extensions must match torch exactly, so the wheels follow whichever torch this session has, with known fallbacks."""
     from importlib.metadata import version
@@ -107,6 +133,11 @@ def install_gnn_stack() -> str:
     # 2.6.1 breaks on current torch: its to_hetero tracer reads st.List from torch.fx, which no longer exports it. 2.7.0 imports List from typing.
     if not _pip("torch-geometric==2.7.0", "wandb", "tqdm"):
         raise RuntimeError("could not install torch-geometric")
+    err = _verify_torch_cuda()
+    if err and _heal_missing_cuda_lib(err):
+        err = _verify_torch_cuda()
+    if err:
+        raise RuntimeError(f"torch install failed its own CUDA smoke test after installing:\n{err}")
     return torch_version
 
 
