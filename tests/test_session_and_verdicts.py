@@ -129,6 +129,46 @@ def test_c6_c8_and_policy_verdicts(small_data, verdict_run):
     assert isinstance(pol["C5"]["pass"], bool)
 
 
+def test_verdicts_for_handles_no_data_without_crashing(small_data):
+    """Found by first running the merge step end to end (it never had been, anywhere in this project): with zero
+    sweep rows, `all(... for k in seeds)` over an empty `seeds` is vacuously true, so the C3 block used to run
+    anyway on empty arrays and crash inside paired_diff_ci (`len()` of a 0-d array). C1/C2/C4/C3b already guarded
+    on `seeds`; C3 now does too, and must report no C3 verdict rather than fail."""
+    from amlh.jobs_gbt import get_stream
+    from amlh.merge import verdicts_for
+
+    s, _ = get_stream({"dataset": "HI-Small", "protocol": "released"})
+    v = verdicts_for(collect([]), s, {})
+    assert v == {}
+
+
+def test_verdicts_for_c1_c2_c3_c4_on_real_data(small_data, tmp_path_factory):
+    """C1, C2, C3, C4 (verdicts_for's other half from C5/C6/C8, tested above) had no direct test at all. `verdict_run`
+    does not cover them: it sweeps most horizons at seed 0 only, which C1-C4 each correctly treat as 'no verdict yet'
+    (as test_verdicts_for_handles_no_data_without_crashing checks), not as something to compute from partial data. This
+    builds the small set of horizons C1/C2/C3/C4 actually need, at every seed, so each one has something to compute."""
+    from amlh.jobs_gbt import get_stream
+    from amlh.merge import sweep_results, verdicts_for
+
+    run = tmp_path_factory.mktemp("verdicts_c1234") / "run"
+    horizons = ("0", "1", "60", "600", "3600", "86400", "inf")
+    jobs = [JobSpec(f"nb4-gbt-wall-HI-Small-released-H{h}-s{k}", "gbt_sweep", {**BASE, "family": "wall", "H": h, "seed": k})
+            for h in horizons for k in (0, 1, 2)]
+    r = Runner(run, "V", 3600, code_version="test", registry=registry())
+    r.write_manifest()
+    summary = r.run(jobs)
+    assert summary["complete"], [x for x in summary["jobs"] if not x["verified"]]
+
+    c = collect([run])
+    s, _ = get_stream({"dataset": "HI-Small", "protocol": "released"})
+    rows = sweep_results(c, s)
+    v = verdicts_for(c, s, rows)
+    assert v["C3"]["best"] in ("1", "60", "600", "3600")
+    assert isinstance(v["C3"]["pass"], bool) and len(v["C3"]["ci"]) == 2 and all(np.isfinite(v["C3"]["ci"]))
+    for hid in ("C1", "C2", "C4"):
+        assert isinstance(v[hid]["pass"], bool) and np.isfinite(v[hid]["value"])
+
+
 def test_tail_invariance_holds_on_real_runs(small_data, verdict_run):
     """Trained at strict past, with and without tail days present: scores on the core must agree."""
     result = tail_invariance(collect([verdict_run]), "HI-Small")
