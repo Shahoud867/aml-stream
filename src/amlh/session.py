@@ -78,17 +78,32 @@ def accelerators() -> list[str]:
     return [line.strip() for line in out.stdout.splitlines() if line.startswith("GPU")] if out.returncode == 0 else []
 
 
+# Known-good (torch, index) pairs to fall back to, in order, when the session's own torch has no matching PyG wheels.
+# 2.5.1+cu121 is what every finished GPU result in this project (RTX 3080s, compute capability <= sm_86) was produced
+# under, so it stays first and nothing about those results' environment changes. 2.9.1+cu130 was added after an RTX PRO
+# 6000 Blackwell card (compute capability sm_120, needs CUDA >= 12.8) hit "no matching torch-scatter and torch-sparse
+# wheels, even for torch 2.5.1": PyG's wheel index (data.pyg.org/whl/) stopped publishing torch-scatter/torch-sparse
+# builds after torch-2.9.1+cu130, so that is the newest combination with real wheels, verified end to end on that
+# card (torch, torch-scatter, torch-sparse, torch-geometric's GINEConv, all on CUDA) via a live-paired session.
+FALLBACK_TORCH = [("2.5.1", "cu121"), ("2.9.1", "cu130")]
+
+
 def install_gnn_stack() -> str:
-    """PyG extensions must match torch exactly, so the wheels follow whichever torch this session has, with one known fallback."""
+    """PyG extensions must match torch exactly, so the wheels follow whichever torch this session has, with known fallbacks."""
     from importlib.metadata import version
 
     def wheels(v: str) -> bool:
         return _pip("--only-binary", ":all:", "torch-scatter", "torch-sparse", "-f", f"https://data.pyg.org/whl/torch-{v}.html")
     torch_version = version("torch")
     if not wheels(torch_version):
-        torch_version = "2.5.1+cu121"
-        if not _pip("torch==2.5.1", "--index-url", "https://download.pytorch.org/whl/cu121") or not wheels(torch_version):
-            raise RuntimeError("no matching torch-scatter and torch-sparse wheels, even for torch 2.5.1")
+        tried = []
+        for v, cu in FALLBACK_TORCH:
+            torch_version = f"{v}+{cu}"
+            tried.append(torch_version)
+            if _pip(f"torch=={v}", "--index-url", f"https://download.pytorch.org/whl/{cu}") and wheels(torch_version):
+                break
+        else:
+            raise RuntimeError(f"no matching torch-scatter and torch-sparse wheels, even for {tried}")
     # 2.6.1 breaks on current torch: its to_hetero tracer reads st.List from torch.fx, which no longer exports it. 2.7.0 imports List from typing.
     if not _pip("torch-geometric==2.7.0", "wandb", "tqdm"):
         raise RuntimeError("could not install torch-geometric")

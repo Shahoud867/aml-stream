@@ -1,7 +1,13 @@
-# Official Multi-GNN notebooks (NB1, NB2). These versions installed cleanly together on CPU in testing, but the
-# official code has not yet been run under them. The pilot must confirm they work with Kaggle's GPU driver.
-# Install torch 2.5.1 from https://download.pytorch.org/whl/cu121 and the two extensions from
-# https://data.pyg.org/whl/torch-2.5.1+cu121.html
+# Official Multi-GNN notebooks (NB1, NB2), and the pinned versions every finished GPU result in results/ was produced
+# with (RTX 3080s, compute capability <= sm_86). Install torch 2.5.1 from https://download.pytorch.org/whl/cu121 and
+# the two extensions from https://data.pyg.org/whl/torch-2.5.1+cu121.html
+#
+# This file is a static, manual pin for setting up a machine by hand (gpu_session/setup_windows.ps1). The Molab
+# notebooks (gpu_session/molab/) and src/amlh/session.py's install_gnn_stack() do not read it: that function tries
+# this combo first, then known newer fallbacks for hardware this combo cannot run on at all (verified live on an
+# RTX PRO 6000 Blackwell, sm_120: torch 2.5.1+cu121 is not compatible with that compute capability, and PyG's wheel
+# index has no torch-scatter/torch-sparse build for any torch newer than 2.9.1+cu130, so that pair is the fallback).
+# See FALLBACK_TORCH in src/amlh/session.py and DECISIONS.md D-025 for the full story.
 torch==2.5.1
 torch-geometric==2.7.0
 torch-scatter
