@@ -194,16 +194,17 @@ def data_cell(datasets_expr: str) -> dict:
 # Downloaded directly from Kaggle's public endpoint (no account needed) and checked against the row counts and
 # SHA-256 hashes in docs/SPEC.md -- the same check every notebook in this project runs, because one Kaggle download
 # endpoint has silently truncated a file before while still reporting success.
-# Off the event loop via asyncio.to_thread -- see the note in the "Get the code" cell above. HI-Medium and
-# LI-Medium are several GB each; without this, a download that size is exactly the kind of long blocking call
-# that gets this cell interrupted outright (confirmed live: this happened before to_thread was added here).
+# Off the event loop via asyncio.to_thread, and one dataset per call rather than all of them in one shot. HI-Medium
+# and LI-Medium are several GB each; whatever cuts this cell off mid-run (we've seen it happen even with to_thread
+# in place -- see DECISIONS.md), ensure_raw's own partial-file resume (curl -C -, checked by complete()) means
+# re-running this cell just continues the dataset it was on instead of losing progress or restarting a download.
 from amlh.fetch import ensure_raw
 from amlh.session import verify_raw
 
 DATASETS = {datasets_expr}
 print('fetching', DATASETS)
-await asyncio.to_thread(ensure_raw, DATASETS, INPUT)
 for d in DATASETS:
+    await asyncio.to_thread(ensure_raw, [d], INPUT)
     print(d, verify_raw(d, INPUT))""")
 
 
