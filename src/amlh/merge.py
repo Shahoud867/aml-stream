@@ -122,8 +122,8 @@ def verdicts_for(c: Collected, s: Stream, rows: dict) -> dict:
     res = c3b(s, scores, seeds, unsealed=True) if seeds else None
     if res is not None:
         out["C3b"] = {"value": res["diff"], "ci": res["ci"], "pass": res["confirmed"], "H_star": res["H_star"], "attempts": res["attempts"]}
-    near = [h for h in ("1", "60", "600", "3600") if all((h, k) in rows for k in seeds)]
-    if near and all(("86400", k) in rows for k in seeds):
+    near = [h for h in ("1", "60", "600", "3600") if seeds and all((h, k) in rows for k in seeds)]
+    if near and seeds and all(("86400", k) in rows for k in seeds):
         def per_attempt(h):
             per = []
             for k in seeds:
