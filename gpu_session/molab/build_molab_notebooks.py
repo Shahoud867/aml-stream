@@ -83,7 +83,7 @@ HAS_GPU = _GPU.returncode == 0 and bool(_GPU.stdout.strip())
 print("GPU:", _GPU.stdout.strip() or "none found")
 """ if needs_gpu else ""
     return code(f"""# ============================= Settings: the only cell you would normally change =============================
-import os, sys, time
+import asyncio, os, sys, time   # asyncio is used by later cells via asyncio.to_thread(...), so it is imported once, here
 NOTEBOOK = '{nb_label}'
 REPO_URL = os.environ.get('AML_REPO_URL', '{REPO_URL}')
 REPO_BRANCH = os.environ.get('AML_REPO_BRANCH', 'main')   # pin a commit instead by setting this to a SHA
@@ -124,6 +124,12 @@ def clone_cell() -> dict:
     return code("""# ============================= Get the code =============================
 # Clones (or fast-forwards) the repository. The expected code hash is computed from whatever we actually cloned,
 # never hard-coded, so this notebook can never go stale the way a fixed-hash code package would.
+#
+# git clone/fetch run via asyncio.to_thread: a plain blocking subprocess.run() call here (or anywhere else long-
+# running in this notebook) blocks this kernel's own async event loop for its whole duration. Confirmed live,
+# pairing this exact notebook: that is enough for something outside this project's code (consistent with an
+# unresponsiveness watchdog) to interrupt the cell outright. to_thread moves the blocking wait off the event
+# loop's own thread, so the loop stays free to answer whatever is checking on it, the whole time.
 import subprocess
 
 def run(cmd, **kw):
@@ -136,11 +142,11 @@ token = os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN')
 clone_url = REPO_URL.replace('https://', f'https://{token}@') if token else REPO_URL
 if not (CODE / '.git').exists():
     print('cloning', REPO_URL, '...')
-    run(['git', 'clone', '--branch', REPO_BRANCH, clone_url, str(CODE)])
+    await asyncio.to_thread(run, ['git', 'clone', '--branch', REPO_BRANCH, clone_url, str(CODE)])
 else:
     print('updating existing clone ...')
-    run(['git', '-C', str(CODE), 'fetch', 'origin', REPO_BRANCH])
-    run(['git', '-C', str(CODE), 'checkout', REPO_BRANCH])
+    await asyncio.to_thread(run, ['git', '-C', str(CODE), 'fetch', 'origin', REPO_BRANCH])
+    run(['git', '-C', str(CODE), 'checkout', REPO_BRANCH])        # local, fast: no network wait worth threading
     run(['git', '-C', str(CODE), 'reset', '--hard', f'origin/{REPO_BRANCH}'])
 
 sys.path.insert(0, str(CODE / 'src'))
@@ -155,15 +161,16 @@ def install_cell(needs_gnn_stack: bool) -> dict:
     # torch + torch-geometric + the official Multi-GNN and FraudGT repos at their pinned commits.
     from amlh.session import setup_environment
     if HAS_GPU:
-        info = setup_environment('NB2', official_root=BASE / 'official')   # 'NB2' installs everything NB1 needs too
+        info = await asyncio.to_thread(setup_environment, 'NB2', official_root=BASE / 'official')   # 'NB2' installs everything NB1 needs too
         print(info)
     else:
         print("No GPU: skipping the official Multi-GNN/FraudGT/torch install. This notebook cannot do its GPU work")
         print("without a GPU; see the next cell, which stops here rather than pretending to proceed.")
 """ if needs_gnn_stack else ""
     return code(f"""# ============================= Install dependencies =============================
+# Off the event loop via asyncio.to_thread -- see the note in the "Get the code" cell above.
 if INSTALL:
-    run([sys.executable, '-m', 'pip', 'install', '-q', '-r', str(CODE / 'requirements-kaggle.txt')])
+    await asyncio.to_thread(run, [sys.executable, '-m', 'pip', 'install', '-q', '-r', str(CODE / 'requirements-kaggle.txt')])
     print('requirements-kaggle.txt installed')
 {gnn}""")
 
@@ -187,21 +194,26 @@ def data_cell(datasets_expr: str) -> dict:
 # Downloaded directly from Kaggle's public endpoint (no account needed) and checked against the row counts and
 # SHA-256 hashes in docs/SPEC.md -- the same check every notebook in this project runs, because one Kaggle download
 # endpoint has silently truncated a file before while still reporting success.
+# Off the event loop via asyncio.to_thread -- see the note in the "Get the code" cell above. HI-Medium and
+# LI-Medium are several GB each; without this, a download that size is exactly the kind of long blocking call
+# that gets this cell interrupted outright (confirmed live: this happened before to_thread was added here).
 from amlh.fetch import ensure_raw
 from amlh.session import verify_raw
 
 DATASETS = {datasets_expr}
 print('fetching', DATASETS)
-ensure_raw(DATASETS, INPUT)
+await asyncio.to_thread(ensure_raw, DATASETS, INPUT)
 for d in DATASETS:
     print(d, verify_raw(d, INPUT))""")
 
 
 def tests_cell() -> dict:
     return code("""# ============================= Tests: the gate =============================
+# Off the event loop via asyncio.to_thread -- see the note in the "Get the code" cell above. The full suite
+# takes several minutes; run synchronously that is easily long enough to get this cell interrupted outright.
 from amlh.session import run_preflight_tests
 if RUN_TESTS:
-    run_preflight_tests(CODE)
+    await asyncio.to_thread(run_preflight_tests, CODE)
     print('all tests passed')""")
 
 
@@ -215,52 +227,29 @@ print('will reuse any verified job found under', [str(p) for p in PRIOR_RESULTS]
 
 
 def sliced_run_helper_cell() -> dict:
-    return code('''# ============================= Run long jobs in short, yielding slices =============================
+    return code('''# ============================= Run the job queue off the event loop =============================
 # amlh.session.run_notebook's own job loop is a plain synchronous `for` loop: gbt_sweep (LightGBM) and the
 # polling loop around an isolated mgnn_train/tdgnn_train subprocess both run entirely in-process, with no
 # `await` anywhere inside them. A single call that runs for a long time therefore blocks this kernel's own
 # async event loop for that whole time. Observed live, pairing this exact notebook with the marimo-pair skill:
-# a long call like this gets cut short after an inconsistent, short burst (anywhere from under a minute to
-# several minutes), confirmed from the runner's own ledger to be `stop_requested` becoming true (not this
-# project's own time-budget check: remaining() was still far above what the next step needed) -- consistent
-# with something outside this project's code deciding the kernel looked unresponsive and signalling it.
+# a long call like this gets interrupted outright, confirmed from the runner's own ledger to be `stop_requested`
+# becoming true (not this project's own time-budget check: remaining() was still far above what the next step
+# needed) -- consistent with something outside this project's code deciding the kernel looked unresponsive and
+# signalling it. The same thing happened to the clone, install, data-fetch and test cells above, which is why
+# they are wrapped in asyncio.to_thread too.
 #
-# The fix is structural, not a workaround bolted onto the symptom: never make one long blocking call. This
-# calls run_notebook repeatedly in short slices, with a real `await asyncio.sleep(...)` between each one, so
-# the event loop actually gets a turn regularly. run_notebook is explicitly designed to be called again and
-# again against the same working directory -- a finished job is never repeated, and a job that only got partway
-# resumes from its checkpoint -- so slicing it changes nothing about correctness, only how the blocking is
-# shaped. This is harmless, and barely slower in the ordinary case, even if this diagnosis turns out wrong.
-import asyncio
-import time as _time
+# An earlier version of this fix chopped run_notebook into many short, repeated slices with a sleep in between,
+# to force the event loop to get a turn. That introduced its own bug: run_notebook() restores from every prior
+# result and re-verifies the raw files on every call, and repeating that every few minutes (instead of once)
+# consumed each slice's entire budget before a new job could ever start -- confirmed live, DONE froze for dozens
+# of consecutive slices while the budget drained. asyncio.to_thread is the more direct fix for the actual
+# problem: it moves run_notebook's blocking work onto its own OS thread, so the event loop stays free for the
+# whole call, in one piece, not an artificially chopped-up one -- no slicing, no redundant re-verification.
 from amlh.session import run_notebook
 
-SLICE_HOURS = 0.05   # about 3 minutes of real work per slice before yielding
 
-
-async def run_notebook_sliced(notebook, budget_hours, restore_roots=None, **kw):
-    # run_notebook() does two things fresh on every call that are each real work, not a cheap check, when
-    # repeated every few minutes instead of once: (1) restore_roots -- Runner.restore() verifies (sha256-hashes)
-    # every file of every already-finished job under every root; this project's whole results/ tree (NB3 alone
-    # has 90 jobs with checkpoints and score files) is a lot to re-hash. (2) check_raw -- verify_raw reads the
-    # *entire* raw CSV to count its rows even with verify_hashes=False, and HI-Medium/LI-Medium are each several
-    # GB. Passing both fresh every slice meant each ~3-minute slice spent its whole budget redoing both of these
-    # from scratch, leaving no time to ever run a new job -- confirmed live: DONE froze for dozens of consecutive
-    # slices while the budget kept draining. Both only need to happen once, on the first slice: later slices'
-    # Runner already has the restored files in its own working directory, and the raw file has not changed.
-    t0 = _time.time()
-    summary = {'complete': False}
-    first = True
-    while not summary.get('complete'):
-        left = budget_hours - (_time.time() - t0) / 3600
-        if left <= 0:
-            break
-        summary = run_notebook(notebook, budget_hours=min(SLICE_HOURS, left), verify_hashes=False, check_raw=first,
-                                restore_roots=(restore_roots if first else []), **kw)
-        first = False
-        print(f"  slice done: {summary.get('counts', {})}, {left:.2f} h left in this call's own budget")
-        await asyncio.sleep(1)   # the actual yield: without this, the next slice starts before the loop ever turns
-    return summary''')
+async def run_notebook_sliced(notebook, budget_hours, **kw):
+    return await asyncio.to_thread(run_notebook, notebook, budget_hours=budget_hours, **kw)''')
 
 
 def wrapup_cell(label: str) -> dict:
