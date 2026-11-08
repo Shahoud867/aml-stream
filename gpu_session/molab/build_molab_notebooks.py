@@ -218,6 +218,31 @@ if RUN_TESTS:
     print('all tests passed')""")
 
 
+def reset_stale_jobs_cell() -> dict:
+    return code("""# ============================= Reset stale jobs from a crashed session =============================
+# When a Molab session dies (sandbox killed, watchdog timeout, browser disconnect), any job that was
+# mid-run is left in RUNNING state. The runner treats RUNNING as "still active" and will never retry it.
+# This cell resets those stale RUNNING jobs (and any permanently-exhausted FAILED jobs) back to TODO so
+# they run cleanly in this session. Jobs that finished (DONE) are never touched.
+# ~/aml_molab/ is persistent storage: your previous session's work is already here, nothing is lost.
+import json as _json
+
+_reset, _done = 0, 0
+for _p in sorted(WORKING.rglob('status.json')):
+    _d = _json.loads(_p.read_text())
+    if _d.get('status') == 'DONE':
+        _done += 1
+    elif _d.get('status') in ('RUNNING', 'FAILED'):
+        _d.update(status='TODO', attempts=0, reason='reset for new Molab session (previous session crashed)')
+        _p.write_text(_json.dumps(_d, indent=1))
+        _reset += 1
+if _reset:
+    print(f'Reset {_reset} stale RUNNING/FAILED jobs to TODO -- they will run in this session')
+    print(f'Preserved {_done} DONE jobs (will not re-run)')
+else:
+    print(f'No stale jobs found -- {_done} DONE jobs preserved, starting cleanly')""")
+
+
 def restore_from_zip_cell() -> dict:
     return code("""# ============================= Restore from a previous session's zip (optional) =============================
 # If you ran this notebook on a previous Molab session and downloaded the zip it produced, upload that zip to
@@ -518,6 +543,7 @@ def build_notebook_2():
         ),
         settings_cell("NB4", False, 11.5, "('P0', 'P1')"),  # P2 includes rolling-origin folds (fine, reuse HI-Small) but also Ethereum jobs, which need MulDiGraph.pkl -- not fetchable by amlh.fetch.ensure_raw (see fetch.py's sources()), so excluded from this self-contained notebook's default; add it back and attach that file by hand if you want those jobs too
         paths_cell(),
+        reset_stale_jobs_cell(),
         clone_cell(),
         install_cell(needs_gnn_stack=False),
         data_cell("['HI-Small', 'LI-Small', 'SAML-D', 'HI-Medium', 'LI-Medium']  # every P1 dataset; TIERS below stops at P1, not P2, because Ethereum (P2) needs a file this notebook cannot fetch on its own"),
@@ -663,6 +689,7 @@ def build_notebook_3():
         ),
         settings_cell("NB5", False, 11.0, "('P0', 'P1')"),
         paths_cell(),
+        reset_stale_jobs_cell(),
         clone_cell(),
         install_cell(needs_gnn_stack=False),
         data_cell("['HI-Small', 'LI-Small']"),
