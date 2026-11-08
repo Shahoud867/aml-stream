@@ -267,11 +267,18 @@ import json as _json
 
 if RESTORE_ZIP:
     import shutil as _shutil
-    _zip = Path(RESTORE_ZIP)
-    if not _zip.exists():
-        print(f'WARNING: RESTORE_ZIP={RESTORE_ZIP!r} not found -- skipping restore')
+    _candidates = [
+        Path(RESTORE_ZIP),
+        BASE / RESTORE_ZIP,
+        Path.home() / RESTORE_ZIP,
+        Path.cwd() / RESTORE_ZIP,
+        Path.home() / 'aml_molab' / RESTORE_ZIP,
+    ]
+    _zip = next((p for p in _candidates if p.exists() and p.is_file()), None)
+    if not _zip:
+        print(f'WARNING: RESTORE_ZIP={RESTORE_ZIP!r} not found (searched {[str(p) for p in _candidates]}) -- skipping restore')
     else:
-        print(f'Extracting {_zip.name} to {WORKING} ...')
+        print(f'Extracting {_zip} to {WORKING} ...')
         _shutil.unpack_archive(str(_zip), str(WORKING))
         _reset, _done, _deferred, _unblocked = 0, 0, 0, 0
         for _p in sorted(WORKING.rglob('status.json')):
