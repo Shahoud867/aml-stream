@@ -1,0 +1,107 @@
+{
+ "checkpoints": [
+  "1",
+  "600",
+  "3600",
+  "21600",
+  "86400"
+ ],
+ "budgets": {
+  "100": {
+   "alpha": [
+    0.1,
+    0.0,
+    0.9,
+    0.0,
+    0.0
+   ],
+   "taus": [
+    0.9999929070472717,
+    Infinity,
+    0.999988317489624,
+    Infinity,
+    Infinity
+   ],
+   "val_value": 0.037502314002014786,
+   "fixed_alpha": [
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "fixed_taus": [
+    Infinity,
+    Infinity,
+    0.9999879598617554,
+    Infinity,
+    Infinity
+   ],
+   "fixed_val_value": 0.03739299953024805
+  },
+  "500": {
+   "alpha": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "taus": [
+    0.9966434836387634,
+    Infinity,
+    Infinity,
+    Infinity,
+    Infinity
+   ],
+   "val_value": 0.20393991322367697,
+   "fixed_alpha": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "fixed_taus": [
+    0.9966434836387634,
+    Infinity,
+    Infinity,
+    Infinity,
+    Infinity
+   ],
+   "fixed_val_value": 0.20393991322367697
+  },
+  "2000": {
+   "alpha": [
+    0.5,
+    0.30000000000000004,
+    0.0,
+    0.1,
+    0.1
+   ],
+   "taus": [
+    0.8406977653503418,
+    0.46311479806900024,
+    Infinity,
+    0.45273536443710327,
+    0.41288694739341736
+   ],
+   "val_value": 0.4126161867275666,
+   "fixed_alpha": [
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "fixed_taus": [
+    Infinity,
+    0.27856531739234924,
+    Infinity,
+    Infinity,
+    Infinity
+   ],
+   "fixed_val_value": 0.4042323350813561
+  }
+ }
+}

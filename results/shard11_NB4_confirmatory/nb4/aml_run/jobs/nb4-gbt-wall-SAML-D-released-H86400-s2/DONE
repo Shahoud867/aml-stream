@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-SAML-D-released-H86400-s2",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "721cc2f7bb82554a",
+ "seconds_last_session": 77.42927598953247,
+ "finished": 1794082883.1232576,
+ "files": {
+  "config.json": "49e0ff9f81fad3606f28f3b8b4654d5d2f910c96ad497c79b53c93ba46143899",
+  "metrics.json": "43eaf5afcf02f33890498abe4297950ce2d5ac133141f6eac74f35cb79c4e3c2",
+  "scores_test.parquet": "14c51e41eb9b14e823d9002ddf203330704fa88e6908753f00ceb5c84de534fb",
+  "scores_val.parquet": "3eafb521e835e46c38954daf12629c53ffa2cf2fdd3a91226179e4c3cee28ba3"
+ }
+}

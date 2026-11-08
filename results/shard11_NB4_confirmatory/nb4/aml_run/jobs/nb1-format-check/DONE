@@ -1,0 +1,13 @@
+{
+ "job_id": "nb1-format-check",
+ "code_hash": "68ab7cece98e33ad",
+ "config_hash": "2f4aa9417cc13992",
+ "seconds_last_session": 15.03337049484253,
+ "finished": 1793852908.213205,
+ "files": {
+  "config.json": "76996c004f9dbaabf9aee7c57ed0f4816bad8f345a5d88d0752e351c794db90d",
+  "isolated_result.json": "61f0561ed3ffb5041700f70fa78886f76dcebaea37801d9b5d39e0849ae4545c",
+  "log.jsonl": "d4d57c08982ed353876200ef745358002cc028ce9f96f421baedfca0dbe2e81c",
+  "metrics.json": "61f0561ed3ffb5041700f70fa78886f76dcebaea37801d9b5d39e0849ae4545c"
+ }
+}

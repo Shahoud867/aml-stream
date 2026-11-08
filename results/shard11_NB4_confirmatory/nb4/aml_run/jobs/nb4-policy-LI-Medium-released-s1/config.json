@@ -1,0 +1,28 @@
+{
+ "job_id": "nb4-policy-LI-Medium-released-s1",
+ "tier": "P1",
+ "cfg": {
+  "dataset": "LI-Medium",
+  "protocol": "released",
+  "seed": 1,
+  "checkpoints": [
+   "1",
+   "600",
+   "3600",
+   "21600",
+   "86400"
+  ],
+  "sweep_jobs": [
+   "nb4-gbt-wall-LI-Medium-released-H1-s1",
+   "nb4-gbt-wall-LI-Medium-released-H600-s1",
+   "nb4-gbt-wall-LI-Medium-released-H3600-s1",
+   "nb4-gbt-wall-LI-Medium-released-H21600-s1",
+   "nb4-gbt-wall-LI-Medium-released-H86400-s1"
+  ],
+  "budgets": [
+   100,
+   500,
+   2000
+  ]
+ }
+}

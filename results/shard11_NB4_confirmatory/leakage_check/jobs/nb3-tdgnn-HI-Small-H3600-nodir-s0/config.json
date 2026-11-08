@@ -1,0 +1,10 @@
+{
+ "job_id": "nb3-tdgnn-HI-Small-H3600-nodir-s0",
+ "tier": "P1",
+ "cfg": {
+  "dataset": "HI-Small",
+  "H": "3600",
+  "seed": 0,
+  "shared_direction": true
+ }
+}

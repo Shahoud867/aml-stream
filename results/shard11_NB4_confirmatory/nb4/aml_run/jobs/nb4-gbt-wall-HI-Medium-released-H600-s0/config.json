@@ -1,0 +1,12 @@
+{
+ "job_id": "nb4-gbt-wall-HI-Medium-released-H600-s0",
+ "tier": "P1",
+ "cfg": {
+  "dataset": "HI-Medium",
+  "protocol": "released",
+  "H": "600",
+  "seed": 0,
+  "family": "wall",
+  "neg_rate": 0.25
+ }
+}

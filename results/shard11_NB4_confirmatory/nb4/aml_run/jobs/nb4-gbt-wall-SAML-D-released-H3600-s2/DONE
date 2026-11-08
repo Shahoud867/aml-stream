@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-SAML-D-released-H3600-s2",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "a1d1598930edaef3",
+ "seconds_last_session": 57.59700632095337,
+ "finished": 1794082456.4765108,
+ "files": {
+  "config.json": "f93d1d6008e970c8b1f534baaf25a878ea5b3139b54ccc92b7f0ce0e1b00d9c2",
+  "metrics.json": "791e67f009840dd6d643c41bd054deea93f17b750d9ff3c8eb020d7ae32ff957",
+  "scores_test.parquet": "8c4cc1beddbfc32de6f517caf5881f84d61c4500409f63c2f3c49f609d9282e5",
+  "scores_val.parquet": "3421635c873102b969c21aea786b25a7b63423242711bda0e9afc7ba6d3f02f9"
+ }
+}

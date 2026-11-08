@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-HI-Medium-released-H3600-s2",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "6ab937057a159e52",
+ "seconds_last_session": 123.42141222953796,
+ "finished": 1794086417.0764546,
+ "files": {
+  "config.json": "ed588d6628d1688fb3382cd3864eeb6552d82c40c37e62ee00d2dfc74ab57086",
+  "metrics.json": "ef34710879f3e65a4229235cdad64f499be6ad61461f2c70ba33936fe78e8037",
+  "scores_test.parquet": "08a9bb129a30c21c03275cedaf5ed4529c6f1d1f9382bf421531af628ca19d94",
+  "scores_val.parquet": "6c35d4d222171e12decc5c566b6df4f176679cc91478a112122f05bbf0ae5836"
+ }
+}

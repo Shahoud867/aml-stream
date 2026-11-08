@@ -1,0 +1,109 @@
+{
+ "best_iter": 511,
+ "t_feat_s": 8.3,
+ "t_train_s": 48.6,
+ "n_features": 126,
+ "test_health": {
+  "n": 862792,
+  "n_nan": 0,
+  "min": 2.3068599570882024e-07,
+  "max": 0.9999989758213927,
+  "n_distinct_sample": 98996
+ },
+ "tau": 0.5632208545348654,
+ "val_f1": 0.6810810810810811,
+ "val_pr_auc": 0.6264161213536189,
+ "val_n": 965524,
+ "val_pos": 1036,
+ "test_results": {
+  "tau": 0.5632208545348654,
+  "test": {
+   "f1": 0.6083178150217257,
+   "precision": 0.7480916030534351,
+   "recall": 0.5125523012552301,
+   "tp": 490,
+   "fp": 165,
+   "fn": 466,
+   "pr_auc": 0.570663046430632,
+   "n": 862792,
+   "n_pos": 956
+  },
+  "test_core": {
+   "f1": 0.6083178150217257,
+   "precision": 0.7480916030534351,
+   "recall": 0.5125523012552301,
+   "tp": 490,
+   "fp": 165,
+   "fn": 466,
+   "pr_auc": 0.570663046430632,
+   "n": 862792,
+   "n_pos": 956
+  },
+  "attempts": {
+   "f1_tau": {
+    "attempts": 79,
+    "detected_frac": 0.8227848101265823,
+    "median_delay_h": 27.433333333333334,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0
+   },
+   "budget_100": {
+    "attempts": 79,
+    "detected_frac": 0.3291139240506329,
+    "median_delay_h": 28.491666666666667,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0,
+    "value_share_ci": [
+     0.0,
+     0.0
+    ],
+    "alerts_per_day_core": 89.0
+   },
+   "equal_100": {
+    "attempts": 79,
+    "detected_frac": 0.3291139240506329,
+    "median_delay_h": 28.491666666666667,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0
+   },
+   "budget_500": {
+    "attempts": 79,
+    "detected_frac": 0.8860759493670886,
+    "median_delay_h": 27.15,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0,
+    "value_share_ci": [
+     0.0,
+     0.0
+    ],
+    "alerts_per_day_core": 597.0
+   },
+   "equal_500": {
+    "attempts": 79,
+    "detected_frac": 0.8607594936708861,
+    "median_delay_h": 27.15,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0
+   },
+   "budget_2000": {
+    "attempts": 79,
+    "detected_frac": 0.9746835443037974,
+    "median_delay_h": 26.866666666666667,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0,
+    "value_share_ci": [
+     0.0,
+     0.0
+    ],
+    "alerts_per_day_core": 2512.5
+   },
+   "equal_2000": {
+    "attempts": 79,
+    "detected_frac": 0.9493670886075949,
+    "median_delay_h": 26.866666666666667,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0
+   }
+  }
+ }
+}

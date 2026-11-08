@@ -1,0 +1,19 @@
+{
+ "notebook": "NB4-leakage",
+ "code_hash": "d7aa5068018d7d77",
+ "environment": {
+  "python": "3.13.11",
+  "machine": "x86_64",
+  "cpu_count": 20,
+  "torch": "2.11.0+cu130",
+  "cuda": false,
+  "ram_gb": 167.8,
+  "numpy": "2.4.6",
+  "polars": "1.42.1",
+  "lightgbm": "4.6.0",
+  "numba": "0.65.1",
+  "torch_geometric": null
+ },
+ "budget_seconds": 3600,
+ "stage": "leakage_check"
+}

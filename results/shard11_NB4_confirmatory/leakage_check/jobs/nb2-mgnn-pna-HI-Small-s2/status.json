@@ -1,0 +1,11 @@
+{
+ "attempts": 1,
+ "status": "RUNNING",
+ "job_id": "nb2-mgnn-pna-HI-Small-s2",
+ "tier": "P0",
+ "config_hash": "e9183427e654ce69",
+ "code_hash": "9686ce184d525c0a",
+ "updated": 1793935286.8959873,
+ "reason": "mgnn_train stopped for lack of session time",
+ "heartbeat": 1793938557.0796044
+}

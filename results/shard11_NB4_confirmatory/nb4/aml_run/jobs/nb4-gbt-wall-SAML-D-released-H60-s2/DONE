@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-SAML-D-released-H60-s2",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "68aa3843a80b520f",
+ "seconds_last_session": 60.44447636604309,
+ "finished": 1794082097.8163495,
+ "files": {
+  "config.json": "202797ca41c826da9f54e4ec102c1ad748528c96987aba39f7b61577bcbd474c",
+  "metrics.json": "78d00f806936a601923519272ff4a328c18865c452c5ef4544e20afb3b835719",
+  "scores_test.parquet": "5f662792434fb6413eaed52849f3dc4c27e80681d83e2c0903b3ebf814689d1b",
+  "scores_val.parquet": "9c3c61d6456994f0e81d6421c983d91f84257034e057a711c4dcf65beb93f361"
+ }
+}

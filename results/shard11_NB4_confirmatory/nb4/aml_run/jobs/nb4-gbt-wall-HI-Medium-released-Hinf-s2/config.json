@@ -1,0 +1,12 @@
+{
+ "job_id": "nb4-gbt-wall-HI-Medium-released-Hinf-s2",
+ "tier": "P1",
+ "cfg": {
+  "dataset": "HI-Medium",
+  "protocol": "released",
+  "H": "inf",
+  "seed": 2,
+  "family": "wall",
+  "neg_rate": 0.25
+ }
+}

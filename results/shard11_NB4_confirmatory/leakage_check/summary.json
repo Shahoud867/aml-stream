@@ -1,0 +1,43 @@
+{
+ "notebook": "NB4-leakage",
+ "code_hash": "d7aa5068018d7d77",
+ "counts": {
+  "DONE": 4
+ },
+ "jobs": [
+  {
+   "job_id": "nb4-gbt-wall-HI-Small-released-H0-shuffled-s0",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb4-gbt-wall-HI-Small-released-H1-shuffled-s0",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb4-gbt-wall-HI-Small-released-H3600-shuffled-s0",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  },
+  {
+   "job_id": "nb4-gbt-wall-HI-Small-released-Hinf-shuffled-s0",
+   "tier": "P0",
+   "status": "DONE",
+   "reason": null,
+   "verified": true,
+   "detail": ""
+  }
+ ],
+ "session_seconds": 55.88947796821594,
+ "complete": true
+}

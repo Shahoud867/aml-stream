@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-LI-Small-documented-H3600-s1",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "415ef127a5660909",
+ "seconds_last_session": 31.687243700027466,
+ "finished": 1794080632.136442,
+ "files": {
+  "config.json": "e15495364b3b8dfee3e714d978baf947774a72fb2678db5a97530902abc78aab",
+  "metrics.json": "4056aef22d8895591cc850fda6811ab55e58aabc431378faf4f582e24e8911a0",
+  "scores_test.parquet": "8a5268b616f69e12b309b6accb0e3d246609bedb6c6a59df152f561e836d80f6",
+  "scores_val.parquet": "09a85b38a5e1031b9f622839a3d393263b6ecddcb51b903e4a2bd65ea7772fb7"
+ }
+}

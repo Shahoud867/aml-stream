@@ -1,0 +1,28 @@
+{
+ "job_id": "nb4-policy-HI-Small-released-s0",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "protocol": "released",
+  "seed": 0,
+  "checkpoints": [
+   "1",
+   "600",
+   "3600",
+   "21600",
+   "86400"
+  ],
+  "sweep_jobs": [
+   "nb4-gbt-wall-HI-Small-released-H1-s0",
+   "nb4-gbt-wall-HI-Small-released-H600-s0",
+   "nb4-gbt-wall-HI-Small-released-H3600-s0",
+   "nb4-gbt-wall-HI-Small-released-H21600-s0",
+   "nb4-gbt-wall-HI-Small-released-H86400-s0"
+  ],
+  "budgets": [
+   100,
+   500,
+   2000
+  ]
+ }
+}

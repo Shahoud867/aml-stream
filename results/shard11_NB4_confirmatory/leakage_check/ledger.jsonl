@@ -1,0 +1,11 @@
+{"ts": 1794077047.5516458, "event": "restore", "job": "", "code": "d7aa5068018d7d77", "n": 104, "roots": ["/home/marimo/aml_molab/aml-stream/results"]}
+{"ts": 1794077052.063421, "event": "session_start", "job": "", "code": "d7aa5068018d7d77", "n_jobs": 4, "budget": 3600}
+{"ts": 1794077052.0642385, "event": "start", "job": "nb4-gbt-wall-HI-Small-released-H0-shuffled-s0", "code": "d7aa5068018d7d77", "attempt": 1, "resumed": false}
+{"ts": 1794077066.992595, "event": "done", "job": "nb4-gbt-wall-HI-Small-released-H0-shuffled-s0", "code": "d7aa5068018d7d77", "seconds": 14.928200483322144}
+{"ts": 1794077066.994187, "event": "start", "job": "nb4-gbt-wall-HI-Small-released-H1-shuffled-s0", "code": "d7aa5068018d7d77", "attempt": 1, "resumed": false}
+{"ts": 1794077078.4361737, "event": "done", "job": "nb4-gbt-wall-HI-Small-released-H1-shuffled-s0", "code": "d7aa5068018d7d77", "seconds": 11.441845893859863}
+{"ts": 1794077078.4371893, "event": "start", "job": "nb4-gbt-wall-HI-Small-released-H3600-shuffled-s0", "code": "d7aa5068018d7d77", "attempt": 1, "resumed": false}
+{"ts": 1794077089.7950764, "event": "done", "job": "nb4-gbt-wall-HI-Small-released-H3600-shuffled-s0", "code": "d7aa5068018d7d77", "seconds": 11.357735872268677}
+{"ts": 1794077089.796143, "event": "start", "job": "nb4-gbt-wall-HI-Small-released-Hinf-shuffled-s0", "code": "d7aa5068018d7d77", "attempt": 1, "resumed": false}
+{"ts": 1794077102.3631682, "event": "done", "job": "nb4-gbt-wall-HI-Small-released-Hinf-shuffled-s0", "code": "d7aa5068018d7d77", "seconds": 12.56691288948059}
+{"ts": 1794077102.3843143, "event": "session_end", "job": "", "code": "d7aa5068018d7d77", "counts": {"DONE": 4}}

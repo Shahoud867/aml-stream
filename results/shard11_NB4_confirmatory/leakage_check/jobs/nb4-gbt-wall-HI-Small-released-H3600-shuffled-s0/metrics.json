@@ -1,0 +1,120 @@
+{
+ "best_iter": 2,
+ "t_feat_s": 7.8,
+ "t_train_s": 2.7,
+ "n_features": 126,
+ "test_health": {
+  "n": 863900,
+  "n_nan": 0,
+  "min": 0.0029184929729594205,
+  "max": 0.0059491191205204115,
+  "n_distinct_sample": 335
+ },
+ "tau": 0.003179284903978201,
+ "val_f1": 0.010518114530580444,
+ "val_pr_auc": 0.0022444601976285275,
+ "val_n": 965524,
+ "val_pos": 1036,
+ "test_results": {
+  "tau": 0.003179284903978201,
+  "test": {
+   "f1": 0.015073175006572605,
+   "precision": 0.008109000047145348,
+   "recall": 0.10676598386095593,
+   "tp": 172,
+   "fp": 21039,
+   "fn": 1439,
+   "pr_auc": 0.0038332017977900697,
+   "n": 863900,
+   "n_pos": 1611
+  },
+  "test_core": {
+   "f1": 0.008349972771827918,
+   "precision": 0.004364326375711575,
+   "recall": 0.09623430962343096,
+   "tp": 92,
+   "fp": 20988,
+   "fn": 864,
+   "pr_auc": 0.0024139773636094697,
+   "n": 862792,
+   "n_pos": 956
+  },
+  "test_tail": {
+   "f1": 0.2035623409669211,
+   "precision": 0.6106870229007634,
+   "recall": 0.12213740458015267,
+   "tp": 80,
+   "fp": 51,
+   "fn": 575,
+   "pr_auc": 0.5791675295437763,
+   "n": 1108,
+   "n_pos": 655
+  },
+  "attempts": {
+   "f1_tau": {
+    "attempts": 86,
+    "detected_frac": 0.4418604651162791,
+    "median_delay_h": 26.608333333333334,
+    "value_share_mean": 0.2266863302140145,
+    "transfer_share_mean": 0.2541319617012162
+   },
+   "budget_100": {
+    "attempts": 86,
+    "detected_frac": 0.0,
+    "median_delay_h": NaN,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0,
+    "value_share_ci": [
+     0.0,
+     0.0
+    ],
+    "alerts_per_day_core": 162.0
+   },
+   "equal_100": {
+    "attempts": 86,
+    "detected_frac": 0.0,
+    "median_delay_h": NaN,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0
+   },
+   "budget_500": {
+    "attempts": 86,
+    "detected_frac": 0.0,
+    "median_delay_h": NaN,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0,
+    "value_share_ci": [
+     0.0,
+     0.0
+    ],
+    "alerts_per_day_core": 707.0
+   },
+   "equal_500": {
+    "attempts": 86,
+    "detected_frac": 0.0,
+    "median_delay_h": NaN,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0
+   },
+   "budget_2000": {
+    "attempts": 86,
+    "detected_frac": 0.011627906976744186,
+    "median_delay_h": 71.01666666666667,
+    "value_share_mean": 0.0030808701625568394,
+    "transfer_share_mean": 0.003171247357293869,
+    "value_share_ci": [
+     0.0,
+     0.009242610487670517
+    ],
+    "alerts_per_day_core": 2761.5
+   },
+   "equal_2000": {
+    "attempts": 86,
+    "detected_frac": 0.011627906976744186,
+    "median_delay_h": 71.01666666666667,
+    "value_share_mean": 0.0030808701625568394,
+    "transfer_share_mean": 0.003171247357293869
+   }
+  }
+ }
+}

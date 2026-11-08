@@ -1,0 +1,16 @@
+{
+ "job_id": "nb3-tdgnn-LI-Small-Hinf-s1",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "2eadebfb45b8c29a",
+ "seconds_last_session": 109.6863911151886,
+ "finished": 1793773072.5932672,
+ "files": {
+  "ckpt/best.bin": "361d40448618e228e10b58835785d4139d555ebea7627d9d02ab4482f55495a7",
+  "ckpt/best.bin.json": "40ab670444701a99aef7f7f11788682cb12e2e58ccbc75a508bf4d24c60f6acb",
+  "config.json": "55bf4f8bb5c05c6282f00dd91f2cff3000187cff26234dcada11c85744e3bbf9",
+  "log.jsonl": "aa81602e36ccec54b1589e2752d53d2042d69cb6bba5f0ca6270d0b437ba5baf",
+  "metrics.json": "9082c3b56b01b744047f65d3362c3b2d65f3bcc799121aab1a520000a066d159",
+  "scores_test.parquet": "9411282f02415d87569a94f72f3f52980af594fb561461d5705bebc0c9269731",
+  "scores_val.parquet": "1c18a968d39f691358680c235ff9c371f53fa779aa0010860bbbc4234a280b33"
+ }
+}

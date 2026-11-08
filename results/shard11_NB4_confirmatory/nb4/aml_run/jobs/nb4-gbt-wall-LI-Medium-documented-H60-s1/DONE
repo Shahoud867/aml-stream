@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-LI-Medium-documented-H60-s1",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "5a7b1860e75700af",
+ "seconds_last_session": 100.94419240951538,
+ "finished": 1794100126.1573308,
+ "files": {
+  "config.json": "f786939c4a6a1c4be7867eff52897eae770b7017f5df5ad04e61cb4fa627cc23",
+  "metrics.json": "3233df511ccf957ea6e404250fcb38ddeb0e58317ca4b07348f3db88a7d272ca",
+  "scores_test.parquet": "0384134ccb1d737aff1b648d16691ee233626ef47a1ed80afa5a66963bc04a03",
+  "scores_val.parquet": "08806906513fca2cf0993cb8884e2ec285d2fb92b6ed90e8da88abf5298641c4"
+ }
+}

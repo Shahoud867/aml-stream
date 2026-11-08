@@ -1,0 +1,11 @@
+{
+ "attempts": 2,
+ "status": "RUNNING",
+ "job_id": "nb2-mgnn-pna-HI-Small-s1",
+ "tier": "P0",
+ "config_hash": "b51f811ca1b13d10",
+ "code_hash": "8ac92594c2be0f2f",
+ "updated": 1793938139.5048096,
+ "heartbeat": 1793938144.5176914,
+ "reason": "config hash 5c7934951bcd8f68 != b51f811ca1b13d10"
+}

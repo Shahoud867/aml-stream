@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-HI-Small-released-H1-shuffled-s0",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "31f1754e77293bb6",
+ "seconds_last_session": 11.432584047317505,
+ "finished": 1794077078.4358165,
+ "files": {
+  "config.json": "ac00447f84d3c2c3f54d48912473482ad5fb2cd20ad31bb472c8dc0ca4ac7f44",
+  "metrics.json": "1c4d6c5606873d8fdcae881a6488e8e7deef6249be5072bffb06056e63e142d2",
+  "scores_test.parquet": "65d0eec82c5fa5c819a4e6195a2dd543b519f1fc1265048cfd4a7913cae1af8c",
+  "scores_val.parquet": "f85b2789ba18367ca061afcd94159d2e66e4b9162005996d3ae8c798ee212dcc"
+ }
+}

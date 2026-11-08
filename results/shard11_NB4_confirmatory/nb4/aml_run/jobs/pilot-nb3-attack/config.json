@@ -1,0 +1,18 @@
+{
+ "job_id": "pilot-nb3-attack",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "H": "3600",
+  "seed": 0,
+  "train_job": "pilot-nb3-tdgnn",
+  "Ws": [
+   21600
+  ],
+  "conditions": [
+   "none",
+   "blend",
+   "shift_blend"
+  ]
+ }
+}

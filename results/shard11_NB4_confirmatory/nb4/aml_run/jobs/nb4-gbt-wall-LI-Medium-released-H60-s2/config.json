@@ -1,0 +1,12 @@
+{
+ "job_id": "nb4-gbt-wall-LI-Medium-released-H60-s2",
+ "tier": "P1",
+ "cfg": {
+  "dataset": "LI-Medium",
+  "protocol": "released",
+  "H": "60",
+  "seed": 2,
+  "family": "wall",
+  "neg_rate": 0.25
+ }
+}

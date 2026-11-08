@@ -1,0 +1,16 @@
+{
+ "job_id": "nb3-tdgnn-HI-Small-H0-s2",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "3bb364afa51490b3",
+ "seconds_last_session": 81.91249680519104,
+ "finished": 1793773433.9509706,
+ "files": {
+  "ckpt/best.bin": "6ad5d5b8ca582843df72969fb916bcfbebafb089d73f8af8e6ff2aea8461932d",
+  "ckpt/best.bin.json": "a4952507d3c1411256bd258644e463f30d35f1e0c33a9e4de42307bfb3d0fcac",
+  "config.json": "414ea833fa6f0eed1a2b0cc60f8a729549d87e384ee4189274ad6e7c6c96ab75",
+  "log.jsonl": "c9297851737598321b5fc7326c937a9340b05830d4933e34aa61f800e2832aa3",
+  "metrics.json": "b992ec891ae15669cc7322d9e44690850fc0116d0111918872d43988f97f3823",
+  "scores_test.parquet": "7a6cebd355409a8183f13057ec6a22ad539fc50b482499de7785e5b58a6f4c1c",
+  "scores_val.parquet": "ce98a0ff6c52cd5e13cc0ca4975342fc1af9930433c22e888a832b6e64e6bc67"
+ }
+}

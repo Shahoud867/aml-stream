@@ -1,0 +1,6 @@
+{
+ "cadence": 86400,
+ "buckets": 12,
+ "train_job": "nb1-mgnn-gin-HI-Small-s2",
+ "train_cadence": null
+}

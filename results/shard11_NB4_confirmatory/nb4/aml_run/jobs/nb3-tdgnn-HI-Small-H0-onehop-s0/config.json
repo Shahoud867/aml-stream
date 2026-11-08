@@ -1,0 +1,10 @@
+{
+ "job_id": "nb3-tdgnn-HI-Small-H0-onehop-s0",
+ "tier": "P1",
+ "cfg": {
+  "dataset": "HI-Small",
+  "H": "0",
+  "seed": 0,
+  "one_hop": true
+ }
+}

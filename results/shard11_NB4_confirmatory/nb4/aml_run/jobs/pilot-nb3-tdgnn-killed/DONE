@@ -1,0 +1,16 @@
+{
+ "job_id": "pilot-nb3-tdgnn-killed",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "8632d65589b69320",
+ "seconds_last_session": 39.64766311645508,
+ "finished": 1793772002.9517255,
+ "files": {
+  "ckpt/best.bin": "5ce8d14ef61fe80203a103865af2dac0ca42e1a6341bd248c26561cb7a1abf93",
+  "ckpt/best.bin.json": "4e67b418291d7835e0829d75364af63988f23bde9498ce8b0414439d051a25c3",
+  "config.json": "0ac193f3c55eb785d9d4182e4a12b90d05b8d51c19a182e2bb5ed6a71198667c",
+  "log.jsonl": "e1434db6b177db2bffb7818ede94734c8de0b332375ba531ed9c60f8f9b1c22e",
+  "metrics.json": "19617ae998ed70a0e5f68448057118a63c8d1f3ce282bc02a5e5b1ce1e944f3b",
+  "scores_test.parquet": "b2353ea6ffc5033492c51f8ad938ad00fef20a2e9fee21d01c4e728b594e723f",
+  "scores_val.parquet": "80a0bc916f197debeb075eba6d95770d73e6ee0a3236f2be22d7e71c51c93974"
+ }
+}

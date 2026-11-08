@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-LI-Medium-released-Hinf-s0",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "4c71d1f964863807",
+ "seconds_last_session": 192.3140308856964,
+ "finished": 1794098741.9313247,
+ "files": {
+  "config.json": "085a43f429932da7b3ede9ccd3de13cd0f179bc700f2a32a81c1698f40923025",
+  "metrics.json": "b50ae3e6d53bd175fbae1baf551b00bafc3861171d11f30409bfedd4dd56123e",
+  "scores_test.parquet": "44e7b2becba6a7bc4b52f0ef2c69a10948045dda7a3191eed34e3644600c2223",
+  "scores_val.parquet": "133d83233dfc6c27804c14176b9c2789fd0b9ab663b9d685c32e9bb198302204"
+ }
+}

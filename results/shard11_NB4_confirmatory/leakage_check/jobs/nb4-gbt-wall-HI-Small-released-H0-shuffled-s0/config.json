@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-HI-Small-released-H0-shuffled-s0",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "protocol": "released",
+  "H": "0",
+  "seed": 0,
+  "family": "wall",
+  "neg_rate": 0.25,
+  "shuffle_labels": true
+ }
+}

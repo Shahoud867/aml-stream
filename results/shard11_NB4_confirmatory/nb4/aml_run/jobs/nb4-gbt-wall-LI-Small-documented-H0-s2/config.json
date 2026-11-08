@@ -1,0 +1,12 @@
+{
+ "job_id": "nb4-gbt-wall-LI-Small-documented-H0-s2",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "LI-Small",
+  "protocol": "documented",
+  "H": "0",
+  "seed": 2,
+  "family": "wall",
+  "neg_rate": 0.25
+ }
+}

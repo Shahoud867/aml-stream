@@ -1,0 +1,54 @@
+{
+ "C1": {
+  "value": 11.13778488845586,
+  "pass": true,
+  "note": "points of F1 added by the tail at the whole-window view"
+ },
+ "C2": {
+  "value": 0.20162920894025496,
+  "pass": true,
+  "per_seed": [
+   0.2123967056214014,
+   0.20298223617460748,
+   0.18950868502475604
+  ]
+ },
+ "C4": {
+  "value": 0.15485370079318672,
+  "pass": true,
+  "per_seed": [
+   0.16022903579089592,
+   0.15683507554056347,
+   0.14749699104810077
+  ]
+ },
+ "C3b": {
+  "value": 0.136989605490675,
+  "ci": [
+   0.08554240219078563,
+   0.1913537000910988
+  ],
+  "pass": true,
+  "H_star": "600",
+  "attempts": 86
+ },
+ "C3": {
+  "value": 0.17913911752095765,
+  "ci": [
+   0.12907914740368637,
+   0.23295751185752944
+  ],
+  "pass": true,
+  "best": "600",
+  "note": "descriptive: close to true by construction"
+ },
+ "C5": {
+  "value": 0.007041311985920177,
+  "ci": [
+   0.0017266157523465567,
+   0.013759445650798504
+  ],
+  "pass": true,
+  "note": "adaptive minus best fixed at 500 alerts/day; selection on validation"
+ }
+}

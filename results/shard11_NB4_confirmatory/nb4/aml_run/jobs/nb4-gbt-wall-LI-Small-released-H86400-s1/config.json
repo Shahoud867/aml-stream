@@ -1,0 +1,12 @@
+{
+ "job_id": "nb4-gbt-wall-LI-Small-released-H86400-s1",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "LI-Small",
+  "protocol": "released",
+  "H": "86400",
+  "seed": 1,
+  "family": "wall",
+  "neg_rate": 0.25
+ }
+}

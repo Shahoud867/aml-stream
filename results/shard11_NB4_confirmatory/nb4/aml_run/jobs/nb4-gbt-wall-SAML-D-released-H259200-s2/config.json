@@ -1,0 +1,12 @@
+{
+ "job_id": "nb4-gbt-wall-SAML-D-released-H259200-s2",
+ "tier": "P1",
+ "cfg": {
+  "dataset": "SAML-D",
+  "protocol": "released",
+  "H": "259200",
+  "seed": 2,
+  "family": "wall",
+  "neg_rate": 0.25
+ }
+}

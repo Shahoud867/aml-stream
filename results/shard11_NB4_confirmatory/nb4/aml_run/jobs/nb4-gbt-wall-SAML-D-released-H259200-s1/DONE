@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-SAML-D-released-H259200-s1",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "1cdeba2b6261020f",
+ "seconds_last_session": 68.84383153915405,
+ "finished": 1794083023.6085927,
+ "files": {
+  "config.json": "dfc63d06bce19c73a980194d28cc325caf9f5a33c5619797f3373e4efb5788f1",
+  "metrics.json": "bdb6532c045e4add374d656816ae245e9008796afd10a95f08cf8f814faf6c07",
+  "scores_test.parquet": "b9106e1abc9a913c0ce6b68e148a74118b63be81b437fe37fe8b73ed77a35885",
+  "scores_val.parquet": "2e2b384fa1f2bf3370d74f62550477a207aa6e7c4f29bf1e60519cc4f83e1d5b"
+ }
+}

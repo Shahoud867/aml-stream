@@ -1,0 +1,17 @@
+{
+ "rows": 200000,
+ "differences": {
+  "EdgeID": 0,
+  "from_id": 0,
+  "to_id": 0,
+  "Timestamp": 0,
+  "Amount Sent": 0,
+  "Sent Currency": 0,
+  "Amount Received": 0,
+  "Received Currency": 0,
+  "Payment Format": 0,
+  "Is Laundering": 0
+ },
+ "match": true,
+ "datatable": "real"
+}

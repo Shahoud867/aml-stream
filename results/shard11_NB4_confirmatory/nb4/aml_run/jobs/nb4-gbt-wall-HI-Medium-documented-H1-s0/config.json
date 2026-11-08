@@ -1,0 +1,12 @@
+{
+ "job_id": "nb4-gbt-wall-HI-Medium-documented-H1-s0",
+ "tier": "P1",
+ "cfg": {
+  "dataset": "HI-Medium",
+  "protocol": "documented",
+  "H": "1",
+  "seed": 0,
+  "family": "wall",
+  "neg_rate": 0.25
+ }
+}

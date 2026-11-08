@@ -1,0 +1,19 @@
+{
+ "job_id": "nb3-tdgnn-LI-Small-H3600-s2-attack",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "15bd070c9ce04b04",
+ "seconds_last_session": 24.865171909332275,
+ "finished": 1793785109.7641077,
+ "files": {
+  "attack_W21600_blend.parquet": "226f00e01eab174c9cb7bd759117a72f13f7a20716ef258dde0dded464df57d6",
+  "attack_W21600_burst.parquet": "1ee0df538a0ff1c02fe247ecb1609f2c80070edbc5d6babb971ba8086a3cec7e",
+  "attack_W21600_none.parquet": "f44d6be47e7462c9a0b4f5b53dd78b5f8dc8687b63490b8f84eb8b43ebbba5f6",
+  "attack_W21600_shift_blend.parquet": "09b7b7570dc4014c3b2f8fec693905c48b1b4c3dcbe02b0a3403e4b5bb750c27",
+  "attack_W21600_shift_burst.parquet": "a19d3b8cf7d44516a0dce73b3cee07bdae1fca4a23a40520a92dda306578d5b5",
+  "attack_W21600_shift_stretch.parquet": "9192af44d1d59c605ee9abea6bdd8ab3f4fac4421b001115005cf2a8a0a094a8",
+  "attack_W21600_stretch.parquet": "651111152f65cf1bfbab8f6184c91989a78d18748e3f691b229848e52d0896e6",
+  "config.json": "e1b8b8699e4c605a2186ac0efb064e8e60e0d0c478d7b198b40cfcf848634b53",
+  "metrics.json": "2b59f9c5280005e38b47f7c616a3721c20ed8ad0ac073cc95513a03d5b839681",
+  "state.json": "691f599017df7f6188ab84da1e4d9feb79a79647a0a079f097d6c95497624dfc"
+ }
+}

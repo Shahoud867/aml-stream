@@ -1,0 +1,109 @@
+{
+ "best_iter": 344,
+ "t_feat_s": 8.2,
+ "t_train_s": 33.4,
+ "n_features": 126,
+ "test_health": {
+  "n": 862792,
+  "n_nan": 0,
+  "min": 1.0177615171847172e-06,
+  "max": 0.999990506944067,
+  "n_distinct_sample": 98590
+ },
+ "tau": 0.6161731612115242,
+ "val_f1": 0.6601586333129957,
+ "val_pr_auc": 0.6186779622722085,
+ "val_n": 965524,
+ "val_pos": 1036,
+ "test_results": {
+  "tau": 0.6161731612115242,
+  "test": {
+   "f1": 0.6007556675062973,
+   "precision": 0.754746835443038,
+   "recall": 0.4989539748953975,
+   "tp": 477,
+   "fp": 155,
+   "fn": 479,
+   "pr_auc": 0.5669840813063778,
+   "n": 862792,
+   "n_pos": 956
+  },
+  "test_core": {
+   "f1": 0.6007556675062973,
+   "precision": 0.754746835443038,
+   "recall": 0.4989539748953975,
+   "tp": 477,
+   "fp": 155,
+   "fn": 479,
+   "pr_auc": 0.5669840813063778,
+   "n": 862792,
+   "n_pos": 956
+  },
+  "attempts": {
+   "f1_tau": {
+    "attempts": 79,
+    "detected_frac": 0.8227848101265823,
+    "median_delay_h": 72.0,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0
+   },
+   "budget_100": {
+    "attempts": 79,
+    "detected_frac": 0.34177215189873417,
+    "median_delay_h": 72.0,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0,
+    "value_share_ci": [
+     0.0,
+     0.0
+    ],
+    "alerts_per_day_core": 95.5
+   },
+   "equal_100": {
+    "attempts": 79,
+    "detected_frac": 0.3670886075949367,
+    "median_delay_h": 72.0,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0
+   },
+   "budget_500": {
+    "attempts": 79,
+    "detected_frac": 0.9113924050632911,
+    "median_delay_h": 72.0,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0,
+    "value_share_ci": [
+     0.0,
+     0.0
+    ],
+    "alerts_per_day_core": 589.0
+   },
+   "equal_500": {
+    "attempts": 79,
+    "detected_frac": 0.8987341772151899,
+    "median_delay_h": 72.0,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0
+   },
+   "budget_2000": {
+    "attempts": 79,
+    "detected_frac": 0.9620253164556962,
+    "median_delay_h": 72.0,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0,
+    "value_share_ci": [
+     0.0,
+     0.0
+    ],
+    "alerts_per_day_core": 2510.0
+   },
+   "equal_2000": {
+    "attempts": 79,
+    "detected_frac": 0.9493670886075949,
+    "median_delay_h": 72.0,
+    "value_share_mean": 0.0,
+    "transfer_share_mean": 0.0
+   }
+  }
+ }
+}

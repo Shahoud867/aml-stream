@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-HI-Small-documented-H1-s2",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "dc4c2d48c8fe6ba6",
+ "seconds_last_session": 22.03634238243103,
+ "finished": 1794078190.8935263,
+ "files": {
+  "config.json": "27c66aac24a65ff4e54777ae61933601cf3b842f2496ef17bede8e170394f643",
+  "metrics.json": "8450b8e44d72b17ed8270f67f28793c4dfc9a7c31e5a02f12ce8132cf332a8a9",
+  "scores_test.parquet": "2f5eeb2a0e01a819e9816b5effb1ef366def517e3e76cc5195c7ace0ad514030",
+  "scores_val.parquet": "0ac902db0d6141bf5d8908672605de14a6d8cdf9a4e3716981a50b7242926a3e"
+ }
+}

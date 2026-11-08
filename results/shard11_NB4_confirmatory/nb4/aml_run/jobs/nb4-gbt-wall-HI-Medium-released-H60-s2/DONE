@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-HI-Medium-released-H60-s2",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "e1eba8699a97a177",
+ "seconds_last_session": 173.21073579788208,
+ "finished": 1794085616.6870494,
+ "files": {
+  "config.json": "270faab591f5e6ed328abb6860ec237ebb32cd2e239913102378149c83dfe337",
+  "metrics.json": "3ca49b5ef5f83ebeb39e67643048c1f74010505a2cbaa1d0b68575b200e13fce",
+  "scores_test.parquet": "12c0c037ee630557be3caae3bf7d6a80f6d3ca998bcde8f3d0c976339da1cac4",
+  "scores_val.parquet": "45bd51263b41590c82f298ca0a8db6bcb17bf03ab29309dfdf73388435b4217e"
+ }
+}

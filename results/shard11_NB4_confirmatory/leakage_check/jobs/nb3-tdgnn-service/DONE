@@ -1,0 +1,11 @@
+{
+ "job_id": "nb3-tdgnn-service",
+ "code_hash": "9686ce184d525c0a",
+ "config_hash": "4aa3d694398af261",
+ "seconds_last_session": 8.057323932647705,
+ "finished": 1793785126.3416538,
+ "files": {
+  "config.json": "f3d0a72bd8dab70438bd837cafc67c6e82072dc970a5a676b0d42ea9ffaeaf28",
+  "metrics.json": "e14a74b91283fbea6bd3bc2e037abf6795c9ca3f7f93fd11fc68c2c66d307e59"
+ }
+}

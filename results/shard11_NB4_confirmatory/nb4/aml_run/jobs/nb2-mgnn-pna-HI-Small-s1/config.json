@@ -1,0 +1,12 @@
+{
+ "job_id": "nb2-mgnn-pna-HI-Small-s1",
+ "tier": "P0",
+ "cfg": {
+  "dataset": "HI-Small",
+  "folder": "Small_HI",
+  "model": "pna",
+  "seed": 1,
+  "n_epochs": 40,
+  "batch_size": 512
+ }
+}

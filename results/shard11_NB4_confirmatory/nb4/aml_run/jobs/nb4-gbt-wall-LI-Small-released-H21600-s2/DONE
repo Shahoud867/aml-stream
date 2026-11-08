@@ -1,0 +1,13 @@
+{
+ "job_id": "nb4-gbt-wall-LI-Small-released-H21600-s2",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "34c857d3511dbab1",
+ "seconds_last_session": 31.425522804260254,
+ "finished": 1794079798.7818882,
+ "files": {
+  "config.json": "6eb8e67401f735f1d65ef46275eac26bc76e5cd7dd88a274ea400e2f86e6dd1f",
+  "metrics.json": "0f9c3f6946ef260d54ef081a2891a29f784b2365af71e96991369e7bf1c8ab2b",
+  "scores_test.parquet": "bb5853d434b58d941ef4b28b5d7bf5035e33886c5ebc70ff8e69dd7f050c0adb",
+  "scores_val.parquet": "17564cbfba53843c063bda9b67ecc0fb93a01be77fe176410d4e310755ec4f95"
+ }
+}

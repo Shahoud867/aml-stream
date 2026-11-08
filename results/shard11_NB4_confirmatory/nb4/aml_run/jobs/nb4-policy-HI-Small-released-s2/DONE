@@ -1,0 +1,12 @@
+{
+ "job_id": "nb4-policy-HI-Small-released-s2",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "90fe4edea9656435",
+ "seconds_last_session": 116.60930252075195,
+ "finished": 1794079216.2443557,
+ "files": {
+  "config.json": "5f253fe061bc1800bdeb893fc42cc1126bad3b642964076e153139013e3eb5b0",
+  "metrics.json": "6eb3c5238e4ab1afec32635ccf515407b4d23020a13e44a0b4c02620bd23d796",
+  "state.json": "2c2c6755de9c240d6a494a498791d15727cc013f510b3744017abc5fb560bfbf"
+ }
+}

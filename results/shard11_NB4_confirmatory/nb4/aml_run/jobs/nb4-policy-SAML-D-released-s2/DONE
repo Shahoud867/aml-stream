@@ -1,0 +1,12 @@
+{
+ "job_id": "nb4-policy-SAML-D-released-s2",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "b4950817e697f3f3",
+ "seconds_last_session": 245.53561305999756,
+ "finished": 1794084024.017558,
+ "files": {
+  "config.json": "4e2f29cb383f668bd2dd98a3a350ae676c07658fba2354beba625a0cbf3f5bf2",
+  "metrics.json": "5e0b0266292539556af23710adeb225e03788b4fbcfb33a02752dbd3a403012e",
+  "state.json": "322005b9badedcf78b38fcf6dd063df1af41f1d0ef83c7bf97f4c5565dc4b8f0"
+ }
+}

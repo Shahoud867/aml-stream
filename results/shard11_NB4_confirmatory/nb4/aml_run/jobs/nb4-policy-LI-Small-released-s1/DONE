@@ -1,0 +1,12 @@
+{
+ "job_id": "nb4-policy-LI-Small-released-s1",
+ "code_hash": "d7aa5068018d7d77",
+ "config_hash": "dfac93a5a0260b07",
+ "seconds_last_session": 161.55487728118896,
+ "finished": 1794081432.279477,
+ "files": {
+  "config.json": "23d09d20bb8421ddfbf42643424001ffb8fa49efcfa5394c738c39e463f2d0e1",
+  "metrics.json": "137f558a5b1338c5c7be09021928aa555dedb0326aba642503f1ac2c1ebef25f",
+  "state.json": "e50e063f8b76bc8db1c2df990034ecc4dc4f4500d81b075977f24704f7acca1d"
+ }
+}

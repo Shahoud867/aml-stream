@@ -1,0 +1,70 @@
+{
+ "notebook": "NB4",
+ "code_hash": "d7aa5068018d7d77",
+ "environment": {
+  "python": "3.13.11",
+  "machine": "x86_64",
+  "cpu_count": 20,
+  "torch": "2.11.0+cu130",
+  "cuda": false,
+  "ram_gb": 167.8,
+  "numpy": "2.4.6",
+  "polars": "1.42.1",
+  "lightgbm": "4.6.0",
+  "numba": "0.65.1",
+  "torch_geometric": null
+ },
+ "budget_seconds": 40654.559624671936,
+ "tiers": [
+  "P0",
+  "P1"
+ ],
+ "shard": null,
+ "raw_checks": [
+  {
+   "dataset": "HI-Medium",
+   "rows": 31898238,
+   "sha256": "3126afb8155e7c8815d62bc5370549a7b5ae6bf7dfe872b3cd7813e66a3d7ff5",
+   "verified": true
+  },
+  {
+   "dataset": "HI-Small",
+   "rows": 5078345,
+   "sha256": "b19d39f515523373f991b689c07e11e7b0b95c17a2c27a87d91584ae16c5b040",
+   "verified": true
+  },
+  {
+   "dataset": "LI-Medium",
+   "rows": 31251483,
+   "sha256": "0fc89584453c97472b1bfde7ca746e21d7167140c22a6c4875272b197a4a3910",
+   "verified": true
+  },
+  {
+   "dataset": "LI-Small",
+   "rows": 6924049,
+   "sha256": "f7a9940339c78b5d1476071505b5867c0f5319640b9c4279d13f531bf965319d",
+   "verified": true
+  },
+  {
+   "dataset": "SAML-D",
+   "sha256": "5b71ce2ea7b47fe6f19da1aa151776b04ec74560a852c2c077df91d20b8b4ef9",
+   "verified": false,
+   "note": "no expected value on record"
+  }
+ ],
+ "data_hashes": {
+  "HI-Medium": "ac5c7b8b0575bb3d",
+  "HI-Small": "837d26e24aa1af40",
+  "LI-Medium": "7760c1379a779bd4",
+  "LI-Small": "51096d635497f457",
+  "SAML-D": "0db935c82831cb9a"
+ },
+ "prepare_seconds": {
+  "HI-Medium": 18.3,
+  "HI-Small": 0.2,
+  "LI-Medium": 18.2,
+  "LI-Small": 3.5,
+  "SAML-D": 5.5
+ },
+ "restored_jobs": 107
+}
