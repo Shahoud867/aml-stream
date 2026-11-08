@@ -218,6 +218,41 @@ if RUN_TESTS:
     print('all tests passed')""")
 
 
+def restore_from_zip_cell() -> dict:
+    return code("""# ============================= Restore from a previous session's zip (optional) =============================
+# If you ran this notebook on a previous Molab session and downloaded the zip it produced, upload that zip to
+# this session and set RESTORE_ZIP to its path in the Settings cell above. This cell extracts it into WORKING,
+# then resets any job left in a RUNNING or permanently-FAILED (>= 3 attempts) state so it runs cleanly in this
+# new session. Jobs that finished (DONE) are kept as-is and will not run again.
+# Leave RESTORE_ZIP = "" to start from scratch (or if the contents are already extracted into WORKING).
+import json as _json
+
+if RESTORE_ZIP:
+    import shutil as _shutil
+    _zip = Path(RESTORE_ZIP)
+    if not _zip.exists():
+        print(f'WARNING: RESTORE_ZIP={RESTORE_ZIP!r} not found -- skipping restore')
+    else:
+        print(f'Extracting {_zip.name} to {WORKING} ...')
+        _shutil.unpack_archive(str(_zip), str(WORKING))
+        _reset, _done, _deferred = 0, 0, 0
+        for _p in sorted(WORKING.rglob('status.json')):
+            _d = _json.loads(_p.read_text())
+            if _d.get('status') == 'DONE':
+                _done += 1
+            elif _d.get('status') == 'DEFERRED':
+                _deferred += 1
+            elif _d.get('status') in ('RUNNING', 'FAILED'):
+                _d.update(status='TODO', attempts=0, reason='reset for new Molab session (restored from RESTORE_ZIP)')
+                _p.write_text(_json.dumps(_d, indent=1))
+                _reset += 1
+        print(f'  Preserved {_done} DONE jobs (will not re-run)')
+        print(f'  Kept {_deferred} DEFERRED jobs (will unblock once their parents succeed)')
+        print(f'  Reset {_reset} RUNNING/FAILED jobs to TODO (will run in this session)')
+else:
+    print('RESTORE_ZIP not set -- any prior results come only from the git repo via PRIOR_RESULTS')""")
+
+
 def restore_cell(extra_note: str = "") -> dict:
     return code(f"""# ============================= Reuse prior verified work =============================
 # The freshly cloned repository's own results/ folder holds every job this project has finished so far, in exactly
@@ -258,13 +293,19 @@ def wrapup_cell(label: str) -> dict:
 # Molab sessions are not guaranteed to persist, so the output is zipped here (and the notebook's own cell outputs,
 # saved with the .ipynb itself, carry the printed tables below even if the zip is never downloaded).
 import shutil
+import marimo as mo
+
 archive = shutil.make_archive(str(BASE / f'{label}_{{NOTEBOOK.lower()}}'), 'zip', WORKING)
 print('wrote', archive, f'({{Path(archive).stat().st_size / 1e6:.1f}} MB)')
 print()
 print('Download this file before your Molab session ends. If you plan to run another of the three notebooks next,')
 print('the most useful thing to carry over is the whole', WORKING, 'folder (or this zip, unpacked next to the new')
 print("notebook's own working directory) -- the next notebook's merge step will pick up anything placed under")
-print("its PRIOR_RESULTS / EXTRA_ROOTS list.")""")
+print("its PRIOR_RESULTS / EXTRA_ROOTS list.")
+
+# A real download button, not just a path -- the zip lives only inside this ephemeral sandbox, which has no
+# general-purpose file browser of its own. mo.download() streams it straight from the kernel to your browser.
+mo.download(data=lambda: open(archive, 'rb').read(), filename=Path(archive).name, label=f'Download {{Path(archive).name}}')""")
 
 
 
@@ -294,8 +335,10 @@ def build_notebook_1():
             "**Requires a GPU.** The next cell stops cleanly with a clear message if none is attached, after "
             "finishing setup so nothing is repeated once you attach one and re-run.",
         ),
-        settings_cell("NB1", True, 11.5, "('P0', 'P1')"),
+        settings_cell("NB1", True, 11.5, "('P0', 'P1')",
+                      extra_lines="RESTORE_ZIP = ''   # optional: set to the path of a zip from a previous session of this notebook to skip already-finished jobs"),
         paths_cell(),
+        restore_from_zip_cell(),
         clone_cell(),
         install_cell(needs_gnn_stack=True),
         gpu_gate_cell(),
