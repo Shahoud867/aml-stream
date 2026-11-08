@@ -246,6 +246,9 @@ class Runner:
                     dst = self.jobs_dir / src.name
                     if not src.is_dir() or verify_job(dst)[0]:
                         continue
+                    st_src = read_json(src / "status.json", {})
+                    if not verify_job(src)[0] and st_src.get("status") in ("FAILED", "BLOCKED"):
+                        continue
                     if verify_job(src)[0] or self._newer(src, dst):
                         if dst.exists():
                             shutil.rmtree(dst)

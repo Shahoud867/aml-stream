@@ -222,23 +222,36 @@ def reset_stale_jobs_cell() -> dict:
     return code("""# ============================= Reset stale jobs from a crashed session =============================
 # When a Molab session dies (sandbox killed, watchdog timeout, browser disconnect), any job that was
 # mid-run is left in RUNNING state. The runner treats RUNNING as "still active" and will never retry it.
-# This cell resets those stale RUNNING jobs (and any permanently-exhausted FAILED jobs) back to TODO so
-# they run cleanly in this session. Jobs that finished (DONE) are never touched.
-# ~/aml_molab/ is persistent storage: your previous session's work is already here, nothing is lost.
+# This cell resets those stale RUNNING/INTERRUPTED jobs (and any permanently-exhausted FAILED jobs, or BLOCKED jobs)
+# back to TODO so they run cleanly in this session. Jobs that finished (DONE) are never touched.
 import json as _json
 
-_reset, _done = 0, 0
+_reset, _done, _unblocked = 0, 0, 0
 for _p in sorted(WORKING.rglob('status.json')):
     _d = _json.loads(_p.read_text())
     if _d.get('status') == 'DONE':
         _done += 1
-    elif _d.get('status') in ('RUNNING', 'FAILED'):
-        _d.update(status='TODO', attempts=0, reason='reset for new Molab session (previous session crashed)')
+    elif _d.get('status') == 'BLOCKED':
+        import shutil as _sh
+        for _sub in _p.parent.iterdir():
+            if _sub.name != 'status.json':
+                if _sub.is_dir():
+                    _sh.rmtree(_sub)
+                else:
+                    _sub.unlink()
+        _d.update(status='TODO', attempts=0, reason='cleared blocked state from old deviation config')
+        _p.write_text(_json.dumps(_d, indent=1))
+        _unblocked += 1
+    elif _d.get('status') in ('RUNNING', 'FAILED', 'INTERRUPTED'):
+        _d.update(status='TODO', attempts=0, reason='reset for new Molab session')
         _p.write_text(_json.dumps(_d, indent=1))
         _reset += 1
-if _reset:
-    print(f'Reset {_reset} stale RUNNING/FAILED jobs to TODO -- they will run in this session')
+if _reset or _unblocked:
     print(f'Preserved {_done} DONE jobs (will not re-run)')
+    if _reset:
+        print(f'Reset {_reset} RUNNING/INTERRUPTED/FAILED jobs to TODO (resuming from checkpoints)')
+    if _unblocked:
+        print(f'Unblocked {_unblocked} BLOCKED jobs to TODO (will train fresh with official config)')
 else:
     print(f'No stale jobs found -- {_done} DONE jobs preserved, starting cleanly')""")
 
@@ -247,7 +260,7 @@ def restore_from_zip_cell() -> dict:
     return code("""# ============================= Restore from a previous session's zip (optional) =============================
 # If you ran this notebook on a previous Molab session and downloaded the zip it produced, upload that zip to
 # this session and set RESTORE_ZIP to its path in the Settings cell above. This cell extracts it into WORKING,
-# then resets any job left in a RUNNING or permanently-FAILED (>= 3 attempts) state so it runs cleanly in this
+# then resets any job left in a RUNNING, INTERRUPTED, BLOCKED, or FAILED state so it runs cleanly in this
 # new session. Jobs that finished (DONE) are kept as-is and will not run again.
 # Leave RESTORE_ZIP = "" to start from scratch (or if the contents are already extracted into WORKING).
 import json as _json
@@ -260,20 +273,33 @@ if RESTORE_ZIP:
     else:
         print(f'Extracting {_zip.name} to {WORKING} ...')
         _shutil.unpack_archive(str(_zip), str(WORKING))
-        _reset, _done, _deferred = 0, 0, 0
+        _reset, _done, _deferred, _unblocked = 0, 0, 0, 0
         for _p in sorted(WORKING.rglob('status.json')):
             _d = _json.loads(_p.read_text())
             if _d.get('status') == 'DONE':
                 _done += 1
             elif _d.get('status') == 'DEFERRED':
                 _deferred += 1
-            elif _d.get('status') in ('RUNNING', 'FAILED'):
+            elif _d.get('status') == 'BLOCKED':
+                for _sub in _p.parent.iterdir():
+                    if _sub.name != 'status.json':
+                        if _sub.is_dir():
+                            _shutil.rmtree(_sub)
+                        else:
+                            _sub.unlink()
+                _d.update(status='TODO', attempts=0, reason='cleared blocked state from old config')
+                _p.write_text(_json.dumps(_d, indent=1))
+                _unblocked += 1
+            elif _d.get('status') in ('RUNNING', 'FAILED', 'INTERRUPTED'):
                 _d.update(status='TODO', attempts=0, reason='reset for new Molab session (restored from RESTORE_ZIP)')
                 _p.write_text(_json.dumps(_d, indent=1))
                 _reset += 1
         print(f'  Preserved {_done} DONE jobs (will not re-run)')
         print(f'  Kept {_deferred} DEFERRED jobs (will unblock once their parents succeed)')
-        print(f'  Reset {_reset} RUNNING/FAILED jobs to TODO (will run in this session)')
+        if _reset:
+            print(f'  Reset {_reset} RUNNING/INTERRUPTED/FAILED jobs to TODO (will resume in this session)')
+        if _unblocked:
+            print(f'  Unblocked {_unblocked} BLOCKED jobs to TODO (will train fresh)')
 else:
     print('RESTORE_ZIP not set -- any prior results come only from the git repo via PRIOR_RESULTS')""")
 
@@ -364,6 +390,7 @@ def build_notebook_1():
                       extra_lines="RESTORE_ZIP = ''   # optional: set to the path of a zip from a previous session of this notebook to skip already-finished jobs"),
         paths_cell(),
         restore_from_zip_cell(),
+        reset_stale_jobs_cell(),
         clone_cell(),
         install_cell(needs_gnn_stack=True),
         gpu_gate_cell(),
@@ -380,16 +407,20 @@ carries the heaviest remaining work (up to 3 full 100-epoch seeds); each stops e
 the next if it finishes sooner than its share."""),
         code('''from amlh.session import print_summary, final_checklist
 
-# A fixed split of this session's remaining budget. NB1 (Multi-GIN, up to 3 full seeds) gets the largest share;
-# NB2 (Multi-PNA + Multi-GIN LI-Small + FraudGT) the next; NB3 (only P1 remains) the smallest, since its P0 is done.
-SHARES = {'NB1': 0.45, 'NB2': 0.40, 'NB3': 0.15}
+# A split of this session's budget across remaining notebooks.
+# NB3 is 100% complete (all 90 P0+P1 jobs verified), so its share is 0.
+# NB1 (Multi-GIN seeds 1 & 3) and NB2 (Multi-PNA & Multi-GIN LI-Small) split the budget.
+SHARES = {'NB1': 0.50, 'NB2': 0.50, 'NB3': 0.0}
 summaries = {}
 for nb, share in SHARES.items():
+    if share <= 0.0:
+        continue
     left = hours_left()
     if left <= 0.1:
         print(f'{nb}: no time left in this session, skipping (re-run this cell after extending BUDGET_HOURS or in a new session)')
         continue
-    budget = min(left, max(left * share / sum(s for n, s in SHARES.items() if n not in summaries), 0.25))
+    active_shares = sum(s for n, s in SHARES.items() if n not in summaries and s > 0)
+    budget = min(left, max(left * share / (active_shares or 1.0), 0.25))
     print(f'=== {nb}: {budget:.2f} h budget, {left:.2f} h left in the session ===')
     nb_work = WORKING / nb.lower()
     summaries[nb] = await run_notebook_sliced(nb, budget_hours=budget, tiers=TIERS, input_root=INPUT, working=nb_work,
