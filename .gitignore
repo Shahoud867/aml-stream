@@ -35,4 +35,12 @@ paper/*.log
 paper/*.lot
 paper/*.out
 paper/*.toc
+paper/**/*.aux
+paper/**/*.bbl
+paper/**/*.blg
+paper/**/*.lof
+paper/**/*.log
+paper/**/*.lot
+paper/**/*.out
+paper/**/*.toc
 paper/cn_phase2.pdf
