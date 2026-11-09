@@ -21,7 +21,12 @@ htmlcov/
 data/raw/*.csv
 data/processed/**/events.parquet
 
-# LaTeX build files (sources and the final PDF are kept)
+# Archives and cached results
+*.zip
+cache/
+results/molab*/
+1883886220*/
+
 paper/*.aux
 paper/*.bbl
 paper/*.blg
