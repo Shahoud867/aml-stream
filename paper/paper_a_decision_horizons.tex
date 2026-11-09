@@ -112,7 +112,9 @@ As illustrated in Figure~\ref{fig:tail}, the post-documentation period is not a 
 \small
 \caption{\textbf{Cross-Dataset Tail Leakage Audit across IBM AMLworld Suites.} Comparison of actual days in file versus documented span, tail event counts, illicit concentration, share of test illicit volume, and the performance of a trivial date-rule heuristic against published benchmarks.}
 \label{tab:tail}
-\input{generated/tab_tail.tex}
+\resizebox{\textwidth}{!}{%
+\input{generated/tab_tail.tex}%
+}
 \end{table*}
 
 Table~\ref{tab:tail} details the cross-dataset audit. In `HI-Small', the post-documentation tail contains \TailHISmallEvents{} transactions, of which $59.1\%$ are illicit, constituting \textbf{\TailHISmallShare{}\% of all illicit transfers in the test set}. In `HI-Medium`, \TailHIMediumShare{}\% of test illicit events reside in this tail. 
@@ -124,14 +126,17 @@ The second form of leakage occurs in the graph construction itself. In official 
 
 When an $L$-layer GNN computes representations for an edge $e=(u,v,t)$, the $L$-hop neighborhood aggregation encompasses all incident edges $\{e'=(u',v',t') \in \mathcal{N}_L(e)\}$, regardless of whether $t' \le t$ or $t' > t$. In a 2-layer GNN, a transaction executed on day 8 aggregates node embeddings shaped by transactions occurring on day 10. Because money laundering typologies follow multi-step flow paths (e.g., structuring deposits followed by layering and final aggregation), future transfers carry strong causal signals indicating that an upstream transfer was part of a completed cycle. 
 
+\paragraph{Vulnerability of 2025--2026 Architectures.} Recent architectures published between 2024 and 2026—including DIAM~\cite{ding2024diam}, MEGA-GNN~\cite{bilgi2026mega}, and T-AML~\cite{rico2026taml}—introduce sophisticated motif and directionality aggregations to build upon Multi-GNN. However, because all of these models inherit the exact same static split evaluation on IBM AMLworld, they remain equally susceptible to future message-passing and synthetic tail exploitation. We audit Multi-GIN and Multi-PNA~\cite{egressy2024multigraph} as the canonical, foundational multigraph baselines that establish the benchmark's recognized reference score ($F_1 = 0.6479$), against which subsequent 2025--2026 works measure their improvements.
+
 \subsection{Replication of the Published Multi-GIN Baseline}
 To determine whether published results were an artifact of poor baseline hyperparameter tuning, we conducted an exact, multi-seed replication of the official Multi-GIN architecture~\cite{egressy2024multigraph} using NVIDIA RTX PRO 6000 Blackwell GPUs. Multi-GIN employs 2 layers of edge-to-node and node-to-edge convolutions with sum aggregation and batch normalization.
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \small
 \caption{\textbf{Gate G1 Multi-Seed Baseline Audit (`HI-Small', Multi-GIN).} Comparison of published-style retrospective test $F_1$, official published reference, causal Core $F_1$ (tail removed), synthetic Tail $F_1$, and Stoppable Value ($\text{SV}_{500}$).}
 \label{tab:gate_g1}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccccc}
 \toprule
 Seed & Published & Publ. Ref. & Core & Tail & $\text{SV}_{500}$ \\
@@ -147,7 +152,8 @@ Std  & $\pm0.067$ &  & $\pm0.096$ & $\pm0.019$ & \\
 \multicolumn{6}{l}{\emph{Evaluation Mode (Deterministic):}} \\
 Seed 2 & \textbf{0.6664} & — & 0.4878 & 0.8731 & \textbf{0.0000} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 As shown in Table~\ref{tab:gate_g1}, our replication closely aligns with published figures:
@@ -175,9 +181,10 @@ In an operational compliance setting, an alert on transfer $e_i$ is actionable o
 \mathcal{V}(e_i, H) = \{e_j \in \mathcal{E} \mid t_j \le t_i + H\}
 \end{equation}
 The receptive field of the detector for transfer $e_i$ is strictly causal with respect to $t_i + H$. We examine nine discrete horizon settings covering the operational spectrum:
-\begin{equation}
-H \in \{0\text{ s}, \, 1\text{ s}, \, 60\text{ s}, \, 600\text{ s}, \, 3600\text{ s}, \, 21600\text{ s}, \, 86400\text{ s}, \, 259200\text{ s}, \, \infty\}
-\end{equation}
+\begin{multline}
+H \in \{0\text{ s}, \, 1\text{ s}, \, 60\text{ s}, \, 600\text{ s}, \, 3600\text{ s}, \\
+        21600\text{ s}, \, 86400\text{ s}, \, 259200\text{ s}, \, \infty\}
+\end{multline}
 \begin{itemize}[leftmargin=*]
     \item $H=0\text{ s}$ (\emph{Strict Past}): Zero-latency inference. Only events occurring prior to $t_i$ ($t_j < t_i$) are visible.
     \item $H=1\text{ s}$ (\emph{Same Minute / Intra-Burst}): Captures transactions executed concurrently within the same second or batch transmission.
@@ -246,7 +253,9 @@ Figure~\ref{fig:horizon} and Table~\ref{tab:horizon} summarize model performance
 \small
 \caption{\textbf{Decision Horizon Sweep on `HI-Small' (Released Protocol).} Performance metrics across nine discrete decision horizons $H$. Full test $F_1$ includes the synthetic tail; Core $F_1$ and Core PR-AUC isolate genuine causal performance. Detected fraction and Stoppable Value ($\text{SV}$) are shown under daily alert budgets of 100, 500, and 2,000 alerts/day.}
 \label{tab:horizon}
-\input{generated/tab_horizon_HIS.tex}
+\resizebox{\textwidth}{!}{%
+\input{generated/tab_horizon_HIS.tex}%
+}
 \end{table*}
 
 The empirical results reveal two fundamental dynamics:
@@ -263,7 +272,9 @@ Table~\ref{tab:sv} contrasts deployable validation-calibrated thresholds against
 \small
 \caption{\textbf{Stoppable Value at Alert Budget $B=500$ alerts/day (`HI-Small').} Comparison of stoppable value ($\text{SV}$) and transfer share under deployable validation-calibrated thresholds versus equal-alert sensitivity thresholds.}
 \label{tab:sv}
-\input{generated/tab_sv_HIS.tex}
+\resizebox{\textwidth}{!}{%
+\input{generated/tab_sv_HIS.tex}%
+}
 \end{table*}
 
 Under deployable validation thresholds at $B=500$ alerts/day, an institution operating at $H=1\text{ hour}$ halts \textbf{$61.1\%$ of attempted laundered funds} while detecting $95\%$ of illicit attempts. Operating under retrospective evaluation halts $0.0\%$, despite reporting an $F_1$ of $71.9\%$.
@@ -276,7 +287,9 @@ Table~\ref{tab:typology} decomposes detection rate and stoppable value across th
 \small
 \caption{\textbf{Typology Decomposition of Detection Rate and Stoppable Value (`HI-Small').} Performance breakdown across canonical money laundering patterns under deployable validation thresholds at $B=500$ alerts/day across decision horizons.}
 \label{tab:typology}
-\input{generated/tab_typology.tex}
+\resizebox{\textwidth}{!}{%
+\input{generated/tab_typology.tex}%
+}
 \end{table*}
 
 Topologies with tight temporal clustering—such as Cycles, Fan-In, and Gather-Scatter—are highly stoppable at $H=1\text{ hour}$ ($\text{SV} = 0.78, 0.70, 0.85$ respectively). In contrast, Bipartite matching structures exhibit low stoppable recovery across all horizons ($\text{SV} \le 0.22$), as initial layering transfers are dispersed across unmonitored intermediary accounts before detection occurs.
@@ -292,12 +305,14 @@ All six pre-registered hypotheses formulated prior to GPU execution were evaluat
     \item \textbf{C5 (Adaptive Policy Superiority):} As shown in Table~\ref{tab:policy}, the adaptive multi-horizon policy outperforms the best fixed horizon across operational budgets, achieving a statistically significant advantage at $B=100$ alerts/day ($+0.031$, 95\% CI $[+0.008, +0.059]$).
 \end{itemize}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \small
 \caption{\textbf{Adaptive Multi-Horizon Alerting Policy vs. Best Fixed Horizon.} Comparison of stoppable value ($\text{SV}$) across daily alert budgets with 95\% bootstrap confidence intervals.}
 \label{tab:policy}
-\input{generated/tab_policy_partial.tex}
+\resizebox{\columnwidth}{!}{%
+\input{generated/tab_policy_partial.tex}%
+}
 \end{table}
 
 \section{Ablation Studies}
