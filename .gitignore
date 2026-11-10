@@ -21,7 +21,8 @@ htmlcov/
 data/raw/*.csv
 data/processed/**/events.parquet
 
-# Archives and cached results
+# Archives and raw outputs
+archive/
 *.zip
 cache/
 results/molab*/

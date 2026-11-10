@@ -25,7 +25,7 @@ Every file that **is** present here matches its recorded sha256 byte for byte (c
 
 ## To complete it
 
-Copy the original output folder off PC-9 in full (it is believed to be `E:\aml_out\02_NB1_gin_s1\aml_run`; this path is inferred from `memory_pc9.md` and
+Copy the original output folder off PC-9 in full (it is believed to be `E:\aml_out\02_NB1_gin_s1\aml_run`; this path is inferred from `docs/history/memory_pc9.md` and
 the run conventions, not verified), then run `python gpu_session/consolidation/import_results.py` after adding it to `PLAN`, and
 `python gpu_session/consolidation/verify_results.py`. Copy the whole folder, because the replay `DONE` markers also list leftover bucket files.
 Without the scores, tail, horizon and stoppable-value metrics cannot be recomputed for this shard.

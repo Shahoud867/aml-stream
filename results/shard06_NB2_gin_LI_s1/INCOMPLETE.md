@@ -2,7 +2,7 @@
 
 **Do not read `epoch: 100` in `metrics.json`, `isolated_result.json` or `summary.md` as an epoch count.** The job trained about 84 of the planned 100
 epochs (best validation F1 0.2663 at epoch 68, no improvement afterwards). The maintainer then edited the epoch counter inside `ckpt/latest.bin`
-so the job would finish; this leaves no trace in the ledger and is recorded only in `memory_pc9.md` section 4.4 and the commit message.
+so the job would finish; this leaves no trace in the ledger and is recorded only in `docs/history/memory_pc9.md` section 4.4 and the commit message.
 It is logged in `docs/DECISIONS.md` D-024. The stopping decision used LI-Small validation F1 only (LI-Small is sealed, so no test metric exists here); label this run
 'early-stopped at about 84 of 100 epochs, validation-informed, single seed' and never average it with full-protocol seeds.
 The edited checkpoint is `ckpt/latest.bin`; model selection uses `ckpt/best.bin` (epoch 68), which predates the edit. The replays at 3600 s and 86400 s load `best.bin` by the code in `mgnn_replay` (a reading of the code, not re-verified from the missing logs), so they inherit this truncated training run.
@@ -24,7 +24,7 @@ Every file that **is** present here matches its recorded sha256 byte for byte (c
 
 ## To complete it
 
-Copy the original output folder off PC-9 in full (it is believed to be `E:\aml_out\06_NB2_gin_LI_s1\aml_run`; this path is inferred from `memory_pc9.md` and
+Copy the original output folder off PC-9 in full (it is believed to be `E:\aml_out\06_NB2_gin_LI_s1\aml_run`; this path is inferred from `docs/history/memory_pc9.md` and
 the run conventions, not verified), then run `python gpu_session/consolidation/import_results.py` after adding it to `PLAN`, and
 `python gpu_session/consolidation/verify_results.py`. Copy the whole folder, because the replay `DONE` markers also list leftover bucket files.
 Without the scores, tail, horizon and stoppable-value metrics cannot be recomputed for this shard.

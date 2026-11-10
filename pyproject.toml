@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "amlh"
+version = "0.1.0"
+description = "Decision Horizons and Look-Ahead Leakage in Streaming Anti-Money Laundering"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "polars>=1.0",
+    "pyarrow",
+    "numba",
+    "scikit-learn",
+    "lightgbm==4.6.0",
+    "xgboost",
+    "numpy",
+]
+
+[project.optional-dependencies]
+gnn = [
+    "torch>=2.5.0",
+    "torch-geometric>=2.6.0",
+]
+test = [
+    "pytest>=7.0",
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+pythonpath = ["src"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::FutureWarning",
+]

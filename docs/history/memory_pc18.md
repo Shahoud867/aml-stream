@@ -1,4 +1,4 @@
-> **Consolidation note:** this file is PC-18's version of `memory.md`, kept as written on branch PC-18. Where it says "D-020" it means the entry now numbered **D-023** in `docs/DECISIONS.md` (PC-17 had already used D-020 for a different decision; see D-024). Its statement that code hash 9686ce184d525c0a is unchanged holds only for the PC-18 branch on its own.
+> **Consolidation note:** this file is PC-18's version of `docs/history/memory.md`, kept as written on branch PC-18. Where it says "D-020" it means the entry now numbered **D-023** in `docs/DECISIONS.md` (PC-17 had already used D-020 for a different decision; see D-024). Its statement that code hash 9686ce184d525c0a is unchanged holds only for the PC-18 branch on its own.
 
 # Session memory: GPU planning and 10-way split
 
