@@ -39,7 +39,7 @@ Submission Package Layout:
 ### Direct Mapping to the Phase 3 Evaluation Rubric (30/30 Marks)
 
 #### 1. Implementation of Proposed Methodology (10 / 10 Marks)
-* **Mathematical & Algorithmic Implementation:** Implemented the streaming multigraph framework restricting receptive fields to the causal window $\mathcal{V}(e, H)$ in [`src/amlh/streaming.py`](src/amlh/streaming.py) and [`src/amlh/models.py`](src/amlh/models.py).
+* **Mathematical & Algorithmic Implementation:** Implemented the streaming multigraph framework restricting receptive fields to the causal window $\mathcal{V}(e, H)$ in [`src/amlh/sampler.py`](src/amlh/sampler.py), [`src/amlh/gnn.py`](src/amlh/gnn.py), and [`src/amlh/evaluate.py`](src/amlh/evaluate.py).
 * **Automated Leakage Gate:** Implemented automated permutation tests that rewrite future events and assert that detector predictions remain strictly invariant ([`src/amlh/isolate.py`](src/amlh/isolate.py), tested in [`tests/test_isolate.py`](tests/test_isolate.py)).
 * **Feedback Incorporation:** Transitioned from a static staleness penalty to the parameterized **Decision Horizon ($H$)** and introduced the asset-weighted **Stoppable Value ($\text{SV}_B$)** metric (documented in Table 1 of `Phase3_Report_CN.pdf`).
 * **Software Integrity:** Complete package with **313 automated tests** (`pytest tests/`) passing with 100% success rate.
@@ -83,3 +83,4 @@ python -m pytest tests/
 python scripts/08_analyze.py paper
 ```
 *Expected Output:* Ingests experimental run logs from `results/` and regenerates all 85 LaTeX macros, tables, and PDF figures in `paper/generated/`.
+
