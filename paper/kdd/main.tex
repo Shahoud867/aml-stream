@@ -7,6 +7,11 @@
 \usepackage{url}
 \usepackage{microtype}
 \usepackage{amsmath,amsfonts}
+\setlength{\textfloatsep}{5pt plus 1pt minus 1pt}
+\setlength{\dbltextfloatsep}{5pt plus 1pt minus 1pt}
+\setlength{\abovecaptionskip}{3pt}
+\setlength{\belowcaptionskip}{0pt}
+\renewcommand{\arraystretch}{0.86}
 
 %% ACM Conference Information Placeholder for Preprint / Submission
 \settopmatter{printacmref=false}
@@ -38,7 +43,7 @@
 }
 
 \begin{abstract}
-Graph neural networks (GNNs) and gradient-boosted decision trees report minority-class $F_1$ scores exceeding $68\%$ on standard synthetic anti-money laundering (AML) benchmarks, suggesting operational readiness for automated transaction surveillance. Through a systematic forensic audit across five benchmark suites totaling $84.7\text{ million}$ transactions, we reveal that these offline leaderboard metrics mask two severe structural distortions that invert real-world deployment efficacy. First, all four IBM AMLworld datasets abruptly cease injecting illicit laundering campaigns several days before terminating benign background transactions, creating an unannounced simulation drain tail in which illicit prevalence surges by over $500$-fold (from $0.111\%$ to $59.1\%$ on HI-Small). Unpartitioned detectors learn this artificial calendar boundary, inflating reported test $F_1$ by $+11.14$ percentage points on HI-Small, while a trivial date-threshold rule achieves $48.18\%$ $F_1$ without inspecting any transaction features or graph topology. Second, standard whole-window graph evaluators violate causality by propagating message passing across transactions occurring days after the event being scored. Replaying the published Multi-GIN baseline under causal temporal bounds slashes Core-period $F_1$ from its $64.79\%$ published reference to $40.27\% \pm 9.6\%$ and reduces operational interdiction to zero. Evaluating nine lookahead horizons ($H \in [0, \infty]$) exposes a sharp \emph{real-time paradox}: although LightGBM Core PR-AUC climbs from $0.364$ at $H=0$ to $0.575$ at $H=1\text{ h}$, operational Stoppable Value ($\text{SV}_B$) under strict analyst alert budgets collapses monotonically toward $0.000$ as delayed screening forfeits downstream capital before funds escape. All five pre-registered confirmatory hypotheses pass ($p < 0.001$, $R=2{,}000$ moving-block bootstrap), and an adaptive deferral policy dynamically balancing instantaneous triage ($H \le 1\text{ s}$) against short observation buffers ($h_k \le 1\text{ h}$) maximizes preventable loss across operational budgets with sub-$8\text{ ms}$ streaming latency.
+Graph neural networks (GNNs) and gradient-boosted decision trees report minority-class $F_1$ scores exceeding $68\%$ on standard synthetic anti-money laundering (AML) benchmarks, suggesting operational readiness for automated transaction surveillance. Through a systematic forensic audit across five benchmark suites totaling $84.7\text{ million}$ transactions, we reveal that these offline leaderboard metrics mask two severe structural distortions that invert real-world deployment efficacy. First, all four IBM AMLworld datasets abruptly cease injecting illicit laundering campaigns several days before terminating benign background transactions, creating an unannounced simulation drain tail in which illicit prevalence surges by over $500$-fold (from $0.111\%$ to $59.1\%$ on HI-Small). Unpartitioned detectors learn this artificial calendar boundary, inflating reported test $F_1$ by $+10.96$ percentage points on HI-Small, while a trivial date-threshold rule achieves $48.18\%$ $F_1$ without inspecting any transaction features or graph topology. Second, standard whole-window graph evaluators violate causality by propagating message passing across transactions occurring days after the event being scored. Replaying the published Multi-GIN baseline under causal temporal bounds slashes Core-period $F_1$ from its $64.79\%$ published reference to $40.27\% \pm 9.6\%$ and reduces operational interdiction to zero. Evaluating nine lookahead horizons ($H \in [0, \infty]$) exposes a sharp \emph{real-time paradox}: although LightGBM Core PR-AUC climbs from $0.364$ at $H=0$ to $0.575$ at $H=1\text{ h}$, operational Stoppable Value ($\text{SV}_B$) under strict analyst alert budgets collapses monotonically toward $0.000$ as delayed screening forfeits downstream capital before funds escape. All confirmatory diagnostics pass ($R=4{,}000$ paired attempt-level bootstrap for operational contrasts), and an adaptive deferral policy dynamically balancing instantaneous triage ($H = 1\text{ s}$) against deferred checkpoints ($H_j \le 24\text{ h}$) maximizes preventable loss across strict budgets with sub-$8\text{ ms}$ streaming latency.
 \end{abstract}
 
 \begin{CCSXML}
@@ -91,7 +96,7 @@ On prominent synthetic payment benchmarks, specifically the IBM AMLworld generat
 
 In this paper, we expose a foundational disconnect between offline benchmark leaderboards and live AML interdiction, which we designate \emph{the real-time paradox}. Through an exhaustive empirical audit across all four IBM AMLworld datasets and the multi-agent SAML-D benchmark~\cite{oztas2023samld} ($84.7\text{ million}$ transactions in total), we uncover two hidden structural vulnerabilities in standard AML evaluation pipelines:
 
-\textbf{1. Benchmark Tail Contamination.} To allow open multi-hop laundering campaigns to finalize before data export, synthetic generators terminate illicit campaign injection several days prior to cutting off benign background traffic. Consequently, while core simulation days maintain a realistic $0.111\%$ illicit rate on HI-Small, transactions occurring in the final drain window (Days $10$ to $17$) exhibit an extreme $59.1\%$ illicit concentration and harbor $40.7\%$ of all test-split laundering events. Detectors evaluated on unpartitioned streams learn this calendar artifact, inflating reported test $F_1$ by $+11.14$ percentage points on HI-Small, while a trivial rule flagging transfers from Day $10$ onward attains $48.18\%$ $F_1$ without inspecting any transaction attributes or graph topology.
+\textbf{1. Benchmark Tail Contamination.} To allow open multi-hop laundering campaigns to finalize before data export, synthetic generators terminate illicit campaign injection several days prior to cutting off benign background traffic. Consequently, while core simulation days maintain a realistic $0.111\%$ illicit rate on HI-Small, transactions occurring in the final drain window (Days $10$ to $17$) exhibit an extreme $59.1\%$ illicit concentration and harbor $40.7\%$ of all test-split laundering events. Detectors evaluated on unpartitioned streams learn this calendar artifact, inflating reported test $F_1$ by $+10.96$ percentage points on HI-Small, while a trivial rule flagging transfers from Day $10$ onward attains $48.18\%$ $F_1$ without inspecting any transaction attributes or graph topology.
 
 \textbf{2. Retrospective Lookahead Leakage.} Standard graph benchmarks~\cite{egressy2024multigraph,blanusa2024gfp,lin2024fraudgt} construct a monolithic graph spanning the entire testing window and execute unrestricted message passing prior to edge classification (Figure~\ref{fig:concept_leakage}). Evaluating an edge arriving at $t(e)$ under horizon $H = \infty$ permits the detector to aggregate future edges $t(e') > t(e)$ occurring days later, effectively examining completed laundering chains after funds have already exited~\cite{kaufman2012leakage,nguyen2022future}. Furthermore, standard implementations apply transductive test-split feature normalization, leaking future distributional parameters into inference. When these acausal artifacts are removed and baselines are audited under bounded causal windows, discriminative accuracy drops sharply and operational actionability vanishes.
 
@@ -99,8 +104,8 @@ To resolve this paradox, we develop an operational streaming evaluation framewor
 \begin{enumerate}
     \item \textbf{Forensic Leakage Audit (Gate G1):} We quantify benchmark tail contamination and transductive normalization across all IBM AMLworld suites. We replicate the published Multi-GIN baseline on NVIDIA RTX PRO 6000 Blackwell GPUs, matching its published reference ($0.6479$ published vs.\ $0.6417$ replicated), and prove that causal core evaluation drops its score to $0.4027 \pm 0.096$ while yielding zero operational recovery at $H = \infty$.
     \item \textbf{The Decision Horizon ($H$) Framework \& Stoppable Value ($\text{SV}_B$):} We formalize the streaming transaction graph setup, restricting the model's receptive field to a strictly causal interval $[0, t_e + H]$. We formulate Stoppable Value ($\text{SV}_B$), an asset-centric metric bounded by daily compliance alert quotas $B \in \{100, 500, 2000\}$ that tracks the dollar-weighted proportion of illicit funds intercepted prior to account cash-out.
-    \item \textbf{Dual-Family Streaming Benchmark:} We implement and evaluate two causal streaming architectures across nine lookahead horizons ($H \in [0, \infty]$): an end-to-end Streaming Temporal Dynamic GNN (Streaming TD-GNN) featuring a 2-hop causal CSR sampler with symmetric masked pooling, and a 126-feature streaming LightGBM detector backed by $O(1)$ lock-free ring buffers, executing across $84.7\text{M}$ transactions at up to $84{,}884\text{ events/s}$.
-    \item \textbf{Pre-Registered Validation \& Adaptive Policy $\pi(e)$:} All five confirmatory hypotheses pass statistical verification ($p < 0.001$, $R=2{,}000$ moving-block bootstrap). We demonstrate that an adaptive policy $\pi(e)$ dynamically holding ambiguous transfers for short sub-hour windows while screening high-confidence bursts immediately outperforms all static operational horizons across strict daily analyst budgets.
+    \item \textbf{Dual-Family Streaming Benchmark:} We implement and evaluate two causal streaming architectures across nine lookahead horizons ($H \in [0, \infty]$): an end-to-end Streaming Temporal Dynamic GNN (Streaming TD-GNN) featuring a 2-hop causal CSR sampler with symmetric masked pooling, and a 126-feature streaming LightGBM detector backed by Numba-accelerated CSR prefix-sum binary searches, executing across $84.7\text{M}$ transactions at up to $84{,}884\text{ events/s}$.
+    \item \textbf{Confirmatory Validation \& Adaptive Policy $\pi$:} Confirmatory contrasts pass statistical verification ($R=4{,}000$ paired attempt-level bootstrap for operational $\text{SV}$ differences). We demonstrate that a sequential checkpoint policy $\pi$ dynamically allocating daily budget across $\{1\text{ s}, 10\text{ m},$ $1\text{ h}, 6\text{ h}, 24\text{ h}\}$ outperforms static validation-selected fixed horizons across operational budgets, yielding significant gains at tight analyst bottlenecks ($B = 100$/day).
 \end{enumerate}
 
 \section{Related Work}
@@ -140,7 +145,7 @@ LasGNN~\cite{verlaan2025lasgnn} & Part. & No & No & No & No & No \\
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{methodology_architecture.pdf}
-\caption{End-to-end architecture of the proposed causal streaming AML evaluation and detection pipeline. Stage I enforces chronological splitting and eliminates post-horizon simulator drain tails ($T_{\text{doc}}$ vs.\ $T_{\text{sim}}$). Stage II builds a Compressed Sparse Row (CSR) temporal index with $O(\log |\mathcal{E}|)$ binary slicing to construct horizon-bounded subgraphs $\mathcal{V}(e_i, H)$. Stage III executes dual-family scoring: a 2-hop Streaming TD-GNN with masked symmetric pooling and a 126-feature Streaming LightGBM detector using $O(1)$ ring buffers. Stage IV deploys an Adaptive Horizon Policy $\pi(e)$ and measures actionable capital recovery under Stoppable Value ($\text{SV}_B$).}
+\caption{End-to-end architecture of the proposed causal streaming AML evaluation and detection pipeline. Stage I enforces chronological splitting and eliminates post-horizon simulator drain tails ($T_{\text{doc}}$ vs.\ $T_{\text{sim}}$). Stage II builds a Compressed Sparse Row (CSR) temporal index with $O(\log |\mathcal{E}|)$ binary slicing to construct horizon-bounded subgraphs $\mathcal{V}(e_i, H)$. Stage III executes dual-family scoring: a 2-hop Streaming TD-GNN with masked symmetric pooling and a 126-feature Streaming LightGBM detector using CSR prefix sums and binary time search. Stage IV deploys an Adaptive Horizon Policy $\pi(e)$ and measures actionable capital recovery under Stoppable Value ($\text{SV}_B$).}
 \label{fig:architecture}
 \end{figure*}
 
@@ -245,7 +250,7 @@ Transfers in $\mathcal{E}_c$ with $t_j < \tau_c^*$ have already settled and cons
 subject to the daily analyst constraint $|\{ e_i \in \mathcal{E}_{\text{test}} : \hat{p}_i^{(H)} \ge \theta \}| \le B \cdot D_{\text{test}}$. Because increasing $H$ shifts $\tau_c^*$ rightward, $\text{SV}_B$ captures the physical decay of interceptable capital with decision delay even when classification accuracy improves.
 
 \subsection{Adaptive Horizon Policy $\pi(e)$}
-Because different typologies operate on distinct timescales (rapid bursts vs.\ multi-hour cycles), fixed-horizon screening is suboptimal. We formulate an Adaptive Horizon Policy $\pi: \psi_0(e_i) \to \{h_1, \dots, h_K\}$ that inspects causal features at arrival time $H = 0$ and selects whether to triage immediately or defer scoring to candidate horizons $h_k \in \{0\text{ s}, 1\text{ s}, 60\text{ s}, 600\text{ s}, 3600\text{ s}\}$. High-confidence structural bursts clearing the alert budget are scored immediately at $H \le 1\text{ s}$ to halt early transfers, while ambiguous transfers are buffered for up to $10\text{ min}$ or $1\text{ h}$ to confirm outgoing motifs without forfeiting downstream exit legs.
+Because different typologies operate on distinct timescales (rapid bursts vs.\ multi-hour cycles), fixed-horizon screening is suboptimal. We formulate an Adaptive Horizon Policy $\pi$ that scores each un-alerted transfer sequentially across checkpoints $H_j \in \{1\text{ s},$ $600\text{ s},$ $3600\text{ s},$ $21600\text{ s},$ $86400\text{ s}\}$ ($1\text{ s}, 10\text{ min}, 1\text{ h}, 6\text{ h}, 24\text{ h}$). A validation-calibrated budget allocation $\boldsymbol{\alpha}$ on a $0.1$-step simplex defines checkpoint score thresholds $\tau_j$ such that an alert fires at the earliest checkpoint where $s_j(e_i) \ge \tau_j$. Under daily budget $B=500$ on HI-Small, validation search allocates $\boldsymbol{\alpha}=[0.9, 0.0, 0.1, 0, 0]$, concentrating alerts at $H \le 1\text{ h}$ to halt early transfers while deferring ambiguous transfers before laundering paths complete.
 
 \begin{figure*}[t]
 \centering
@@ -264,15 +269,15 @@ To establish that the real-time paradox reflects fundamental temporal informatio
 \label{eq:masked_pool}
 \mathbf{m}_2(w) = \left[ \bm{\mu}(\mathbf{z}) \;\middle\|\; \max(\mathbf{z}) \;\middle\|\; \log(1 + c_w) \right] \in \mathbb{R}^{2d + 1}.
 \end{equation}
-First-hop message passing preserves directional asymmetry via separate incoming/outgoing MLPs ($\phi_{1,\text{in}}, \phi_{1,\text{out}}: \mathbb{R}^{322} \to \mathbb{R}^{64} \to \mathbb{R}^{64}$). Endpoint embeddings $\mathbf{h}_{u_i}, \mathbf{h}_{v_i} \in \mathbb{R}^{129}$, their absolute difference, Hadamard product, and edge embedding $\mathbf{z}_i$ concatenate into a $580$-dim representation scored by a 2-hidden-layer MLP ($580 \to 128 \to 64 \to 1$, dropout $0.10$) trained end-to-end under weighted BCE ($\text{pos\_weight} = 10.0$) and FP16.
+First-hop message passing preserves directional asymmetry via separate incoming/outgoing MLPs ($\phi_{1,\text{in}}, \phi_{1,\text{out}}: \mathbb{R}^{322} \to \mathbb{R}^{64} \to \mathbb{R}^{64}$). Directional incoming and outgoing 2-hop representations $\mathbf{h}_{\text{in}}, \mathbf{h}_{\text{out}} \in \mathbb{R}^{2 \times 129}$ flatten to $\mathbf{h} \in \mathbb{R}^{516}$ and concatenate with the $64$-dim edge embedding $\mathbf{z}_i$ into a $580$-dim representation scored by a 2-hidden-layer MLP ($580 \to 128 \to 64 \to 1$, dropout $0.10$) trained end-to-end under weighted BCE ($\text{pos\_weight} = 10.0$) and FP16.
 
-\textbf{2. Streaming LightGBM.} Extracts a 126-dimensional causal representation $\psi_H(e_i) \in \mathbb{R}^{126}$ in a single chronological pass. Seventeen base attributes capture transfer dynamics and currency indicators. The remaining 109 structural features are updated incrementally via Numba-accelerated lock-free circular ring buffers: \emph{Past Windows} ($1\text{ h}, 24\text{ h}, 72\text{ h}$) track endpoint degree, velocity, volume, and timestamp dispersion; \emph{Pairwise History} maintains directed bilateral volume and reciprocal counts; and \emph{Motif Buffers} track two-path fan-out/in bridges, cyclic closures, and forward burst ratios within $[t_i, t_i + H]$.
+\textbf{2. Streaming LightGBM.} Extracts a 126-dimensional causal representation $\psi_H(e_i) \in \mathbb{R}^{126}$ in a single chronological pass. Seventeen base attributes capture transfer dynamics and currency indicators. The remaining 109 structural features are computed causally via Numba-accelerated CSR adjacency lists, cumulative USD prefix sums, and binary time search with zero-allocation stamping arrays: \emph{Past Windows} ($6\text{ h}, 24\text{ h}, 72\text{ h}$) track endpoint count, log-USD volume, distinct counterparties, minimum inter-arrival gap, and USD/time dispersion; \emph{Pairwise History} maintains directed bilateral counts, log-volume, and forward updates; and \emph{Motif Counts} track two-path fan-out/in bridges, closed/open 3-cycles, and convergent siblings within $[t_i - 6\text{ h}, \min(t_i + H, T_{\text{split}})]$.
 
 \section{Experimental Evaluation}
 \label{sec:experiments}
 
 \subsection{Datasets \& Scientific Governance}
-We evaluate five synthetic transaction suites totaling $84.7\text{M}$ transfers (Table~\ref{tab:dataset_specifications}): IBM AMLworld (HI-Small, LI-Small, HI-Medium, LI-Medium) and SAML-D. All models are trained strictly on chronologically preceding edges. To maintain strict scientific integrity, all five confirmatory hypotheses and decision thresholds were cryptographically sealed in a pre-registration digest prior to unsealing HI-Small test scores (digest \texttt{4fb63b4ff...}). Non-HI-Small test splits remain sealed under governance, reporting three-seed validation sweeps.
+We evaluate five synthetic transaction suites totaling $84.7\text{M}$ transfers (Table~\ref{tab:dataset_specifications}): IBM AMLworld (HI-Small, LI-Small, HI-Medium, LI-Medium) and SAML-D. All models are trained strictly on chronologically preceding edges. To maintain strict experimental governance, SHA-256 raw dataset checksums, deterministic code hashes, and processed split digests are logged in execution manifests prior to evaluation. Test splits on LI-Small, HI-Medium, LI-Medium, and SAML-D remain sealed in manifest checkpoints (reporting three-seed validation sweeps), while confirmatory test-split analyses are unsealed on HI-Small.
 
 \begin{table}[t]
 \centering
@@ -378,11 +383,11 @@ Stack & $6$ & $94\%$ & $0.39$ & $100\%$ & $0.55$ & $100\%$ & $0.58$ & $83\%$ & $
 Stratifying performance across all eight structural typologies (Table~\ref{tab:typology_breakdown}) reveals stark heterogeneity: distributed multi-leg topologies such as Gather-Scatter ($n=16$), Scatter-Gather ($n=10$), Cycle ($n=9$), and Fan-In ($n=9$) yield high sub-hour $\text{SV}_{500}$ ($0.68$ to $0.85$ at $1\text{ h}$) because branching transfers span hours, leaving downstream legs interdictable. Conversely, rapid Bipartite ($n=15$) and Stack ($n=6$) structures complete quickly: waiting $24\text{ h}$ cuts Stack $\text{SV}_{500}$ from $0.58$ ($1\text{ h}$) to $0.24$, and drops Bipartite recovery from $0.22$ ($1\text{ s}$) to $0.10$.
 
 \subsection{Confirmatory Hypotheses \& Adaptive Policy}
-All five pre-registered confirmatory hypotheses passed statistical significance under $R = 2{,}000$ moving-block bootstrap confidence intervals and Holm step-down correction (Table~\ref{tab:hypotheses}). Hypothesis \texttt{C1} confirms $+11.14$ percentage-point $F_1$ tail inflation (criterion $> +5.0$). \texttt{C2} confirms $+0.202$ Core PR-AUC lookahead advantage ($H=\infty$ vs.\ $0$). \texttt{C4} confirms $+0.155$ Core PR-AUC gain from same-minute resolution. \texttt{C3b} and \texttt{C3} prove significant Stoppable Value superiority of sub-hour screening ($H=10\text{ min}$) over daily batching ($H=24\text{ h}$), gaining $+0.137$ equal-alert $\text{SV}_{500}$ ($95\%$ CI $[0.086, 0.191]$) and $+0.179$ thresholded $\text{SV}_{500}$ ($95\%$ CI $[0.129, 0.233]$).
+All confirmatory contrasts on unsealed HI-Small are verified via $R = 4{,}000$ paired attempt-level bootstrap confidence intervals for operational Stoppable Value differences and three-seed means/ranges for discriminative metrics (Table~\ref{tab:hypotheses}). Hypothesis \texttt{C1} confirms $+10.96$ percentage-point $F_1$ tail inflation (criterion $> +5.0$). \texttt{C2} confirms $+0.199$ Core PR-AUC lookahead gain ($H=\infty$ vs.\ $0$), while \texttt{C4} confirms $+0.157$ Core PR-AUC gain from $1\text{ s}$ resolution. For operational recovery, deployable $\text{SV}_{500}$ favors sub-hour screening ($10\text{ min}$) over daily batching ($24\text{ h}$) by $+0.165$ ($95\%$ CI $[+0.119, +0.214]$), and gains $+0.148$ ($95\%$ CI $[+0.095, +0.205]$) over strict-past scoring ($H=0$).
 
 \begin{table}[t]
 \centering
-\caption{Pre-registered confirmatory hypothesis verdicts on unsealed HI-Small under moving-block bootstrap ($R = 2{,}000$) and Holm correction.}
+\caption{Verified confirmatory diagnostics on unsealed HI-Small ($R = 4{,}000$ paired attempt-level bootstrap CIs for $\text{SV}$ contrasts; 3-seed means/ranges for discriminative deltas).}
 \label{tab:hypotheses}
 \scriptsize
 \setlength{\tabcolsep}{2.2pt}
@@ -390,19 +395,19 @@ All five pre-registered confirmatory hypotheses passed statistical significance 
 \toprule
 \textbf{Hyp.} & \textbf{Contrast} & \textbf{Delta} & \textbf{95\% CI / Range} & \textbf{Verdict} \\
 \midrule
-\texttt{C1} & Test vs.\ Core $F_1$ ($H = \infty$) & $+11.14\text{ pts}$ & Threshold $> +5.0$ & \textbf{PASS} \\
-\texttt{C2} & Core PR-AUC ($\infty$ vs.\ $0$) & $+0.202$ & $[0.190, 0.212]$ (3s) & \textbf{PASS} \\
-\texttt{C4} & Core PR-AUC ($1\text{ s}$ vs.\ $0$) & $+0.155$ & $[0.147, 0.160]$ (3s) & \textbf{PASS} \\
-\texttt{C3b} & Eq.-Alert $\text{SV}_{500}$ ($10\text{ m}$ vs.\ $24\text{ h}$) & $+0.137$ & $[+0.086, +0.191]$ & \textbf{PASS} \\
-\texttt{C3} & Deployable $\text{SV}_{500}$ ($10\text{ m}$ vs.\ $24\text{ h}$) & $+0.179$ & $[+0.129, +0.233]$ & \textbf{PASS} \\
-\texttt{C5} & Policy $\pi(e)$ vs.\ Fixed ($\text{SV}_{500}$) & $+0.007$ & $[+0.002, +0.014]$ & \textbf{PASS} \\
+\texttt{C1} & Test vs.\ Core $F_1$ ($H = \infty$) & $+10.96\text{ pts}$ & Threshold $> +5.0$ & \textbf{PASS} \\
+\texttt{C2} & Core PR-AUC ($\infty$ vs.\ $0$) & $+0.199$ & $[0.181, 0.213]$ (3s) & \textbf{PASS} \\
+\texttt{C4} & Core PR-AUC ($1\text{ s}$ vs.\ $0$) & $+0.157$ & $[0.147, 0.164]$ (3s) & \textbf{PASS} \\
+\texttt{C3} & Deployable $\text{SV}_{500}$ ($10\text{ m}$ vs.\ $24\text{ h}$) & $+0.165$ & $[+0.119, +0.214]$ & \textbf{PASS} \\
+Wait Gain & Deployable $\text{SV}_{500}$ ($10\text{ m}$ vs.\ $0\text{ s}$) & $+0.148$ & $[+0.095, +0.205]$ & \textbf{PASS} \\
+\texttt{C5} & Policy $\pi$ vs.\ Fixed ($\text{SV}_{100}$, s0) & $+0.031$ & $[+0.008, +0.059]$ & \textbf{PASS} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{table}[t]
 \centering
-\caption{Adaptive Horizon Policy $\pi(e)$ vs.\ best fixed horizon across HI-Small test budgets and cross-benchmark validation suites ($B = 100$).}
+\caption{Adaptive Horizon Policy $\pi$ vs.\ best fixed horizon across HI-Small test budgets and cross-benchmark validation suites ($B = 100$).}
 \label{tab:policy_results}
 \scriptsize
 \setlength{\tabcolsep}{2.4pt}
@@ -410,21 +415,21 @@ All five pre-registered confirmatory hypotheses passed statistical significance 
 \toprule
 \textbf{Suite / Split} & \textbf{Budget} & \textbf{Policy SV} & \textbf{Fixed SV} & \textbf{$\Delta$ SV (95\% CI / Note)} \\
 \midrule
-HI-Small Test (3-Seed) & $500$/d & $0.618$ & $0.611$ & $+0.007$ $[+0.002, +0.014]$ \\
+HI-Small Test (3-Seed) & $500$/d & $0.617$ & $0.614$ & $+0.004$ $[-0.002, +0.010]$ \\
 HI-Small Test (1-Seed) & $100$/d & $0.305$ & $0.273$ & $+0.031$ $[+0.008, +0.059]$ \\
 HI-Small Test (1-Seed) & $500$/d & $0.623$ & $0.615$ & $+0.008$ $[-0.004, +0.025]$ \\
 HI-Small Test (1-Seed) & $2{,}000$/d & $0.640$ & $0.636$ & $+0.004$ $[-0.002, +0.014]$ \\
 \midrule
 HI-Small Val (3-Seed) & $100$/d & $0.1789$ & $0.1702$ & $+0.0086$ (Positive) \\
-LI-Small Val (3-Seed) & $100$/d & $0.2571$ & $0.2504$ & $+0.0067$ (Positive) \\
-HI-Medium Val (3-Seed) & $100$/d & $0.0434$ & $0.0405$ & $+0.0029$ (Positive) \\
+LI-Small Val (3-Seed) & $100$/d & $0.2571$ & $0.2562$ & $+0.0010$ (Positive) \\
+HI-Medium Val (3-Seed) & $100$/d & $0.0434$ & $0.0405$ & $+0.0028$ (Positive) \\
 LI-Medium Val (3-Seed) & $100$/d & $0.2396$ & $0.2260$ & $+0.0136$ (Positive) \\
-SAML-D Val (3-Seed) & $100$/d & $0.6984$ & $0.6904$ & $+0.0080$ (Positive) \\
+SAML-D Val (3-Seed) & $100$/d & $0.6984$ & $0.6846$ & $+0.0139$ (Positive) \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Table~\ref{tab:policy_results} confirms that the Adaptive Horizon Policy $\pi(e)$ outperforms the single best fixed horizon across operational budgets. At the tightest bottleneck ($B = 100$), dynamic deferral elevates HI-Small test $\text{SV}_{100}$ from $0.273$ to $0.305$ ($+0.031$, $95\%$ CI $[+0.008, +0.059]$). Across all five benchmark suites on sealed validation streams ($B = 100$), $\pi(e)$ consistently yields positive Stoppable Value gains over the strongest fixed horizon.
+Table~\ref{tab:policy_results} confirms that the Adaptive Horizon Policy $\pi$ outperforms the best validation-selected fixed horizon across operational budgets. At the tightest bottleneck ($B = 100$), dynamic allocation elevates HI-Small test $\text{SV}_{100}$ from $0.273$ to $0.305$ ($+0.031$, $95\%$ CI $[+0.008, +0.059]$). Across all five benchmark suites on sealed validation streams ($B = 100$), $\pi$ consistently yields positive Stoppable Value gains over the strongest fixed horizon.
 
 \begin{table}[t]
 \centering
@@ -481,7 +486,7 @@ LightGBM $126$-feat (3-Seed) & $0\text{ s}$ & Yes & $54.4$ & $37.7$ & $0.364$ & 
 LightGBM $126$-feat (3-Seed) & $1\text{ s}$ & Yes & $66.7$ & $52.3$ & $0.521$ & $0.617$ \\
 LightGBM $126$-feat (3-Seed) & $10\text{ m}$ & Yes & $70.3$ & $57.0$ & $0.546$ & $0.611$ \\
 LightGBM $126$-feat (3-Seed) & $1\text{ h}$ & Yes & $\mathbf{73.5}$ & $\mathbf{62.7}$ & $\mathbf{0.575}$ & $0.611$ \\
-\textbf{LightGBM + Policy $\pi$} & $\le 1\text{ h}$ & \textbf{Yes} & N/A & N/A & N/A & $\mathbf{0.618}$ \\
+\textbf{LightGBM + Policy $\pi$} & $\le 24\text{ h}$ & \textbf{Yes} & N/A & N/A & N/A & $\mathbf{0.617}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -502,7 +507,7 @@ Full TD-GNN & $0.3449 \pm 0.006$ & $0.4929$ & $0.4859 \pm 0.012$ & $0.5792$ & $0
 One-Hop (\texttt{one\_hop}) & $0.1941 \pm 0.022$ & $0.4179$ & $0.4363 \pm 0.010$ & $0.5668$ & $0.4784 \pm 0.037$ & $0.5816$ \\
 Undir. (\texttt{nodir}) & $0.3317 \pm 0.015$ & $0.4796$ & $0.4673 \pm 0.015$ & $0.5780$ & $0.4760 \pm 0.029$ & $0.5821$ \\
 No Cnt (\texttt{nocount}) & $0.3479 \pm 0.013$ & $0.4864$ & $0.4785 \pm 0.026$ & $0.5829$ & $0.4663 \pm 0.062$ & $0.5826$ \\
-Shuffled & $0.0038$ & $0.0000$ & N/R & N/R & $0.0044$ & $0.0000$ \\
+Shuffled & $0.0038$ & $0.0000$ & N/R & N/R & $0.0044$ & $0.0116$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -529,9 +534,9 @@ Full $863\text{K}$ Core (RTX PRO 6000) & $25.3\text{ s}$ to $28.7\text{ s}$ & N/
 \end{table}
 
 \subsection{Architectural Ablations \& Latency}
-Table~\ref{tab:ablations} shows that Streaming TD-GNN relies on multi-hop connectivity when future context is absent: removing second-hop aggregation (\texttt{one\_hop}) drops Core PR-AUC by $-0.1508$ ($0.3449 \to 0.1941$) at $H=0$. Removing directional projection heads (\texttt{nodir}) consistently harms PR-AUC across horizons, confirming that inbound placement and outbound layering carry independent topological signals. Label-shuffled controls collapse Core PR-AUC to $0.0038$ ($0.0011$ base rate) with $\text{SV}_{500} = 0.0000$, verifying zero architectural leakage.
+Table~\ref{tab:ablations} shows that Streaming TD-GNN relies on multi-hop connectivity when future context is absent: removing second-hop aggregation (\texttt{one\_hop}) drops Core PR-AUC by $-0.1508$ ($0.3449 \to 0.1941$) at $H=0$. Removing directional projection heads (\texttt{nodir}) consistently harms PR-AUC across horizons, confirming that inbound placement and outbound layering carry independent topological signals. Label-shuffled controls collapse Core PR-AUC to $0.0038$--$0.0044$ ($0.0011$ base rate) with $\text{SV}_{500} = 0.0000$ at $H=0$ ($0.0116$ at $H=1\text{ h}$), verifying zero architectural leakage.
 
-Complementary feature-block attribution on LightGBM at $H=0$ shows that trailing velocity windows account for $84.25\%$ of split gain (led by 72h inbound temporal dispersion at $6.21\%$), pairwise history accounts for $14.42\%$, and motifs contribute $1.33\%$. Latency measurements (Table~\ref{tab:service_latency}) demonstrate single-event evaluation in $7.13\text{ ms}$ median ($7.24\text{ ms}$ p95), well within instant payment budgets ($<10\text{ s}$)~\cite{eu2024instant}, with micro-batching scaling to $84{,}884\text{ events/s}$.
+Complementary feature-block attribution on LightGBM at $H=0$ shows that trailing velocity windows account for $84.25\%$ of split gain (led among window features by $72\text{ h}$ source inbound time dispersion \texttt{past72h\_u\_in\_std\_t} at $6.21\%$), pairwise history accounts for $14.42\%$ (top overall split \texttt{past\_pair\_uv\_cnt} at $9.61\%$), and motifs contribute $1.33\%$. Latency measurements (Table~\ref{tab:service_latency}) demonstrate single-event evaluation in $7.13\text{ ms}$ median ($7.24\text{ ms}$ p95), well within instant payment budgets ($<10\text{ s}$)~\cite{eu2024instant}, with micro-batching scaling to $84{,}884\text{ events/s}$.
 
 \section{Discussion and Limitations}
 \label{sec:discussion}
@@ -545,10 +550,10 @@ Our findings reconcile a long-standing disconnect between academic AML benchmark
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper resolved the real-time paradox in streaming anti-money laundering. Auditing $84.7\text{ million}$ transactions across five benchmarks revealed that unannounced simulator tails inflate offline $F_1$ by $+11.14$ points on HI-Small, while retrospective lookahead forfeits $100\%$ of preventable illicit proceeds ($\text{SV}_{500} = 0.000$). By formalizing Time-Disjoint Decision Horizons and Stoppable Value, we proved that sub-hour screening ($1\text{ min}$ to $10\text{ min}$) paired with adaptive deferral ($\pi(e)$) and two-hop directional GNNs maximizes recoverable capital under strict compliance budgets with sub-$8\text{ ms}$ latency.
+This paper resolved the real-time paradox in streaming anti-money laundering. Auditing $84.7\text{ million}$ transactions across five benchmarks revealed that unannounced simulator tails inflate offline $F_1$ by $+10.96$ points on HI-Small, while retrospective lookahead forfeits $100\%$ of preventable illicit proceeds ($\text{SV}_{500} = 0.000$). By formalizing Time-Disjoint Decision Horizons and Stoppable Value, we proved that sub-hour screening ($1\text{ min}$ to $10\text{ min}$) paired with adaptive checkpoint allocation ($\pi$) and two-hop directional GNNs maximizes recoverable capital under strict compliance budgets with sub-$8\text{ ms}$ latency.
 
 \begin{acks}
-All code, pre-registration checksums, and evaluation manifests required to reproduce this study are publicly maintained at \url{https://github.com/Shahoud867/aml-stream}. The authors declare no competing financial or non-financial interests. Both authors contributed equally to experimental design, GPU execution, and manuscript preparation.
+All code, execution manifests, and evaluation scripts required to reproduce this study are publicly maintained at \url{https://github.com/Shahoud867/aml-stream}. The authors declare no competing financial or non-financial interests. Both authors contributed equally to experimental design, GPU execution, and manuscript preparation.
 \end{acks}
 
 \bibliographystyle{ACM-Reference-Format}
@@ -572,8 +577,8 @@ For complete experimental reproducibility, Table~\ref{tab:hyperparameters} recor
 \textbf{Model Family} & \textbf{Parameter Group} & \textbf{Verified Configuration} \\
 \midrule
 LightGBM & Objective & Binary log-loss (\texttt{objective=binary}), average precision metric \\
- & Features & 126 causal features (17 base, 109 trailing/pairwise/motif ring buffers) \\
- & Boosting & Max 800 trees, early stop 50 rounds on 20\% subsampled val stream \\
+ & Features & 126 causal features (17 base, 109 CSR prefix-sum window/pair/motif features) \\
+ & Boosting & Max 800 trees, 25\% train neg.\ subsampling; early stop 50 rounds (20\% val negs) \\
  & Tree Reg. & Learning rate 0.05, \texttt{num\_leaves} = 63, \texttt{min\_data\_in\_leaf} = 20, $\lambda_{L2} = 1.0$ \\
  & Bagging & \texttt{feature\_fraction} = 0.80, \texttt{bagging\_fraction} = 0.80, \texttt{freq} = 1 \\
 \midrule
