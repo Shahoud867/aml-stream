@@ -1,121 +1,155 @@
-\documentclass[tikz,border=8pt]{standalone}
-\usepackage{amsmath,amssymb}
+\documentclass[tikz,border=5pt]{standalone}
+\usepackage{amsmath,amssymb,bm}
 \usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc}
 
-\definecolor{s1col}{HTML}{3B5B7E}
-\definecolor{s2col}{HTML}{2E7D8C}
+\definecolor{s1col}{HTML}{2B4C7E}
+\definecolor{s2col}{HTML}{1A6B7A}
 \definecolor{gnncol}{HTML}{1E6B52}
-\definecolor{gbtcol}{HTML}{8A5A00}
-\definecolor{s4col}{HTML}{7A3E48}
-\definecolor{bgbox}{HTML}{F8FAFC}
-\definecolor{bordergray}{HTML}{CBD5E1}
+\definecolor{gbtcol}{HTML}{8C5800}
+\definecolor{s4col}{HTML}{7A3242}
+\definecolor{inkcol}{HTML}{1E293B}
+\definecolor{mutecol}{HTML}{475569}
 
 \begin{document}
 \begin{tikzpicture}[
-    font=\sffamily\scriptsize,
+    font=\sffamily,
     >=Stealth,
-    mod/.style={rectangle, rounded corners=3pt, draw=#1!80!black, fill=white, thick, align=flush left, inner sep=4.5pt},
-    hdr/.style={font=\sffamily\footnotesize\bfseries, text=#1!85!black, align=center},
-    stagebox/.style={rectangle, rounded corners=5pt, draw=#1!65!black, fill=#1!6, thick, inner sep=6pt},
-    arr/.style={->, thick, draw=#1!80!black}
+    mod/.style={
+        rectangle,
+        rounded corners=2.5pt,
+        draw=#1!70!black,
+        fill=white,
+        line width=0.65pt,
+        align=left,
+        minimum height=1.36cm,
+        inner xsep=5.5pt,
+        inner ysep=4pt,
+        text=inkcol
+    },
+    hdr/.style={
+        font=\sffamily\scriptsize\bfseries,
+        text=#1!85!black,
+        anchor=base
+    },
+    stagebox/.style={
+        rectangle,
+        rounded corners=4pt,
+        draw=#1!50!black,
+        fill=#1!4,
+        line width=0.55pt,
+        inner sep=5pt
+    },
+    arr/.style={
+        ->,
+        line width=0.75pt,
+        draw=#1!75!black
+    }
 ]
 
-% ===================== STAGE 1: Stream & Protocol Gate =====================
-\node[mod=s1col, text width=3.3cm] (s1_raw) at (0, 3.0) {
-    \textbf{1. Multigraph Event Stream}\\
-    $e_i = (u_i, v_i, t_i, \mathbf{x}_i, y_i)$\\
-    5 benchmarks (84.7M edges)\\
-    SHA-256 raw verification
+% ===================== STAGE I: STREAM & SPLIT GOVERNANCE =====================
+\node[mod=s1col, minimum width=3.90cm] (s1_top) at (0, 0.88) {%
+    {\scriptsize\bfseries\textcolor{s1col!85!black}{1.\ Directed Multigraph}}\\[1.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Event $e_i=(u_i,v_i,t_i,\mathbf{x}_i,y_i)$}\\[-0.5pt]
+    {\fontsize{6.4}{7.8}\selectfont $84.7\text{M}$ edges across $5$ suites}
 };
-\node[mod=s1col, text width=3.3cm, below=0.45cm of s1_raw] (s1_split) {
-    \textbf{2. Chronological Split}\\
-    Whole-day boundaries only\\
-    Train $\to$ Val $\to$ Test Core\\
-    Documented Core cutoff $T_{\text{doc}}$\\
-    (Tail $t_i \ge T_{\text{doc}}$ isolated)
-};
-\node[hdr=s1col, above=0.18cm of s1_raw] (h1) {Stage 1: Ingestion \& Split Gate};
-
-% ===================== STAGE 2: Causal Horizon View =====================
-\node[mod=s2col, text width=4.05cm, right=0.85cm of s1_raw] (s2_csr) {
-    \textbf{3. CSR Prefix-Sum Indexing}\\
-    Arrays: \texttt{out\_ptr}, \texttt{in\_ptr}, \texttt{pair\_ptr}\\
-    Cumulative USD sums (\texttt{out\_cum})\\
-    Binary search on event time $t_j$
-};
-\node[mod=s2col, text width=4.05cm, below=0.45cm of s2_csr] (s2_view) {
-    \textbf{4. Horizon View $\mathcal{V}(e_i, H)$}\\
-    $H = 0$: strict past ($t_j < t_i$)\\
-    $H > 0$: $t_j \le \min(t_i + H, t_{\text{split}})$\\
-    Grid: $\{0, 1\text{ s}, 1\text{ m}, 10\text{ m}, 1\text{ h},$\\
-    \hspace*{0.72cm}$6\text{ h}, 24\text{ h}, 72\text{ h}, \infty\}$
-};
-\node[hdr=s2col, above=0.18cm of s2_csr] (h2) {Stage 2: Causal View Engine};
-
-% ===================== STAGE 3A: Streaming TD-GNN =====================
-\node[mod=gnncol, text width=5.85cm, right=0.95cm of s2_csr, yshift=0.75cm] (s3_gnn_sample) {
-    \textbf{5a. Streaming TD-GNN ($d=64$ hidden dims)}\\
-    \textbf{Causal 2-Hop Sampler:} $s_p{=}8, s_f{=}8$ hop-1; $s_{2p}{=}3, s_{2f}{=}3$ hop-2\\
-    \textbf{EdgeEncoder ($21 \to 64$):} 5 continuous ($\log\text{USD}, \Delta t, \mathbb{I}[\Delta t{\ge}0]$,\\
-    currency match, self-loop) + embeddings ($6{+}6{+}4$)
-};
-\node[mod=gnncol, text width=5.85cm, below=0.30cm of s3_gnn_sample] (s3_gnn_pool) {
-    \textbf{Direction-Aware Aggregation \& Head}\\
-    Hop-2 $\phi_2(64 \to 64)$ $\to$ \texttt{masked\_pool} ($\mu, \max, \log(1{+}c) \in \mathbb{R}^{129}$)\\
-    Hop-1 separated MLPs $\phi_{1,\text{in}}, \phi_{1,\text{out}}(322 \to 64) \to \mathbf{h} \in \mathbb{R}^{516}$\\
-    MLP Head $[\mathbf{z}_{\text{seed}} \| \mathbf{h}] \in \mathbb{R}^{580} \to 128 \to 64 \to 1 \to s_H^{\text{GNN}}(e_i)$
+\node[mod=s1col, minimum width=3.90cm] (s1_bot) at (0, -0.88) {%
+    {\scriptsize\bfseries\textcolor{s1col!85!black}{2.\ Core / Tail Partition}}\\[1.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Chronological $\text{Train} \to \text{Val} \to \text{Test}$}\\[-0.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Core ($t_i \le T_{\text{doc}}$) vs.\ Tail ($t_i > T_{\text{doc}}$)}
 };
 
-% ===================== STAGE 3B: Numba Engine + LightGBM =====================
-\node[mod=gbtcol, text width=5.85cm, below=0.45cm of s3_gnn_pool] (s3_gbt) {
-    \textbf{5b. Numba Feature Engine + LightGBM (126 features)}\\
-    \textbf{Past Windows ($1\text{ h}, 24\text{ h}, 72\text{ h}$):} endpoint cnt, log-USD,\\
-    distinct peers, gaps, std.\ dev.\ (84.3\% of $H{=}0$ gain)\\
-    \textbf{Forward Buffer ($[t_i, t_i{+}H]$) \& Motifs:} pairwise $uv/vu$ counts,\\
-    bounded 2-path, 3-cycle, convergent siblings + 17 base cols
+% ===================== STAGE II: CAUSAL HORIZON ENGINE =====================
+\node[mod=s2col, minimum width=4.25cm, right=0.85cm of s1_top] (s2_top) {%
+    {\scriptsize\bfseries\textcolor{s2col!85!black}{3.\ CSR Temporal Index}}\\[1.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Pointers: \texttt{out\_ptr}, \texttt{in\_ptr}, \texttt{pair\_ptr}}\\[-0.5pt]
+    {\fontsize{6.4}{7.8}\selectfont $O(\log|\mathcal{E}|)$ binary time slicing}
 };
-\node[hdr=gnncol, above=0.18cm of s3_gnn_sample] (h3) {Stage 3: Dual Causal Detectors};
-
-% ===================== STAGE 4: Adaptive Policy & Interdiction =====================
-\node[mod=s4col, text width=4.45cm, right=0.95cm of s3_gnn_pool, yshift=0.35cm] (s4_pol) {
-    \textbf{6. Adaptive Multi-Horizon Policy}\\
-    Checkpoints $H_j \in \{1\text{ s}, 10\text{ m}, 1\text{ h}, 6\text{ h}, 24\text{ h}\}$\\
-    Simplex allocation $\boldsymbol{\alpha}$, $\sum_j \alpha_j = 1$\\
-    Sequential val-calibrated thresholds $\tau_j$\\
-    Immediate hold vs.\ deferred review
+\node[mod=s2col, minimum width=4.25cm] (s2_bot) at (s2_top |- s1_bot) {%
+    {\scriptsize\bfseries\textcolor{s2col!85!black}{4.\ Horizon View $\mathcal{V}(e_i, H)$}}\\[1.5pt]
+    {\fontsize{6.4}{7.8}\selectfont $\mathcal{E}_{\le t_i+H}$: edges $t_j \le \min(t_i{+}H, T_{\text{doc}})$}\\[-0.5pt]
+    {\fontsize{6.4}{7.8}\selectfont $H \in \{0, 1\text{ s}, 1\text{ m}, 10\text{ m}, 1\text{ h}, \dots, \infty\}$}
 };
-\node[mod=s4col, text width=4.45cm, below=0.45cm of s4_pol] (s4_sv) {
-    \textbf{7. Attempt Interdiction ($\text{SV}_B$)}\\
-    Earliest trigger $T(\mathcal{A}_k) = \min (t_e + H_j)$\\
-    Prevented: $\sum_{t_e > T} \text{val}(e) / \sum \text{val}(e)$\\
-    Budgets $B \in \{100, 500, 2000\}$ / day\\
-    GPU latency ($7.13\text{ ms}$ @ $n=1$)
+
+% ===================== STAGE III: DUAL CAUSAL DETECTORS =====================
+\node[mod=gnncol, minimum width=3.75cm, right=0.95cm of s2_top] (s3_gnn1) {%
+    {\scriptsize\bfseries\textcolor{gnncol!85!black}{5a.\ 2-Hop Causal Sampler}}\\[1.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Hop-1 $(s_p{=}8, s_f{=}8)$; Hop-2 $(3,3)$}\\[-0.5pt]
+    {\fontsize{6.4}{7.8}\selectfont $\text{EdgeEnc}(\mathbf{x}_j, \Delta t) \in \mathbb{R}^{64}$}
 };
-\node[hdr=s4col, above=0.18cm of s4_pol] (h4) {Stage 4: Policy \& SV Evaluation};
+\node[mod=gnncol, minimum width=4.10cm, right=0.55cm of s3_gnn1] (s3_gnn2) {%
+    {\scriptsize\bfseries\textcolor{gnncol!85!black}{5b.\ Directional MPNN}}\\[1.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Pool $[\bm{\mu} \| \max \| \log(1{+}c_w)] \in \mathbb{R}^{129}$}\\[-0.5pt]
+    {\fontsize{6.4}{7.8}\selectfont $\phi_{1,\text{in}}, \phi_{1,\text{out}} \to \text{MLP}(\mathbb{R}^{580}) \to \hat{p}_i^{(H)}$}
+};
 
-% ===================== CONNECTORS =====================
-\draw[arr=s1col] (s1_raw) -- (s1_split);
-\draw[arr=s1col] (s1_raw.east) -- (s2_csr.west);
-\draw[arr=s1col] (s1_split.east) -- (s2_view.west);
-\draw[arr=s2col] (s2_csr) -- (s2_view);
+\node[mod=gbtcol, minimum width=3.75cm] (s3_gbt1) at (s3_gnn1 |- s1_bot) {%
+    {\scriptsize\bfseries\textcolor{gbtcol!85!black}{5c.\ Lock-Free Ring Buffers}}\\[1.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Trailing windows $(1\text{ h}, 24\text{ h}, 72\text{ h})$}\\[-0.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Forward $[t_i, t_i{+}H]$, pair \& motif state}
+};
+\node[mod=gbtcol, minimum width=4.10cm] (s3_gbt2) at (s3_gnn2 |- s1_bot) {%
+    {\scriptsize\bfseries\textcolor{gbtcol!85!black}{5d.\ GBDT Risk Scorer}}\\[1.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Causal vector $\psi_H(e_i) \in \mathbb{R}^{126}$}\\[-0.5pt]
+    {\fontsize{6.4}{7.8}\selectfont $17$ base $+ 109$ structural $\to \hat{p}_i^{(H)}$}
+};
 
-% Stage 2 to Stage 3
-\draw[arr=s2col] (s2_view.east) -- ++(0.35, 0) |- (s3_gnn_sample.west);
-\draw[arr=gnncol] (s3_gnn_sample) -- (s3_gnn_pool);
-\draw[arr=s2col] (s2_view.east) -- ++(0.35, 0) |- (s3_gbt.west);
+% ===================== STAGE IV: POLICY & INTERDICTION =====================
+\node[mod=s4col, minimum width=3.85cm, right=0.95cm of s3_gnn2] (s4_top) {%
+    {\scriptsize\bfseries\textcolor{s4col!85!black}{6.\ Adaptive Policy $\pi(e_i)$}}\\[1.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Triage ($H{=}0$) vs.\ hold ($h_k \le 1\text{ h}$)}\\[-0.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Val-calibrated deferral gates $\theta_k$}
+};
+\node[mod=s4col, minimum width=3.85cm] (s4_bot) at (s4_top |- s1_bot) {%
+    {\scriptsize\bfseries\textcolor{s4col!85!black}{7.\ Stoppable Value ($\text{SV}_B$)}}\\[1.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Trigger $\tau_c^* = \min(t_k{+}H : \hat{p}_k^{(H)} \ge \theta)$}\\[-0.5pt]
+    {\fontsize{6.4}{7.8}\selectfont Halted share $\sum_{t_j \ge \tau_c^*} v(e_j)$ at cap $B$}
+};
 
-% Stage 3 to Stage 4
-\draw[arr=gnncol] (s3_gnn_pool.east) -- ++(0.35, 0) |- (s4_pol.west);
-\draw[arr=gbtcol] (s3_gbt.east) -- ++(0.35, 0) |- (s4_pol.west);
-\draw[arr=s4col] (s4_pol) -- (s4_sv);
+% ===================== UNIFORM TOP STAGE HEADERS =====================
+\coordinate (y_hdr) at (0, 1.80);
+\node[hdr=s1col] (h1) at (s1_top |- y_hdr) {Stage I: Stream \& Split Gate};
+\node[hdr=s2col] (h2) at (s2_top |- y_hdr) {Stage II: Causal View Engine};
+\node[hdr=gnncol] (h3) at ($(s3_gnn1.west |- y_hdr)!0.5!(s3_gnn2.east |- y_hdr)$) {Stage III: Dual Causal Detectors};
+\node[hdr=s4col] (h4) at (s4_top |- y_hdr) {Stage IV: Policy \& Evaluation};
 
-% ===================== STAGE CONTAINERS =====================
+% Subtle track divider inside Stage III
+\draw[densely dashed, draw=mutecol!35, line width=0.5pt]
+    ($(s3_gnn1.south west)!0.5!(s3_gbt1.north west)$) -- ($(s3_gnn2.south east)!0.5!(s3_gbt2.north east)$);
+
+% Shared vertical extremes so all 4 stage containers have identical height
+\coordinate (y_top) at (0, 1.98);
+\coordinate (y_bot) at (0, -1.56);
+
+% ===================== STAGE CONTAINERS (PIXEL-EQUAL HEIGHT) =====================
 \begin{scope}[on background layer]
-    \node[stagebox=s1col, fit=(h1)(s1_raw)(s1_split)] {};
-    \node[stagebox=s2col, fit=(h2)(s2_csr)(s2_view)] {};
-    \node[stagebox=gnncol, fit=(h3)(s3_gnn_sample)(s3_gnn_pool)(s3_gbt)] {};
-    \node[stagebox=s4col, fit=(h4)(s4_pol)(s4_sv)] {};
+    \node[stagebox=s1col, fit=(s1_top)(s1_bot)(s1_top |- y_top)(s1_bot |- y_bot)] (B1) {};
+    \node[stagebox=s2col, fit=(s2_top)(s2_bot)(s2_top |- y_top)(s2_bot |- y_bot)] (B2) {};
+    \node[stagebox=gnncol, fit=(s3_gnn1)(s3_gnn2)(s3_gbt1)(s3_gbt2)(s3_gnn1 |- y_top)(s3_gbt2 |- y_bot)] (B3) {};
+    \node[stagebox=s4col, fit=(s4_top)(s4_bot)(s4_top |- y_top)(s4_bot |- y_bot)] (B4) {};
 \end{scope}
+
+% ===================== DATA FLOW CONNECTORS =====================
+\draw[arr=s1col] (s1_top) -- (s1_bot);
+\draw[arr=s1col] (s1_top.east) -- (s2_top.west);
+\draw[arr=s1col] (s1_bot.east) -- (s2_bot.west);
+\draw[arr=s2col] (s2_top) -- (s2_bot);
+
+% Stage II -> Stage III
+\coordinate (fork_in) at ($(B2.east)!0.5!(B3.west)$);
+\draw[arr=s2col, -] (s2_bot.east) -- (s2_bot.east -| fork_in);
+\draw[arr=gnncol] (s2_bot.east -| fork_in) |- (s3_gnn1.west);
+\draw[arr=gbtcol] (s2_bot.east -| fork_in) -- (s3_gbt1.west);
+
+% Within Stage III tracks
+\draw[arr=gnncol] (s3_gnn1.east) -- (s3_gnn2.west);
+\draw[arr=gbtcol] (s3_gbt1.east) -- (s3_gbt2.west);
+
+% Stage III -> Stage IV
+\coordinate (merge_out) at ($(B3.east)!0.5!(B4.west)$);
+\draw[arr=gnncol, -] (s3_gnn2.east) -- (s3_gnn2.east -| merge_out);
+\draw[arr=gbtcol, -] (s3_gbt2.east) -| (merge_out |- s3_gnn2.east);
+\draw[arr=s4col] (merge_out |- s3_gnn2.east) -- (s4_top.west);
+\draw[arr=s4col] (s4_top) -- (s4_bot);
 
 \end{tikzpicture}
 \end{document}

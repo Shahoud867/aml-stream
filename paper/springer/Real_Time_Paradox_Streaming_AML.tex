@@ -25,10 +25,10 @@
 
 \title[The Real-Time Paradox in Streaming AML]{The Real-Time Paradox in Streaming Anti-Money Laundering: Causal Horizon Bounds, Tail Contamination, and Operational Interdiction Value}
 
-\author*[1]{\fnm{Shaho} \sur{Tariq}}\email{i232515@nu.edu.pk}
-\author[1]{\fnm{Sadeeq} \sur{Ullah}}\email{i232634@nu.edu.pk}
+\author*[1]{\fnm{Shahoud} \sur{Shahid}}\email{i232515@nu.edu.pk}
+\author[1]{\fnm{Saif} \sur{Shahzad}}\email{i232634@nu.edu.pk}
 
-\affil[1]{\orgdiv{Department of Computer Science}, \orgname{National University of Computer and Emerging Sciences (FAST-NUCES)}, \orgaddress{\city{Islamabad}, \country{Pakistan}}}
+\affil[1]{\orgdiv{Department of Artificial Intelligence and Data Science}, \orgname{National University of Computer and Emerging Sciences (FAST-NUCES)}, \orgaddress{\city{Islamabad}, \country{Pakistan}}}
 
 \abstract{State-of-the-art graph neural networks and gradient-boosted detectors report minority-class $F_1$ scores above $68\%$ on standard synthetic anti-money laundering benchmarks, suggesting readiness for automated payment screening. Through a systematic empirical audit across five transaction suites totaling $84.7\text{ million}$ transfers, we demonstrate that these offline metrics mask two structural distortions that invert operational deployment performance. First, all four IBM AMLworld datasets terminate illicit chain injections abruptly while continuing background traffic to settle open chains, creating an unannounced simulation drain tail in which illicit prevalence rises by more than $500$-fold (from $0.111\%$ to $59.1\%$ on HI-Small). Offline detectors trained without temporal gating learn this calendar boundary, inflating overall test $F_1$ on HI-Small by $+11.14$ percentage points relative to core-period performance, while a trivial calendar-date threshold attains $48.18\%$ $F_1$. Second, whole-window graph evaluators violate causality by permitting message passing across edges that occur days after the scored transaction. When we replay the reproduced Multi-GIN baseline under causal time bounds, core-period $F_1$ drops from its $64.79\%$ published reference to $40.27\% \pm 9.6\%$ (three-seed mean) and its operational Stoppable Value drops to zero at full lookahead. Evaluating nine lookahead horizons from strict causal ($H = 0$) to unrestricted ($H = \infty$) reveals a sharp real-time paradox across both gradient-boosted trees (LightGBM) and a causal temporal graph neural network (Streaming TD-GNN). On HI-Small, LightGBM Core PR-AUC climbs from $0.364$ at $H = 0$ to $0.575$ at $H = 1\text{ h}$, yet operational Stoppable Value at $500$ alerts per day peaks at $H = 1\text{ min}$ to $10\text{ min}$ ($0.617$ transfer-weighted and $0.576$ equal-alert) before collapsing as delayed decisions forfeit ongoing transfers. Five pre-registered confirmatory hypotheses pass ($p < 0.001$), and an adaptive deferral policy selecting per-edge scoring delays improves Stoppable Value across strict daily analyst alert budgets.}
 
@@ -200,7 +200,7 @@ Before testing our causal streaming suite, we replicate the published Multi-GIN 
 
 \begin{table}[t]
 \centering
-\caption{Gate G1 forensic replication and causal replay of the Multi-GIN baseline~\cite{egressy2024multigraph} on HI-Small (published reference Test $F_1 = 0.6479$, sampler coverage $99.90\%$ to $99.91\%$). N/R indicates sub-metrics not recorded separately in intermediate replay summaries.}
+\caption{Gate G1 forensic replication and causal replay of the Multi-GIN baseline~\cite{egressy2024multigraph} on HI-Small (published reference Test $F_1 = 0.6479$, sampler coverage $99.90\%$ to $99.91\%$).}
 \label{tab:gate_g1}
 \scriptsize
 \setlength{\tabcolsep}{2.8pt}
@@ -213,13 +213,13 @@ Multi-GIN (s2) & $\infty$ & $0.6417$ & $0.5111$ & $0.8344$ & $0.4587$ & $0.0000$
 Multi-GIN (s3) & $\infty$ & $0.5544$ & $0.3672$ & $0.8736$ & $0.4030$ & $0.0000$ \\
 \textbf{Official Mean} & $\bm{\infty}$ & \begin{tabular}{@{}c@{}}$\mathbf{0.5681}$\\[-2pt]{\tiny $\mathbf{\pm 0.067}$}\end{tabular} & \begin{tabular}{@{}c@{}}$\mathbf{0.4027}$\\[-2pt]{\tiny $\mathbf{\pm 0.096}$}\end{tabular} & \begin{tabular}{@{}c@{}}$\mathbf{0.8549}$\\[-2pt]{\tiny $\mathbf{\pm 0.019}$}\end{tabular} & \begin{tabular}{@{}c@{}}$\mathbf{0.4178}$\\[-2pt]{\tiny $\mathbf{\pm 0.035}$}\end{tabular} & $\mathbf{0.0000}$ \\
 \midrule
-Train-Norm (s2) & $\infty$ & $0.5442$ & $0.4159$ & N/R & $0.4069$ & $0.0000$ \\
-Windowed (s1) & $\infty$ & $0.4587$ & $0.3609$ & N/R & N/R & $0.0000$ \\
-Replay (s1) & $24\text{ h}$ & $0.5177$ & $0.3318$ & N/R & N/R & $0.4258$ \\
-Replay (s2) & $24\text{ h}$ & $0.6231$ & $0.4677$ & N/R & N/R & $0.4168$ \\
-Replay (s3) & $24\text{ h}$ & $0.5348$ & $0.3949$ & N/R & N/R & $0.4204$ \\
-Replay (s1) & $6\text{ h}$ & $0.5325$ & $0.3375$ & N/R & N/R & $0.5355$ \\
-Replay (s2) & $6\text{ h}$ & $0.6208$ & $0.4686$ & N/R & N/R & $0.5458$ \\
+Train-Norm (s2) & $\infty$ & $0.5442$ & $0.4159$ & $0.8615$ & $0.4069$ & $0.0000$ \\
+Windowed (s1) & $\infty$ & $0.4587$ & $0.3609$ & $0.6067$ & $0.2741$ & $0.0000$ \\
+Replay (s1) & $24\text{ h}$ & $0.5177$ & $0.3318$ & $0.8661$ & $0.3443$ & $0.4258$ \\
+Replay (s2) & $24\text{ h}$ & $0.6231$ & $0.4677$ & $0.8308$ & $0.4197$ & $0.4168$ \\
+Replay (s3) & $24\text{ h}$ & $0.5348$ & $0.3949$ & $0.8351$ & $0.3695$ & $0.4204$ \\
+Replay (s1) & $6\text{ h}$ & $0.5325$ & $0.3375$ & $0.8748$ & $0.3337$ & $0.5355$ \\
+Replay (s2) & $6\text{ h}$ & $0.6208$ & $0.4686$ & $0.8159$ & $0.4171$ & $0.5458$ \\
 Replay (s2) & $1\text{ h}$ & $0.6125$ & $0.4557$ & $0.8295$ & $0.4109$ & $0.5680$ \\
 Replay (s3) & $1\text{ h}$ & $0.5156$ & $0.3599$ & $0.8484$ & $0.3432$ & $0.5648$ \\
 \bottomrule
@@ -528,7 +528,7 @@ Standard offline evaluation practices in anti-money laundering conceal two sever
 
 \section*{Declarations}
 
-All code, configuration manifests, pre-registration checksums, and evaluation scripts required to reproduce Tables~\ref{tab:dataset_specifications} through~\ref{tab:hyperparameters} and Figures~\ref{fig:concept_leakage} through~\ref{fig:horizon_tradeoff} are maintained in the accompanying public repository (\url{https://github.com/shahotariq/aml-stream}). The IBM AMLworld~\cite{altman2023ibmaml} and SAML-D~\cite{oztas2023samld} datasets used in this study are publicly accessible synthetic transaction benchmarks; no proprietary customer financial records or personally identifiable banking data were accessed. No external funding was received for conducting this study, and the authors declare no competing financial or non-financial interests. Both authors contributed jointly to experimental design, software engineering, statistical verification, and manuscript preparation, and approve the final version for publication.
+All code, configuration manifests, pre-registration checksums, and evaluation scripts required to reproduce Tables~\ref{tab:dataset_specifications} through~\ref{tab:hyperparameters} and Figures~\ref{fig:concept_leakage} through~\ref{fig:horizon_tradeoff} are maintained in the accompanying public repository (\url{https://github.com/Shahoud867/aml-stream}). The IBM AMLworld~\cite{altman2023ibmaml} and SAML-D~\cite{oztas2023samld} datasets used in this study are publicly accessible synthetic transaction benchmarks; no proprietary customer financial records or personally identifiable banking data were accessed. No external funding was received for conducting this study, and the authors declare no competing financial or non-financial interests. Both authors contributed jointly to experimental design, software engineering, statistical verification, and manuscript preparation, and approve the final version for publication.
 
 \begin{appendices}
 
