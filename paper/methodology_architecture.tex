@@ -73,15 +73,15 @@
         text=#1!88!black, anchor=west
     },
     subhdr/.style={
-        font=\sffamily\fontsize{7.5}{8.5}\selectfont\bfseries,
+        font=\sffamily\fontsize{7.4}{8.4}\selectfont\bfseries,
         text=#1!88!black
     },
     micro/.style={
-        font=\sffamily\fontsize{6.4}{7.8}\selectfont,
+        font=\sffamily\fontsize{6.2}{7.5}\selectfont,
         text=muted
     },
     microb/.style={
-        font=\sffamily\fontsize{6.8}{8.2}\selectfont\bfseries,
+        font=\sffamily\fontsize{6.4}{7.8}\selectfont\bfseries,
         text=ink
     },
     macroarrow/.style={
@@ -95,13 +95,13 @@
 ]
 
 % =========================================================================
-% STAGE CONTAINERS (25.20 cm x 10.20 cm)
+% STAGE CONTAINERS (25.90 cm x 10.20 cm -> Generous internal padding everywhere)
 % =========================================================================
-\draw[stagecard=c1]  (0.00, 0.00) rectangle (4.60, 10.20);
-\draw[stagecard=c2]  (5.15, 0.00) rectangle (9.95, 10.20);
-\draw[stagecard=c3a] (10.55, 5.00) rectangle (19.25, 10.20); % Top: TD-GNN
-\draw[stagecard=c3b] (10.55, 0.00) rectangle (19.25, 4.70);  % Bottom: LightGBM
-\draw[stagecard=c4]  (19.85, 0.00) rectangle (25.20, 10.20);
+\draw[stagecard=c1]  (0.00, 0.00)  rectangle (4.60, 10.20);
+\draw[stagecard=c2]  (5.15, 0.00)  rectangle (9.95, 10.20);
+\draw[stagecard=c3a] (10.50, 5.00) rectangle (19.90, 10.20); % Top: TD-GNN (w = 9.40 cm)
+\draw[stagecard=c3b] (10.50, 0.00) rectangle (19.90, 4.70);  % Bottom: LightGBM (w = 9.40 cm)
+\draw[stagecard=c4]  (20.45, 0.00) rectangle (25.90, 10.20); % Stage 4 (w = 5.45 cm)
 
 % Stage Headers
 \node[stagebadge=c1] at (0.48, 9.72) {1};
@@ -110,14 +110,14 @@
 \node[stagebadge=c2] at (5.63, 9.72) {2};
 \node[stagetitle=c2] at (5.97, 9.72) {Causal Horizon Slicer};
 
-\node[stagebadge=c3a] at (11.03, 9.72) {3a};
-\node[stagetitle=c3a] at (11.39, 9.72) {Streaming TD-GNN \textnormal{\fontsize{8.0}{9}\selectfont\textcolor{muted}{(2-Hop Graph Neural Track)}}};
+\node[stagebadge=c3a] at (10.98, 9.72) {3a};
+\node[stagetitle=c3a] at (11.34, 9.72) {Streaming TD-GNN \textnormal{\fontsize{8.0}{9}\selectfont\textcolor{muted}{(2-Hop Graph Neural Track)}}};
 
-\node[stagebadge=c3b] at (11.03, 4.24) {3b};
-\node[stagetitle=c3b] at (11.39, 4.24) {Streaming LightGBM \textnormal{\fontsize{8.0}{9}\selectfont\textcolor{muted}{(Lock-Free Ring Buffer Track)}}};
+\node[stagebadge=c3b] at (10.98, 4.24) {3b};
+\node[stagetitle=c3b] at (11.34, 4.24) {Streaming LightGBM \textnormal{\fontsize{8.0}{9}\selectfont\textcolor{muted}{(Lock-Free Ring Buffer Track)}}};
 
-\node[stagebadge=c4] at (20.33, 9.72) {4};
-\node[stagetitle=c4] at (20.67, 9.72) {Policy \& Interdiction};
+\node[stagebadge=c4] at (20.93, 9.72) {4};
+\node[stagetitle=c4] at (21.27, 9.72) {Policy \& Interdiction};
 
 
 % =========================================================================
@@ -127,7 +127,7 @@
 \draw[subpanel=c1] (0.20, 4.30) rectangle (4.40, 9.25);
 \node[subhdr=c1, anchor=west] at (0.36, 8.92) {Core Stream vs.\ Drain Tail};
 
-% Timeline Flow Bar (y = 7.45 .. 8.05)
+% Timeline Flow Bar
 \fill[c1!20, rounded corners=2pt] (0.38, 7.45) rectangle (1.30, 8.05);
 \fill[c1!45] (1.33, 7.45) rectangle (2.02, 8.05);
 \fill[c1!82] (2.05, 7.45) rectangle (3.00, 8.05);
@@ -139,40 +139,36 @@
 \draw[tailred, line width=2.0pt] (3.09, 7.25) -- (3.09, 8.32);
 \node[fill=tailred, text=white, font=\sffamily\fontsize{6.5}{7.2}\selectfont\bfseries, rounded corners=2pt, inner sep=2.2pt] at (3.09, 8.46) {$T_{\text{doc}}$ Gate};
 
-% Contaminated Tail Zone (Crossed / Hatched)
+% Contaminated Tail Zone
 \fill[tailbg, rounded corners=2pt] (3.18, 7.45) rectangle (4.22, 8.05);
 \draw[tailred!55, pattern=north east lines, pattern color=tailred!40, rounded corners=2pt] (3.18, 7.45) rectangle (4.22, 8.05);
 \node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=tailred!90!black] at (3.70, 7.75) {Tail};
 \draw[tailred, line width=1.1pt] (3.34, 7.52) -- (4.06, 7.98);
 \draw[tailred, line width=1.1pt] (3.34, 7.98) -- (4.06, 7.52);
 
-% Prevalence Comparison Micro-Chart (Cleanly separated y = 6.12 .. 7.05)
+% Prevalence Comparison Micro-Chart
 \draw[lightline, line width=0.6pt] (0.38, 6.12) -- (4.22, 6.12);
 \node[micro, anchor=west] at (0.38, 6.46) {Illicit rate:};
-% Core bar (tiny 0.11%)
 \fill[c1!80] (2.34, 6.12) rectangle (2.60, 6.20);
 \node[font=\sffamily\fontsize{6.5}{7.2}\selectfont\bfseries, text=c1] at (2.47, 6.42) {0.11\%};
-% Tail spike bar (59.1%)
 \fill[tailred] (3.56, 6.12) rectangle (3.84, 6.90);
 \node[font=\sffamily\fontsize{6.5}{7.2}\selectfont\bfseries, text=tailred] at (3.70, 7.06) {59.1\%!};
 
-% Summary Callout Box inside 1A
+% Summary Callout Box
 \draw[c1!28, fill=c1bg, rounded corners=3pt] (0.36, 4.52) rectangle (4.24, 5.88);
-\node[microb, anchor=west] at (0.48, 5.56) {84.7M Edges across 5 Suites};
-\node[micro, align=left, anchor=west] at (0.48, 4.94) {4 IBM AMLworld + SAML-D\\Blocks $>500\times$ tail artifact};
+\node[microb, anchor=west] at (0.50, 5.56) {84.7M Edges across 5 Suites};
+\node[micro, align=left, anchor=west] at (0.50, 4.94) {4 IBM AMLworld + SAML-D\\Blocks $>500\times$ tail artifact};
 
 % Subpanel 1B: Incoming Multigraph Event
 \draw[subpanel=c1] (0.20, 0.25) rectangle (4.40, 4.02);
 \node[subhdr=c1, anchor=west] at (0.36, 3.68) {Incoming Transfer Stream};
 
-% Visual Graph Edge Card (u -> v)
 \draw[c1!35, fill=c1bg!70, rounded corners=3.5pt] (0.38, 1.88) rectangle (4.22, 3.36);
 \node[circle, draw=c1, fill=white, line width=1.1pt, minimum size=0.64cm, font=\sffamily\fontsize{8.5}{9.5}\selectfont\bfseries, text=c1] (nu) at (0.98, 2.74) {$u$};
 \node[circle, draw=c1, fill=white, line width=1.1pt, minimum size=0.64cm, font=\sffamily\fontsize{8.5}{9.5}\selectfont\bfseries, text=c1] (nv) at (3.62, 2.74) {$v$};
 \draw[->, >={Stealth[length=5.5pt]}, line width=1.3pt, c1] (nu) -- node[above, font=\sffamily\fontsize{7.2}{8.0}\selectfont\bfseries, text=ink] {\$ Amount, $t_i$} (nv);
 \node[micro] at (2.30, 2.12) {Strict chronological event order};
 
-% Feature Chips
 \node[draw=c1!38, fill=white, rounded corners=2.5pt, font=\sffamily\fontsize{6.6}{7.4}\selectfont\bfseries, text=ink, inner xsep=5pt, inner ysep=3pt] at (0.98, 1.18) {Amount};
 \node[draw=c1!38, fill=white, rounded corners=2.5pt, font=\sffamily\fontsize{6.6}{7.4}\selectfont\bfseries, text=ink, inner xsep=5pt, inner ysep=3pt] at (2.30, 1.18) {Currency};
 \node[draw=c1!38, fill=white, rounded corners=2.5pt, font=\sffamily\fontsize{6.6}{7.4}\selectfont\bfseries, text=ink, inner xsep=5pt, inner ysep=3pt] at (3.62, 1.18) {Format};
@@ -186,35 +182,28 @@
 \draw[subpanel=c2] (5.35, 4.30) rectangle (9.75, 9.25);
 \node[subhdr=c2, anchor=west] at (5.51, 8.92) {Causal Horizon Boundary};
 
-% Past / Window / Blocked Zones
 \fill[c2!16, rounded corners=2pt] (5.53, 6.20) rectangle (7.25, 8.48);
 \fill[c2!32] (7.25, 6.20) rectangle (8.45, 8.48);
 \fill[black!5, rounded corners=2pt] (8.48, 6.20) rectangle (9.58, 8.48);
 
-% Zone Labels
 \node[font=\sffamily\fontsize{7.0}{7.8}\selectfont\bfseries, text=c2!90!black] at (6.39, 8.16) {Past};
 \node[font=\sffamily\fontsize{7.0}{7.8}\selectfont\bfseries, text=c2!95!black] at (7.85, 8.16) {Wait $H$};
 \node[font=\sffamily\fontsize{7.0}{7.8}\selectfont\bfseries, text=tailred] at (9.03, 8.16) {Blocked};
 
-% Causal Wall
 \draw[tailred, densely dashed, line width=1.4pt] (8.465, 6.66) -- (8.465, 8.56);
 
-% Timeline Axis inside Zones
 \draw[c2!85!black, line width=1.1pt, ->] (5.58, 6.90) -- (9.52, 6.90);
 \fill[c2] (7.25, 6.90) circle (3.0pt);
 \node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=ink] at (7.25, 6.46) {$t_i$};
 \node[fill=white, inner sep=1.2pt, font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=tailred] at (8.465, 6.46) {$t_i{+}H$};
 
-% Admitted vs Blocked mini edge arcs
 \draw[c2, line width=0.9pt, ->] (5.82, 6.96) to[bend left=45] (6.80, 6.96);
 \draw[c2, line width=0.9pt, ->] (6.26, 6.96) to[bend left=45] (7.22, 6.96);
 \draw[c2!90!black, line width=1.0pt, ->] (7.36, 6.96) to[bend left=40] (8.24, 6.96);
-% Blocked future arc
 \draw[black!35, densely dotted, line width=0.9pt, ->] (8.62, 6.96) to[bend left=40] (9.42, 6.96);
 \draw[tailred, line width=1.2pt] (8.90, 7.16) -- (9.12, 7.38);
 \draw[tailred, line width=1.2pt] (8.90, 7.38) -- (9.12, 7.16);
 
-% Horizon Range Caption Box
 \draw[c2!28, fill=c2bg, rounded corners=3pt] (5.53, 4.52) rectangle (9.58, 5.95);
 \node[microb, anchor=west] at (5.68, 5.62) {9 Causal Horizons ($0\text{ s}$ to $\infty$)};
 \node[micro, align=left, anchor=west] at (5.68, 4.98) {Zero leakage past $t_i{+}H$\\Admits same-second bursts ($1\text{ s}$)};
@@ -223,7 +212,6 @@
 \draw[subpanel=c2] (5.35, 0.25) rectangle (9.75, 4.02);
 \node[subhdr=c2, anchor=west] at (5.51, 3.68) {Sorted CSR Index Engine};
 
-% Memory Array Visual Rows (Out / In / Pair)
 \foreach \rowy/\lbl in {2.74/Out, 2.04/In, 1.34/Pair} {
     \node[font=\sffamily\fontsize{7.0}{7.8}\selectfont\bfseries, text=muted, anchor=east] at (6.28, \rowy+0.20) {\lbl};
     \fill[c2!70] (6.36, \rowy) rectangle (6.88, \rowy+0.40);
@@ -232,7 +220,6 @@
     \fill[black!10] (8.04, \rowy) rectangle (8.56, \rowy+0.40);
     \fill[black!10] (8.60, \rowy) rectangle (9.12, \rowy+0.40);
 }
-% Binary Search Slice Line across CSR rows
 \draw[c2!95!black, line width=1.5pt] (8.02, 1.15) -- (8.02, 3.26);
 \node[fill=c2, text=white, font=\sffamily\fontsize{6.4}{7.2}\selectfont\bfseries, rounded corners=1.5pt, inner sep=2pt] at (8.02, 3.36) {Slice};
 
@@ -241,23 +228,23 @@
 
 
 % =========================================================================
-% STAGE 3A (TOP): STREAMING TD-GNN (x = 10.55 .. 19.25, y = 5.00 .. 10.20)
+% STAGE 3A (TOP): STREAMING TD-GNN (x = 10.50 .. 19.90, w = 9.40 cm)
 % =========================================================================
-% Block 1: 2-Hop Causal Subgraph (x = 10.75 .. 12.90, w = 2.15)
-\draw[subpanel=c3a] (10.75, 5.20) rectangle (12.90, 9.25);
-\node[subhdr=c3a] at (11.825, 8.92) {1.\ 2-Hop Graph};
+% Block 1: 2-Hop Causal Subgraph (x = 10.70 .. 13.05, w = 2.35 cm!)
+\draw[subpanel=c3a] (10.70, 5.20) rectangle (13.05, 9.25);
+\node[subhdr=c3a] at (11.875, 8.92) {1.\ 2-Hop Graph};
 
-% ACTUAL 2-Hop Multigraph Drawing
-\coordinate (gu) at (11.46, 7.30);
-\coordinate (gv) at (12.19, 7.30);
-\coordinate (g2a) at (10.97, 8.20);
-\coordinate (g2b) at (11.01, 6.42);
-\coordinate (g2c) at (12.68, 8.20);
-\coordinate (g2d) at (12.66, 6.42);
-\coordinate (g1a) at (11.22, 7.82);
-\coordinate (g1b) at (11.22, 6.76);
-\coordinate (g1c) at (12.43, 7.82);
-\coordinate (g1d) at (12.43, 6.76);
+% ACTUAL 2-Hop Multigraph Drawing (centered at x = 11.875)
+\coordinate (gu) at (11.50, 7.30);
+\coordinate (gv) at (12.25, 7.30);
+\coordinate (g2a) at (11.00, 8.20);
+\coordinate (g2b) at (11.04, 6.42);
+\coordinate (g2c) at (12.75, 8.20);
+\coordinate (g2d) at (12.73, 6.42);
+\coordinate (g1a) at (11.26, 7.82);
+\coordinate (g1b) at (11.26, 6.76);
+\coordinate (g1c) at (12.49, 7.82);
+\coordinate (g1d) at (12.49, 6.76);
 
 \draw[c3a!45, line width=0.8pt, ->] (g2a) -- (g1a);
 \draw[c3a!45, line width=0.8pt, ->] (g1b) -- (g2b);
@@ -276,53 +263,52 @@
 \node[font=\sffamily\fontsize{6.6}{7.4}\selectfont\bfseries, text=white] at (gu) {$u$};
 \node[font=\sffamily\fontsize{6.6}{7.4}\selectfont\bfseries, text=white] at (gv) {$v$};
 
-\node[microb] at (11.825, 5.82) {Fanout $(8,8) \to (3,3)$};
-\node[micro] at (11.825, 5.44) {Past + Horizon edges};
+\node[microb] at (11.875, 5.82) {Fanout $(8,8) \to (3,3)$};
+\node[micro] at (11.875, 5.44) {Past + Horizon edges};
 
-% Block 2: Edge Encoder & Directional Flows (x = 13.10 .. 15.05, w = 1.95)
-\draw[subpanel=c3a] (13.10, 5.20) rectangle (15.05, 9.25);
-\node[subhdr=c3a] at (14.075, 8.92) {2.\ Dir.\ Encode};
+% Block 2: Edge Encoder & Directional Flows (x = 13.25 .. 15.25, w = 2.00 cm!)
+\draw[subpanel=c3a] (13.25, 5.20) rectangle (15.25, 9.25);
+\node[subhdr=c3a] at (14.25, 8.92) {2.\ Dir.\ Encode};
 
-\fill[c3a!28, rounded corners=1.5pt] (13.38, 7.98) rectangle (13.80, 8.42);
-\fill[c3a!55, rounded corners=1.5pt] (13.85, 7.98) rectangle (14.28, 8.42);
-\fill[c3a!85, rounded corners=1.5pt] (14.33, 7.98) rectangle (14.77, 8.42);
-\node[micro] at (14.075, 7.70) {Attr + $\log \Delta t$};
+\fill[c3a!28, rounded corners=1.5pt] (13.55, 7.98) rectangle (13.97, 8.42);
+\fill[c3a!55, rounded corners=1.5pt] (14.03, 7.98) rectangle (14.47, 8.42);
+\fill[c3a!85, rounded corners=1.5pt] (14.53, 7.98) rectangle (14.95, 8.42);
+\node[micro] at (14.25, 7.70) {Attr + $\log \Delta t$};
 
-\draw[c3a, fill=c3abg, rounded corners=2.5pt, line width=0.65pt] (13.32, 6.84) rectangle (14.83, 7.38);
-\node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=c3a] at (14.075, 7.11) {In-Flow $\phi_{\text{in}}$};
+\draw[c3a, fill=c3abg, rounded corners=2.5pt, line width=0.65pt] (13.48, 6.84) rectangle (15.02, 7.38);
+\node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=c3a] at (14.25, 7.11) {In-Flow $\phi_{\text{in}}$};
 
-\draw[c3a, fill=c3asoft, rounded corners=2.5pt, line width=0.65pt] (13.32, 6.08) rectangle (14.83, 6.62);
-\node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=c3a] at (14.075, 6.35) {Out-Flow $\phi_{\text{out}}$};
+\draw[c3a, fill=c3asoft, rounded corners=2.5pt, line width=0.65pt] (13.48, 6.08) rectangle (15.02, 6.62);
+\node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=c3a] at (14.25, 6.35) {Out-Flow $\phi_{\text{out}}$};
 
-\node[micro] at (14.075, 5.44) {Asymmetric flow};
+\node[micro] at (14.25, 5.44) {Asymmetric flow};
 
-% Block 3: Symmetric Masked Pool (x = 15.25 .. 17.05, w = 1.80)
-\draw[subpanel=c3a] (15.25, 5.20) rectangle (17.05, 9.25);
-\node[subhdr=c3a] at (16.15, 8.92) {3.\ Sym.\ Pool};
+% Block 3: Symmetric Masked Pool (x = 15.45 .. 17.45, w = 2.00 cm!)
+\draw[subpanel=c3a] (15.45, 5.20) rectangle (17.45, 9.25);
+\node[subhdr=c3a] at (16.45, 8.92) {3.\ Sym.\ Pool};
 
-% 3-bar visual aggregation icon
-\fill[c3a!55, rounded corners=1.5pt] (15.46, 6.70) rectangle (15.78, 7.78);
-\fill[c3a!88, rounded corners=1.5pt] (15.99, 6.70) rectangle (16.31, 8.26);
-\fill[c3a!38, rounded corners=1.5pt] (16.52, 6.70) rectangle (16.84, 7.46);
-\draw[ink!50, line width=0.7pt] (15.38, 6.70) -- (16.92, 6.70);
-\node[font=\sffamily\fontsize{6.2}{7.0}\selectfont\bfseries, text=ink] at (15.62, 6.44) {Mean};
-\node[font=\sffamily\fontsize{6.2}{7.0}\selectfont\bfseries, text=ink] at (16.15, 6.44) {Max};
-\node[font=\sffamily\fontsize{6.2}{7.0}\selectfont\bfseries, text=ink] at (16.68, 6.44) {Cnt};
+\fill[c3a!55, rounded corners=1.5pt] (15.72, 6.70) rectangle (16.06, 7.78);
+\fill[c3a!88, rounded corners=1.5pt] (16.28, 6.70) rectangle (16.62, 8.26);
+\fill[c3a!38, rounded corners=1.5pt] (16.84, 6.70) rectangle (17.18, 7.46);
+\draw[ink!50, line width=0.7pt] (15.62, 6.70) -- (17.28, 6.70);
+\node[font=\sffamily\fontsize{6.2}{7.0}\selectfont\bfseries, text=ink] at (15.89, 6.44) {Mean};
+\node[font=\sffamily\fontsize{6.2}{7.0}\selectfont\bfseries, text=ink] at (16.45, 6.44) {Max};
+\node[font=\sffamily\fontsize{6.2}{7.0}\selectfont\bfseries, text=ink] at (17.01, 6.44) {Cnt};
 
-\node[microb] at (16.15, 5.82) {Degree-Aware};
-\node[micro] at (16.15, 5.44) {Masked Agg.};
+\node[microb] at (16.45, 5.82) {Degree-Aware};
+\node[micro] at (16.45, 5.44) {Masked Agg.};
 
-% Block 4: MLP Scorer (x = 17.25 .. 19.05, w = 1.80)
-\draw[subpanel=c3a] (17.25, 5.20) rectangle (19.05, 9.25);
-\node[subhdr=c3a] at (18.15, 8.92) {4.\ MLP Head};
+% Block 4: MLP Scorer (x = 17.65 .. 19.70, w = 2.05 cm!)
+\draw[subpanel=c3a] (17.65, 5.20) rectangle (19.70, 9.25);
+\node[subhdr=c3a] at (18.675, 8.92) {4.\ MLP Head};
 
 \foreach \i/\yy in {1/8.18, 2/7.58, 3/6.98} {
-    \coordinate (l1_\i) at (17.61, \yy);
+    \coordinate (l1_\i) at (18.08, \yy);
 }
 \foreach \j/\yy in {1/7.88, 2/7.28} {
-    \coordinate (l2_\j) at (18.15, \yy);
+    \coordinate (l2_\j) at (18.68, \yy);
 }
-\coordinate (l3_1) at (18.69, 7.58);
+\coordinate (l3_1) at (19.26, 7.58);
 
 \foreach \i in {1,2,3} \foreach \j in {1,2} {
     \draw[c3a!45, line width=0.6pt] (l1_\i) -- (l2_\j);
@@ -334,75 +320,73 @@
 \foreach \j in {1,2} \fill[c3a!75, draw=c3a, line width=0.5pt] (l2_\j) circle (3.2pt);
 \fill[c3a, draw=white, line width=0.5pt] (l3_1) circle (4.4pt);
 
-\node[draw=c3a, fill=c3abg, rounded corners=2.5pt, font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=c3a, inner xsep=4pt, inner ysep=2.5pt] at (18.15, 6.24) {Score $p_{\text{GNN}}$};
-\node[micro] at (18.15, 5.44) {7.1 ms @ $n{=}1$};
+\node[draw=c3a, fill=c3abg, rounded corners=2.5pt, font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=c3a, inner xsep=4pt, inner ysep=2.5pt] at (18.675, 6.24) {Score $p_{\text{GNN}}$};
+\node[micro] at (18.675, 5.44) {7.1 ms @ $n{=}1$};
 
 % Inter-block arrows inside Track 3A
-\draw[thinarrow=c3a] (12.90, 7.25) -- (13.10, 7.25);
-\draw[thinarrow=c3a] (15.05, 7.25) -- (15.25, 7.25);
-\draw[thinarrow=c3a] (17.05, 7.25) -- (17.25, 7.25);
+\draw[thinarrow=c3a] (13.05, 7.25) -- (13.25, 7.25);
+\draw[thinarrow=c3a] (15.25, 7.25) -- (15.45, 7.25);
+\draw[thinarrow=c3a] (17.45, 7.25) -- (17.65, 7.25);
 
 
 % =========================================================================
-% STAGE 3B (BOTTOM): STREAMING LIGHTGBM (x = 10.55 .. 19.25, y = 0.00 .. 4.70)
+% STAGE 3B (BOTTOM): STREAMING LIGHTGBM (x = 10.50 .. 19.90, w = 9.40 cm)
 % =========================================================================
-% Block 1: O(1) Ring Buffers & Motif Glyphs (x = 10.75 .. 13.45, w = 2.70)
-\draw[subpanel=c3b] (10.75, 0.22) rectangle (13.45, 3.82);
-\node[subhdr=c3b] at (12.10, 3.50) {1.\ $O(1)$ Rings};
+% Block 1: O(1) Ring Buffers & Motif Glyphs (x = 10.70 .. 13.60, w = 2.90 cm!)
+\draw[subpanel=c3b] (10.70, 0.22) rectangle (13.60, 3.82);
+\node[subhdr=c3b] at (12.15, 3.50) {1.\ $O(1)$ Rings};
 
-% Concentric ring arcs (1h, 24h, 72h)
-\coordinate (rc) at (11.56, 2.04);
+\coordinate (rc) at (11.58, 2.04);
 \draw[c3b!35, line width=3.0pt] (rc) ++(20:0.74) arc (20:320:0.74);
 \draw[c3b!60, line width=3.0pt] (rc) ++(40:0.52) arc (40:330:0.52);
 \draw[c3b, line width=3.0pt] (rc) ++(60:0.30) arc (60:340:0.30);
-\node[font=\sffamily\fontsize{6.2}{7.0}\selectfont\bfseries, text=ink] at (11.56, 2.94) {72h};
-\node[font=\sffamily\fontsize{6.2}{7.0}\selectfont\bfseries, text=ink] at (11.56, 2.04) {1h};
+\node[font=\sffamily\fontsize{6.2}{7.0}\selectfont\bfseries, text=ink] at (11.58, 2.94) {72h};
+\node[font=\sffamily\fontsize{6.2}{7.0}\selectfont\bfseries, text=ink] at (11.58, 2.04) {1h};
 
-% Graph Motif Glyphs
-\node[font=\sffamily\fontsize{6.6}{7.4}\selectfont\bfseries, text=c3b] at (12.82, 2.96) {Motifs};
-\coordinate (m1) at (12.56, 2.16);
-\coordinate (m2) at (13.08, 2.16);
-\coordinate (m3) at (12.82, 2.62);
+\node[font=\sffamily\fontsize{6.6}{7.4}\selectfont\bfseries, text=c3b] at (12.90, 2.96) {Motifs};
+\coordinate (m1) at (12.64, 2.16);
+\coordinate (m2) at (13.16, 2.16);
+\coordinate (m3) at (12.90, 2.62);
 \draw[c3b, line width=0.9pt, ->] (m1) -- (m3);
 \draw[c3b, line width=0.9pt, ->] (m3) -- (m2);
 \draw[c3b, line width=0.9pt, ->] (m2) -- (m1);
 \foreach \p in {m1,m2,m3} \fill[c3bgold] (\p) circle (2.5pt);
 
-\coordinate (p1) at (12.50, 1.38);
-\coordinate (p2) at (12.82, 1.66);
-\coordinate (p3) at (13.14, 1.38);
+\coordinate (p1) at (12.58, 1.38);
+\coordinate (p2) at (12.90, 1.66);
+\coordinate (p3) at (13.22, 1.38);
 \draw[c3b!80, line width=0.9pt, ->] (p1) -- (p2);
 \draw[c3b!80, line width=0.9pt, ->] (p2) -- (p3);
 \foreach \p in {p1,p2,p3} \fill[c3b!75] (\p) circle (2.5pt);
 
-\node[micro] at (12.10, 0.56) {Numba lock-free streaming};
+\node[micro] at (12.15, 0.56) {Numba lock-free streaming};
 
-% Block 2: 126 Causal Features (x = 13.75 .. 16.45, w = 2.70)
-\draw[subpanel=c3b] (13.75, 0.22) rectangle (16.45, 3.82);
-\node[subhdr=c3b] at (15.10, 3.50) {2.\ 126 Features};
+% Block 2: 126 Causal Features (x = 13.85 .. 16.90, w = 3.05 cm!)
+\draw[subpanel=c3b] (13.85, 0.22) rectangle (16.90, 3.82);
+\node[subhdr=c3b] at (15.375, 3.50) {2.\ 126 Features};
 
-\node[microb, anchor=west] at (13.94, 2.94) {Feature Split Gain:};
+\node[microb, anchor=west] at (14.08, 2.94) {Feature Split Gain:};
 
-% Proportional Horizontal Stacked Bar (Width = 2.32 cm, x = 13.94 .. 16.26)
-\fill[c3b, rounded corners=1.5pt] (13.94, 2.24) rectangle (15.88, 2.70);     % 84.3%
-\fill[c3bgold] (15.90, 2.24) rectangle (16.20, 2.70);                        % 14.4%
-\fill[c3bsoft, draw=c3b!65, line width=0.4pt] (16.22, 2.24) rectangle (16.26, 2.70); % 1.3%
+% Proportional Horizontal Stacked Bar (Width = 2.58 cm, x = 14.08 .. 16.66)
+\fill[c3b, rounded corners=1.5pt] (14.08, 2.24) rectangle (16.24, 2.70);     % 84.3%
+\fill[c3bgold] (16.26, 2.24) rectangle (16.60, 2.70);                        % 14.4%
+\fill[c3bsoft, draw=c3b!65, line width=0.4pt] (16.62, 2.24) rectangle (16.66, 2.70); % 1.3%
 
-\node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=white] at (14.91, 2.47) {84\% Velocity};
+\node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=white] at (15.16, 2.47) {84\% Velocity};
 
-\node[font=\sffamily\fontsize{5.6}{7.0}\selectfont, text=muted, align=left, anchor=west] at (13.88, 1.56) {\textcolor{c3b}{$\blacksquare$} 84.3\% Past Windows\\\textcolor{c3bgold}{$\blacksquare$} 14.4\% Pair \; \textcolor{c3b!45}{$\blacksquare$} 1.3\% Motif};
-\node[micro] at (15.10, 0.56) {$+17$ base txn cols};
+\node[font=\sffamily\fontsize{5.8}{7.2}\selectfont, text=muted, align=left, anchor=west] at (14.08, 1.56) {\textcolor{c3b}{$\blacksquare$} 84.3\% Past Windows\\\textcolor{c3bgold}{$\blacksquare$} 14.4\% Pair \; \textcolor{c3b!45}{$\blacksquare$} 1.3\% Motif};
+\node[micro] at (15.375, 0.56) {$+17$ base txn cols};
 
-% Block 3: Gradient Boosted Decision Trees (x = 16.75 .. 19.05, w = 2.30)
-\draw[subpanel=c3b] (16.75, 0.22) rectangle (19.05, 3.82);
-\node[subhdr=c3b] at (17.90, 3.50) {3.\ LightGBM};
+% Block 3: Gradient Boosted Decision Trees (x = 17.15 .. 19.70, w = 2.55 cm!)
+\draw[subpanel=c3b] (17.15, 0.22) rectangle (19.70, 3.82);
+\node[subhdr=c3b] at (18.425, 3.50) {3.\ LightGBM};
 
-% Decision Tree 1 (all leaves centered!)
-\coordinate (t1_r) at (17.42, 2.86);
-\coordinate (t1_l) at (17.16, 2.30);
-\coordinate (t1_ri) at (17.68, 2.30);
-\coordinate (t1_ll) at (17.02, 1.78);
-\coordinate (t1_lr) at (17.30, 1.78);
+% Decision Tree 1
+\coordinate (t1_r) at (17.90, 2.86);
+\coordinate (t1_l) at (17.62, 2.30);
+\coordinate (t1_ri) at (18.18, 2.30);
+\coordinate (t1_ll) at (17.48, 1.78);
+\coordinate (t1_lr) at (17.76, 1.78);
 \draw[c3b, line width=0.8pt] (t1_r) -- (t1_l) -- (t1_ll);
 \draw[c3b, line width=0.8pt] (t1_l) -- (t1_lr);
 \draw[c3b, line width=0.8pt] (t1_r) -- (t1_ri);
@@ -413,11 +397,11 @@
 \fill[c3bgold] ($(t1_lr)+(-2.2pt,-2.2pt)$) rectangle ++(4.4pt,4.4pt);
 
 % Decision Tree 2
-\coordinate (t2_r) at (18.38, 2.86);
-\coordinate (t2_l) at (18.12, 2.30);
-\coordinate (t2_ri) at (18.64, 2.30);
-\coordinate (t2_rl) at (18.50, 1.78);
-\coordinate (t2_rr) at (18.78, 1.78);
+\coordinate (t2_r) at (18.96, 2.86);
+\coordinate (t2_l) at (18.68, 2.30);
+\coordinate (t2_ri) at (19.24, 2.30);
+\coordinate (t2_rl) at (19.10, 1.78);
+\coordinate (t2_rr) at (19.38, 1.78);
 \draw[c3b, line width=0.8pt] (t2_r) -- (t2_l);
 \draw[c3b, line width=0.8pt] (t2_r) -- (t2_ri) -- (t2_rl);
 \draw[c3b, line width=0.8pt] (t2_ri) -- (t2_rr);
@@ -427,76 +411,71 @@
 \fill[c3b] ($(t2_rl)+(-2.2pt,-2.2pt)$) rectangle ++(4.4pt,4.4pt);
 \fill[c3bgold] ($(t2_rr)+(-2.2pt,-2.2pt)$) rectangle ++(4.4pt,4.4pt);
 
-\node[draw=c3b, fill=c3bbg, rounded corners=2.5pt, font=\sffamily\fontsize{7.0}{7.8}\selectfont\bfseries, text=c3b, inner xsep=4pt, inner ysep=2.5pt] at (17.90, 1.16) {Score $p_{\text{GBT}}$};
-\node[micro] at (17.90, 0.56) {Max 800 boosted trees};
+\node[draw=c3b, fill=c3bbg, rounded corners=2.5pt, font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=c3b, inner xsep=4pt, inner ysep=2.5pt] at (18.425, 1.16) {Score $p_{\text{GBT}}$};
+\node[micro] at (18.425, 0.56) {Max 800 boosted trees};
 
 % Inter-block arrows inside Track 3B
-\draw[thinarrow=c3b] (13.45, 2.02) -- (13.75, 2.02);
-\draw[thinarrow=c3b] (16.45, 2.02) -- (16.75, 2.02);
+\draw[thinarrow=c3b] (13.60, 2.02) -- (13.85, 2.02);
+\draw[thinarrow=c3b] (16.90, 2.02) -- (17.15, 2.02);
 
 
 % =========================================================================
-% STAGE 4: ADAPTIVE POLICY + STOPPABLE VALUE (x = 19.85 .. 25.20)
+% STAGE 4: ADAPTIVE POLICY + STOPPABLE VALUE (x = 20.45 .. 25.90)
 % =========================================================================
 % Subpanel 4A: Adaptive Horizon Policy Router pi(e)
-\draw[subpanel=c4] (20.05, 4.58) rectangle (25.00, 9.25);
-\node[subhdr=c4, anchor=west] at (20.22, 8.92) {Adaptive Policy $\pi(e_i)$};
+\draw[subpanel=c4] (20.65, 4.58) rectangle (25.70, 9.25);
+\node[subhdr=c4, anchor=west] at (20.82, 8.92) {Adaptive Policy $\pi(e_i)$};
 
-% Decision Diamond at arrival (shifted slightly left so action pills get wide padding!)
-\node[diamond, draw=c4, fill=c4bg, line width=1.0pt, inner sep=1.2pt, minimum size=1.12cm, font=\sffamily\fontsize{6.6}{7.4}\selectfont\bfseries, text=c4, align=center] (router) at (20.80, 6.96) {Triage\\$H{=}0$};
+\node[diamond, draw=c4, fill=c4bg, line width=1.0pt, inner sep=1.2pt, minimum size=1.12cm, font=\sffamily\fontsize{6.6}{7.4}\selectfont\bfseries, text=c4, align=center] (router) at (21.42, 6.96) {Triage\\$H{=}0$};
 
-% Three Spacious Decision Branches (x = 21.68 .. 24.84, width = 3.16 cm)
-\draw[->, line width=1.1pt, tailred] (router.north) |- (21.66, 8.05);
-\draw[tailred!50, fill=tailbg, rounded corners=2.5pt] (21.68, 7.75) rectangle (24.84, 8.35);
-\node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=tailred!90!black] at (23.26, 8.05) {Immediate Block ($H{\le}1\text{s}$)};
+\draw[->, line width=1.1pt, tailred] (router.north) |- (22.30, 8.05);
+\draw[tailred!50, fill=tailbg, rounded corners=2.5pt] (22.32, 7.75) rectangle (25.52, 8.35);
+\node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=tailred!90!black] at (23.92, 8.05) {Immediate Block ($H{\le}1\text{s}$)};
 
-\draw[->, line width=1.1pt, c3b] (router.east) -- (21.66, 6.96);
-\draw[c3b!50, fill=c3bbg, rounded corners=2.5pt] (21.68, 6.66) rectangle (24.84, 7.26);
-\node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=c3b!90!black] at (23.26, 6.96) {Short Hold ($h_k{\le}1\text{h}$)};
+\draw[->, line width=1.1pt, c3b] (router.east) -- (22.30, 6.96);
+\draw[c3b!50, fill=c3bbg, rounded corners=2.5pt] (22.32, 6.66) rectangle (25.52, 7.26);
+\node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=c3b!90!black] at (23.92, 6.96) {Short Hold ($h_k{\le}1\text{h}$)};
 
-\draw[->, line width=1.1pt, muted] (router.south) |- (21.66, 5.87);
-\draw[lightline, fill=black!4, rounded corners=2.5pt] (21.68, 5.57) rectangle (24.84, 6.17);
-\node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=muted] at (23.26, 5.87) {Release Clean Tx};
+\draw[->, line width=1.1pt, muted] (router.south) |- (22.30, 5.87);
+\draw[lightline, fill=black!4, rounded corners=2.5pt] (22.32, 5.57) rectangle (25.52, 6.17);
+\node[font=\sffamily\fontsize{6.8}{7.6}\selectfont\bfseries, text=muted] at (23.92, 5.87) {Release Clean Tx};
 
-% Clean feedback arc from Short Hold back to router
-\draw[c3b, densely dashed, line width=0.8pt, ->] (23.26, 6.66) to[out=-150, in=-30] (21.22, 6.66);
+\draw[c3b, densely dashed, line width=0.8pt, ->] (23.92, 6.66) to[out=-150, in=-30] (21.84, 6.66);
 
-\node[micro] at (22.525, 4.94) {Val-calibrated thresholds $\theta_k$};
+\node[micro] at (23.175, 4.94) {Val-calibrated thresholds $\theta_k$};
 
 % Subpanel 4B: Budgeted Stoppable Value (SV_B)
-\draw[subpanel=c4] (20.05, 0.25) rectangle (25.00, 4.32);
-\node[subhdr=c4, anchor=west] at (20.22, 3.98) {Stoppable Value ($\text{SV}_B$)};
+\draw[subpanel=c4] (20.65, 0.25) rectangle (25.70, 4.32);
+\node[subhdr=c4, anchor=west] at (20.82, 3.98) {Stoppable Value ($\text{SV}_B$)};
 
-% Budget Funnel Pill
-\draw[c4!40, fill=c4bg, rounded corners=2.5pt] (20.22, 2.94) rectangle (24.84, 3.64);
-\node[microb] at (22.53, 3.39) {Daily Quota $B \in \{100, 500, 2000\}$};
-\node[micro] at (22.53, 3.09) {Top-scoring compliance alerts / day};
+\draw[c4!40, fill=c4bg, rounded corners=2.5pt] (20.82, 2.94) rectangle (25.52, 3.64);
+\node[microb] at (23.17, 3.39) {Daily Quota $B \in \{100, 500, 2000\}$};
+\node[micro] at (23.17, 3.09) {Top-scoring compliance alerts / day};
 
-% Laundering Chain Interception Diagram
-\draw[lightline, fill=black!2, rounded corners=3pt] (20.22, 0.86) rectangle (24.84, 2.74);
-\node[microb, anchor=west] at (20.36, 2.46) {Attempt Interception Timeline:};
+\draw[lightline, fill=black!2, rounded corners=3pt] (20.82, 0.86) rectangle (25.52, 2.74);
+\node[microb, anchor=west] at (20.96, 2.46) {Attempt Interception Timeline:};
 
-\coordinate (ch1) at (20.72, 1.62);
-\coordinate (ch2) at (21.82, 1.62);
-\coordinate (ch3) at (23.32, 1.62);
-\coordinate (ch4) at (24.38, 1.62);
+\coordinate (ch1) at (21.34, 1.62);
+\coordinate (ch2) at (22.46, 1.62);
+\coordinate (ch3) at (24.00, 1.62);
+\coordinate (ch4) at (25.08, 1.62);
 
 \draw[muted!75, line width=1.1pt, ->] (ch1) -- (ch2);
 \fill[muted!65] (ch1) circle (4.5pt);
 \fill[c4] (ch2) circle (5.2pt);
 
-\draw[savegreen, line width=1.8pt] (22.42, 1.15) -- (22.42, 2.08);
-\node[fill=savegreen, text=white, font=\sffamily\fontsize{6.4}{7.2}\selectfont\bfseries, rounded corners=1.5pt, inner sep=2pt] at (22.42, 2.16) {Alert $\tau^*$};
+\draw[savegreen, line width=1.8pt] (23.08, 1.15) -- (23.08, 2.08);
+\node[fill=savegreen, text=white, font=\sffamily\fontsize{6.4}{7.2}\selectfont\bfseries, rounded corners=1.5pt, inner sep=2pt] at (23.08, 2.16) {Alert $\tau^*$};
 
-\draw[savegreen, densely dashed, line width=1.1pt, ->] (22.54, 1.62) -- (ch3);
+\draw[savegreen, densely dashed, line width=1.1pt, ->] (23.20, 1.62) -- (ch3);
 \draw[savegreen, densely dashed, line width=1.1pt, ->] (ch3) -- (ch4);
 \fill[savegreen!25, draw=savegreen, line width=1.0pt] (ch3) circle (4.5pt);
 \fill[savegreen!25, draw=savegreen, line width=1.0pt] (ch4) circle (4.5pt);
 
-\node[font=\sffamily\fontsize{6.4}{7.0}\selectfont, text=muted] at (21.26, 1.12) {Exited};
-\node[font=\sffamily\fontsize{6.6}{7.2}\selectfont\bfseries, text=savegreen] at (23.62, 1.12) {Capital Halted!};
+\node[font=\sffamily\fontsize{6.4}{7.0}\selectfont, text=muted] at (21.88, 1.12) {Exited};
+\node[font=\sffamily\fontsize{6.6}{7.2}\selectfont\bfseries, text=savegreen] at (24.30, 1.12) {Capital Halted!};
 
-\node[microb, text=c4!90!black] at (22.53, 0.50) {Metric: Illicit Dollar Share Intercepted};
+\node[microb, text=c4!90!black] at (23.17, 0.50) {Metric: Illicit Dollar Share Intercepted};
 
 
 % =========================================================================
@@ -506,16 +485,16 @@
 \draw[macroarrow=c1] (4.60, 4.90) -- (5.15, 4.90);
 
 % Stage 2 -> Stage 3 (Smooth Fork to Track 3A & Track 3B)
-\coordinate (split_pt) at (10.22, 4.90);
+\coordinate (split_pt) at (10.20, 4.90);
 \draw[line width=1.6pt, draw=c2!80] (9.95, 4.90) -- (split_pt);
-\draw[macroarrow=c3a] (split_pt) |- (10.55, 7.60);
-\draw[macroarrow=c3b] (split_pt) |- (10.55, 2.35);
+\draw[macroarrow=c3a] (split_pt) |- (10.50, 7.60);
+\draw[macroarrow=c3b] (split_pt) |- (10.50, 2.35);
 
 % Stage 3 -> Stage 4 (Smooth Merge from Track 3A & Track 3B)
-\coordinate (merge_pt) at (19.56, 4.90);
-\draw[line width=1.6pt, draw=c3a!80] (19.25, 7.60) -| (merge_pt);
-\draw[line width=1.6pt, draw=c3b!80] (19.25, 2.35) -| (merge_pt);
-\draw[macroarrow=c4] (merge_pt) -- (19.85, 4.90);
+\coordinate (merge_pt) at (20.18, 4.90);
+\draw[line width=1.6pt, draw=c3a!80] (19.90, 7.60) -| (merge_pt);
+\draw[line width=1.6pt, draw=c3b!80] (19.90, 2.35) -| (merge_pt);
+\draw[macroarrow=c4] (merge_pt) -- (20.45, 4.90);
 
 \end{tikzpicture}
 \end{document}
